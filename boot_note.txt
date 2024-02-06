@@ -1,0 +1,14 @@
+should have known earlier:: (starts with .. )
+
+.. jasper converts jsp to servlet
+
+
+Jpa:: java persistance API
+**  hibernate is the implementation of jpa .. eclips link and open jpa are also like hibernate in that sense
+**  EntityManagerFactory provides entityManager
+**  EntityManager does CRUD ...
+**  CRUDRepository does basic crud operation .. jparepository does some extra work ... ?? what are the extra work??
+
+
+
+
