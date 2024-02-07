@@ -20,6 +20,7 @@ public class UserController {
 
         userService.saveUserService(user);
         System.out.println(user);
+        modelAndView.setViewName("userForm");
         return modelAndView;
 
 

@@ -30,9 +30,6 @@ public class User {
     }
 
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;
@@ -74,6 +71,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", products=" + products +
                 '}';

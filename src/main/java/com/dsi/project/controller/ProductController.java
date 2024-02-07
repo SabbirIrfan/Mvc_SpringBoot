@@ -6,12 +6,9 @@ import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,7 +24,7 @@ public class ProductController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+    @PostMapping(value = "/addproduct")
     public ModelAndView addProduct(@ModelAttribute("product") Product product ){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -41,8 +38,8 @@ public class ProductController {
 
 
     @Transactional
-    @RequestMapping(path = "/savenoteoldway" , method = RequestMethod.POST)
-    public ModelAndView saveNoteOld(@RequestParam("email") String email,
+    @PostMapping(path = "/orderProduct" )
+    public ModelAndView orderProduct(@RequestParam("email") String email,
                                     @RequestParam("product") String selectedProduct,
                                     @RequestParam("detail") String detail){
         ModelAndView modelAndView = new ModelAndView();
@@ -51,30 +48,32 @@ public class ProductController {
         int productId = Integer.parseInt(selectedProduct.split("\\s+")[0]);
 
         Product boughtProduct = productService.getProductById(productId);
+//        System.out.println(boughtProduct);
         boughtProduct.setSold(true);
 
 
         modelAndView.addObject("status", "succesfully got the form data?");
         User user = null;
         List<User> userList = userService.getUserByEmail(email);
+//        System.out.println(userList);
         if(userList.isEmpty()){
             System.out.println("Wrong Email");
         }
         else{
-//            user = userList.get(0);
-//            boughtProduct.setUser(user);
-//            List<Optional<Product>> productsList = user.getProducts();
-//            productsList.add(boughtProduct);
+            user = userList.get(0);
+            boughtProduct.setUser(user);
+            List<Product> productsList = user.getProducts();
+            productsList.add(boughtProduct);
 //            userService.saveUserService(user);
 
 
-//            productService.saveProduct(boughtProduct);
+            productService.saveProduct(boughtProduct);
 
         }
 
 
 
-        modelAndView.setViewName("addProduct");
+        modelAndView.setViewName("home");
 
 
         System.out.println("I am here");

@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void saveUserService(User user) {
-
+        userRepository.save(user);
     }
+
 
     @Override
     public void updateUserService(User user) {
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getUserByEmail(String email) {
-        return null;
+
+        return userRepository.findUserByEmail(email);
     }
 }
