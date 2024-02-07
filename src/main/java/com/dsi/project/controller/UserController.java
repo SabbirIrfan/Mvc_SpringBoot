@@ -21,6 +21,7 @@ public class UserController {
         userService.saveUserService(user);
         System.out.println(user);
         modelAndView.setViewName("userForm");
+//        System.out.println(userService.getAllUserService());
         return modelAndView;
 
 

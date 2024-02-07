@@ -30,9 +30,6 @@ public class HomeController {
 
         System.out.println("this is home and the time is "+ LocalDateTime.now());
 
-
-
-
         return "productForm";
     }
     @RequestMapping("/buyproduct")
@@ -42,14 +39,7 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView();
 
         List<Product> productList = productService.getAllProduct();
-        for(Product p: productList){
-            if(p.isSold()){
-                productList.remove(p);
-                System.out.println(p.getBrandName()+ " this product got removed");
-
-
-            }
-        }
+        productList.removeIf(Product::isSold);
         System.out.println("the remaining product to show "+ productList);
         modelAndView.addObject("availableProductList", productList);
         modelAndView.setViewName("buyingForm");

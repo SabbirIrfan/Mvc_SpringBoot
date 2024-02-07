@@ -18,8 +18,8 @@
         <%@include file="navbar.jsp"%>
     </div>
 
-<div class="form_container">
-    <form action="addproduct" class="row g-3" method="post" >
+<div class="card">
+    <form action="addproduct" class="form_container row " method="post" >
         <div class="col-md-6">
             <label for="productName" class="form-label">Brand Name</label>
             <input type="text" class="form-control" id="productName" name="brandName">
