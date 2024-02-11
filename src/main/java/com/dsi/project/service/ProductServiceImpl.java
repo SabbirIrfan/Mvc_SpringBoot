@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
@@ -23,19 +23,9 @@ public class ProductServiceImpl implements ProductService{
             return product;
         }
         return  product;
-
-
-
     }
 
 
-
-
-
-    //    @Override
-//    public ProductDao getProductDao() {
-//        return this.productDao;
-//    }
     @Override
     @Autowired
     public void setProductDao(ProductRepository productRepository) {

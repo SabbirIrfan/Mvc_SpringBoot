@@ -18,7 +18,7 @@
         <%@include file="navbar.jsp" %>
     </div>
 
-        <div class="card">
+        <div >
             <form class="form_container row" action="adduser" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>

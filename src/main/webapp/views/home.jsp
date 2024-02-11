@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.dsi.project.model.Product" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="org.springframework.web.servlet.support.ServletUriComponentsBuilder" %>
+<%@ page import="org.springframework.web.multipart.MultipartFile" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -30,9 +32,10 @@
             List<Product> productList = new ArrayList<>();
             productList = (List<Product>) request.getAttribute("productList");
             for(Product product: productList){
+
         %>
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://www.bhphotovideo.com/images/images2500x2500/dell_inspiron_17_i17rv_5454blk_17_3_1004767.jpg" alt="Card image cap">
+            <img class="card-img-top" src="images/<%=product.getId()%>.png" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title"><%= product.getBrandName() %></h5>
                 <p class="card-text"><%= product.getProductDetail()  %></p>

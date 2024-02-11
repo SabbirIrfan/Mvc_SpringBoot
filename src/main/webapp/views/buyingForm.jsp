@@ -23,7 +23,7 @@
 <div class="container">
     <%@include file="navbar.jsp"%>
 
-    <div class="card">
+    <div >
 
         <form action="orderProduct" method="post" class="form_container">
             <div class="user_container">

@@ -18,8 +18,8 @@
         <%@include file="navbar.jsp"%>
     </div>
 
-<div class="card">
-    <form action="addproduct" class="form_container row " method="post" >
+<div >
+    <form action="addproduct" class="form_container row " method="post" enctype="multipart/form-data" >
         <div class="col-md-6">
             <label for="productName" class="form-label">Brand Name</label>
             <input type="text" class="form-control" id="productName" name="brandName">
@@ -47,8 +47,12 @@
                 <option>i5-14th gen</option>
                 <option>i7-14th gen</option>
                 <option>i9-14th gen</option>
+
             </select>
+
         </div>
+            <label for="file">Image of the product:</label>
+             <input type="file" id="file" formenctype="multipart/form-data" name="file">
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Add Product</button>
         </div>

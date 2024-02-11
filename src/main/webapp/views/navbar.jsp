@@ -1,7 +1,9 @@
 
 <nav class="navbar-expand-lg navbar-light "  >
 
-
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div style="display: flex; justify-content: space-between" class=" navbar collapse navbar-collapse" id="navbarSupportedContent">
         <a class="navbar-brand" href="">Product</a>
         <ul class="navbar-nav mr-auto">
