@@ -1,9 +1,9 @@
 
-<nav class="navbar navbar-expand-lg navbar-light "  >
-    <a class="navbar-brand" href="">Product</a>
+<nav class="navbar-expand-lg navbar-light "  >
 
 
-    <div style="display: flex; justify-content: space-between" class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div style="display: flex; justify-content: space-between" class=" navbar collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="navbar-brand" href="">Product</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="home">Home</a>
@@ -22,7 +22,7 @@
         </ul>
 
         <form class="my-2 my-lg-0 search">
-            <div style="display: flex; justify-content: space-between; background-color: var(--primary-background-color)">
+            <div class="navbar-search">
                 <div class="me-2">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 </div>

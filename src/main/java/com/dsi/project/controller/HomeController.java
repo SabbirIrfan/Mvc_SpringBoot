@@ -20,8 +20,14 @@ public class HomeController {
     private ProductService productService;
 
     @GetMapping("/home")
-    public String home(){
-        return "home";
+    public ModelAndView home(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<Product> productList = productService.getAllProduct();
+        modelAndView.addObject("productList",productList);
+        modelAndView.setViewName("home");
+
+        return modelAndView;
     }
     @RequestMapping("/")
     public String showProductForm(Model model){

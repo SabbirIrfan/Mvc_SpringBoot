@@ -53,14 +53,14 @@ public class ProductController {
 
 
         modelAndView.addObject("status", "succesfully got the form data?");
-        User user = null;
+        User user;
         List<User> userList = userService.getUserByEmail(email);
 //        System.out.println(userList);
         if(userList.isEmpty()){
             System.out.println("Wrong Email");
         }
         else{
-            user = userList.get(0);
+            user = userList.getFirst();
             boughtProduct.setUser(user);
             List<Product> productsList = user.getProducts();
             productsList.add(boughtProduct);
@@ -73,7 +73,7 @@ public class ProductController {
 
 
 
-        modelAndView.setViewName("home");
+        modelAndView.setViewName("buyingForm");
 
 
         System.out.println("I am here");
