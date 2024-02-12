@@ -48,14 +48,14 @@ public class ProductController {
         List<Product> productList = productService.getAllProduct();
         productList.removeIf(Product::isSold);
         modelAndView.addObject("availableProductList", productList);
-        modelAndView.setViewName("buyingForm");
+        modelAndView.setViewName("buyingForm.html");
         return modelAndView;
     }
 
 
     @GetMapping(value = "/productForm")
     public ModelAndView productForm(Model model){
-        return new ModelAndView("productForm");
+        return new ModelAndView("productForm.html");
 
     }
     @PostMapping(value = "/addproduct")
@@ -71,7 +71,7 @@ public class ProductController {
             System.out.println("upload failed");
 
         }
-        modelAndView.setViewName("productForm");
+        modelAndView.setViewName("productForm.html");
         return modelAndView;
 
     }
@@ -89,7 +89,6 @@ public class ProductController {
         int productId = Integer.parseInt(selectedProduct.split("\\s+")[0]);
         Product boughtProduct = productService.getProductById(productId);
         boughtProduct.setSold(true);
-        modelAndView.addObject("status", "succesfully got the form data?");
 
         if(userList.isEmpty()) {
             System.out.println("Wrong Email");
@@ -102,8 +101,9 @@ public class ProductController {
             productService.saveProduct(boughtProduct);
 
         }
-
         modelAndView.setViewName("buyingForm");
+
+
         return modelAndView;
 
     }

@@ -22,7 +22,7 @@ public class HomeController {
 
         List<Product> productList = productService.getAllProduct();
         modelAndView.addObject("productList",productList);
-        modelAndView.setViewName("home");
+        modelAndView.setViewName("home.html");
 
         return modelAndView;
     }

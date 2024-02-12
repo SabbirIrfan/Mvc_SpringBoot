@@ -1,0 +1,129 @@
+.body{
+
+
+}
+:root{
+    --primary-background-color: #f9f9f9
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-basis: 100%;
+    gap:2rem;
+    background-color: var(--primary-background-color);
+}
+.form_container{
+    background-color: antiquewhite;
+    height: inherit;
+    width: inherit;
+    border-radius: 10px 10px 20px 20px;
+    padding: 20px;
+    gap: 10px;
+
+
+}
+
+.card_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+}
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    margin: 5px;
+
+
+}
+.button{
+    border-radius: 10px;
+    justify-content: left;
+    align-items:flex-start;
+    width: 8rem;
+    height: 4rem
+}
+
+.user_container{
+    font-family: sans-serif;
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+.product_container{
+    font-family: sans-serif;
+    padding-bottom: 10px;
+
+}
+
+.textarea{
+    width: 400px;
+}
+.select{
+    width : 380px
+}
+
+.search{
+    display: flex;
+    background: aqua;
+}
+.navbar{
+
+    background: bisque;
+    justify-content: left;
+    border-radius: 10px;
+    padding: 10px;
+
+
+}
+.navbar-search{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-background-color);
+}
+
+@media only screen and (max-width: 768px){
+    .navbar{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+
+.counterHeading{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 50%;
+    justify-content: center;
+}
+.counterBox{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+.button{
+    display: flex;
+    justify-content: space-around;
+    background-color: cadetblue;
+}
+
+
+
+
+
+
+.flexCard{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+
