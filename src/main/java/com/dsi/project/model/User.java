@@ -1,6 +1,7 @@
 package com.dsi.project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Email(regexp = "^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$", message = "wrong Email")
     private String email;
     private String name;
     @OneToMany(mappedBy ="user" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
