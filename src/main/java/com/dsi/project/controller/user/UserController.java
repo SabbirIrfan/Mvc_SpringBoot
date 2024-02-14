@@ -1,5 +1,6 @@
 package com.dsi.project.controller.user;
 
+import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
 import com.dsi.project.service.UserService;
 import jakarta.validation.Valid;
@@ -11,6 +12,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -35,11 +39,33 @@ public class UserController {
     }
 
 
+
     @GetMapping(value = "/userForm")
     public ModelAndView userForm(Model model){
         model.addAttribute("user",new User());
-
         return new ModelAndView("userForm");
+    }
 
+    @GetMapping(value = "/showUsers")
+    public ModelAndView showUsers(){
+        ModelAndView modelAndView  =  new ModelAndView();
+        modelAndView.setViewName("showUsers");
+        List<User> userList = userService.getAllUserService();
+        modelAndView.addObject("users", userList);
+        return  modelAndView;
+    }
+
+    @PostMapping(value = "/boughtProduct")
+    public ModelAndView showMyProduct(@RequestParam("email") String email){
+
+
+        ModelAndView modelAndView = new ModelAndView();
+        List<Product> productList = new ArrayList<>();
+        System.out.println(email);
+        User user = userService.getUserByEmail(email).getFirst();
+        productList = user.getProducts();
+        modelAndView.addObject("products", productList);
+        modelAndView.setViewName("boughtProduct");
+        return modelAndView;
     }
 }

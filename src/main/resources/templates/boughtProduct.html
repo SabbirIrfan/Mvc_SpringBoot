@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>myProduct</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div th:insert="navbar" ></div>
+        <div>Hello </div>
+        <div th:each="product : ${products}" style="justify-content: space-evenly; " class="user-card row">
+            <div class="col-4">
+                <div  class="p-3 border " th:text="${product.getId()}   " ></div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border " th:text="${product.getBrandName()}"></div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border " th:text="${product.getProductDetail()}"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+</body>
+</html>

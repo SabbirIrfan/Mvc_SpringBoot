@@ -31,6 +31,14 @@
     justify-content: flex-start;
 
 }
+.my-card-img-top{
+    margin-top: auto;
+}
+.my-card-body{
+    min-height: 1px;
+    padding: 1.25rem;
+    margin-top: auto;
+}
 .card{
     display: flex;
     justify-content: center;
@@ -52,6 +60,10 @@
     font-family: sans-serif;
     padding-top:10px;
     padding-bottom: 10px;
+}
+.user-card{
+    display: flex;
+
 }
 
 .product_container{
