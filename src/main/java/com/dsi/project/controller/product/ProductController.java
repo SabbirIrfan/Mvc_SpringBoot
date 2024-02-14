@@ -64,12 +64,10 @@ public class ProductController {
         productService.saveProduct(product);
 
         try {
-            boolean uploadResult = fileUpload.uploadFile(file,product.getId());
-            System.out.println(uploadResult);
-
-        }catch (Exception e) {
-            System.out.println("upload failed");
-
+            modelAndView.addObject("fileUploadStatus","success");
+            boolean uploadResult = fileUpload.uploadFile(file,product.getId()); }
+        catch (Exception e) {
+            modelAndView.addObject("fileUploadStatus","failed");
         }
         modelAndView.setViewName("productForm.html");
         return modelAndView;

@@ -1,6 +1,6 @@
 package com.dsi.project.service;
 
-import com.dsi.project.dao.ProductRepository;
+import com.dsi.project.repository.ProductRepository;
 import com.dsi.project.model.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,8 @@ package com.dsi.project.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -13,8 +15,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Email(regexp = "^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$", message = "wrong Email")
+    @NotNull
+    @NotBlank
+    @Email( message = "wrong Email")
     private String email;
+
+    @NotBlank
     private String name;
     @OneToMany(mappedBy ="user" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Product> products;

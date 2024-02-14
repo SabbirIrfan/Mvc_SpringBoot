@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface UserService {
     public List<User> getAllUserService();
-    public boolean isNewUserService(int id);
+    public boolean isNewUserService(String email);
     public void saveUserService(User user);
     public void updateUserService(User user);
     public List<User> getUserByEmail(String email);

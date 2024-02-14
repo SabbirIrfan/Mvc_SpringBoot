@@ -1,6 +1,6 @@
 package com.dsi.project.service;
 
-import com.dsi.project.dao.UserRepository;
+import com.dsi.project.repository.UserRepository;
 import com.dsi.project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean isNewUserService(int id) {
-        return false;
+    public boolean isNewUserService(String email) {
+        return userRepository.findUserByEmail(email).isEmpty();
     }
 
     @Override

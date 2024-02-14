@@ -1,7 +1,5 @@
 package com.dsi.project;
 
-import com.dsi.project.dao.UserRepository;
-import com.dsi.project.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
