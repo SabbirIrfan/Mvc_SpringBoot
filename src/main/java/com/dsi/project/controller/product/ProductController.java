@@ -6,7 +6,10 @@ import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,14 +23,20 @@ import java.util.List;
 
 @Controller
 public class ProductController {
-    @Autowired
+//    @Autowired
     private ProductService productService;
 
-    @Autowired
+//    @Autowired
     private UserService userService;
 
-    @Autowired
+//    @Autowired
     private FileUpload fileUpload;
+
+    public ProductController(ProductService productService, UserService userService, FileUpload fileUpload) {
+        this.productService = productService;
+        this.userService = userService;
+        this.fileUpload = fileUpload;
+    }
 
     public void setProductService(ProductService productService) {
         this.productService = productService;
@@ -43,19 +52,19 @@ public class ProductController {
     }
 
     @GetMapping("/buyproduct")
-    public ModelAndView modelAndView() {
+    public ModelAndView buyProduct() {
         ModelAndView modelAndView = new ModelAndView();
         List<Product> productList = productService.getAllProduct();
         productList.removeIf(Product::isSold);
         modelAndView.addObject("availableProductList", productList);
-        modelAndView.setViewName("buyingForm.html");
+        modelAndView.setViewName("buyingForm");
         return modelAndView;
     }
 
 
     @GetMapping(value = "/productForm")
     public ModelAndView productForm(Model model){
-        return new ModelAndView("productForm.html");
+        return new ModelAndView("productForm");
 
     }
     @PostMapping(value = "/addproduct")
@@ -64,12 +73,14 @@ public class ProductController {
         productService.saveProduct(product);
 
         try {
+            boolean uploadResult = fileUpload.uploadFile(file,product.getId());
             modelAndView.addObject("fileUploadStatus","success");
-            boolean uploadResult = fileUpload.uploadFile(file,product.getId()); }
+
+        }
         catch (Exception e) {
             modelAndView.addObject("fileUploadStatus","failed");
         }
-        modelAndView.setViewName("productForm.html");
+        modelAndView.setViewName("productForm");
         return modelAndView;
 
     }
@@ -77,13 +88,20 @@ public class ProductController {
 
 
     @PostMapping(path = "/orderProduct" )
-    public ModelAndView orderProduct (@RequestParam("email") String email,
+    public ModelAndView orderProduct (@Valid @RequestParam("email") String email,
                                       @RequestParam("product") String selectedProduct,
-                                      @RequestParam("detail") String detail) {
+                                      @RequestParam("detail") String detail ) {
         ModelAndView modelAndView = new ModelAndView();
-        User user;
-        List<User> userList = userService.getUserByEmail(email);
+        List<Product> productList = productService.getAllProduct();
+        productList.removeIf(Product::isSold);
+        if(!userService.isNewUserService(email)){
+            modelAndView.addObject("email","The email you entered is not registered. please register first!");
+            modelAndView.setViewName("buyingForm");
+            modelAndView.addObject("availableProductList", productList);
+            return  modelAndView;
+        }
 
+        List<User> userList = userService.getUserByEmail(email);
         int productId = Integer.parseInt(selectedProduct.split("\\s+")[0]);
         Product boughtProduct = productService.getProductById(productId);
         boughtProduct.setSold(true);
@@ -92,7 +110,7 @@ public class ProductController {
             System.out.println("Wrong Email");
         }
         else {
-            user = userList.getFirst();
+            User user = userList.getFirst();
             boughtProduct.setUser(user);
             List<Product> productsList = user.getProducts();
             productsList.add(boughtProduct);

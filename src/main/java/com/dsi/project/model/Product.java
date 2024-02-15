@@ -9,6 +9,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    private int sellerId;
+
 
     private String brandName;
     private String productModel;
@@ -21,14 +23,6 @@ public class Product {
     private boolean sold;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Product() {
         this.sold = false;
@@ -55,12 +49,31 @@ public class Product {
 
     }
 
-    public Product(String brandName, String productDetail, User user) {
+    public Product(String brandName, String productDetail, User user, int sellerId) {
         this.sold = false;
         this.brandName = brandName;
         this.productDetail = productDetail;
         this.user = user;
+        this.sellerId = sellerId;
     }
+
+
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     public boolean isSold() {
         return sold;

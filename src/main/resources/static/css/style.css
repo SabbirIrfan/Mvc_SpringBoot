@@ -15,7 +15,7 @@
     background-color: var(--primary-background-color);
 }
 .form_container{
-    background-color: antiquewhite;
+    background-color: #ede8e1;
     height: inherit;
     width: inherit;
     border-radius: 10px 10px 20px 20px;
@@ -85,7 +85,7 @@
 }
 .navbar{
 
-    background: bisque;
+    background: #6d9ea5;
     justify-content: left;
     border-radius: 10px;
     padding: 10px;

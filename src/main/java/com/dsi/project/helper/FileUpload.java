@@ -19,7 +19,7 @@ public class FileUpload {
 //    final String uploadDir = "src/main/resources/static/images";
 
 // this will upload the file in target directory which hold the compiled content from which the application runs
-    public final String uploadDir =  new ClassPathResource("static/images/").getFile().getAbsolutePath();
+    public final String uploadDir =  new ClassPathResource("static/images").getFile().getAbsolutePath();
 
 
     public FileUpload() throws IOException {
@@ -32,6 +32,17 @@ public class FileUpload {
 
 
         try{
+//            OLD WAY
+//            InputStream is = file.getInputStream();
+//            byte[] data = new byte[is.available()];
+//            is.read(data);
+//
+//            FileOutputStream fos = new FileOutputStream(Upload_dir + File.separator + file.getOriginalFilename());
+//
+//            fos.write(data);
+//
+//            fos.flush();
+//            fos.close();;
 
             if(file.isEmpty()){
                 System.out.println("image/file not found");

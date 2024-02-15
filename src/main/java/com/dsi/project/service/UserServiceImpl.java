@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isNewUserService(String email) {
-        return userRepository.findUserByEmail(email).isEmpty();
+        return !userRepository.findUserByEmail(email).isEmpty();
     }
 
     @Override
@@ -38,4 +38,5 @@ public class UserServiceImpl implements UserService{
 
         return userRepository.findUserByEmail(email);
     }
+
 }

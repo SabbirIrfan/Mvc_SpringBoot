@@ -19,15 +19,20 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Autowired
+//    @Autowired
     UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @PostMapping(value = "/adduser")
     public String addUser(@Valid  @ModelAttribute("user") User user,BindingResult result) {
 
         if(result.hasErrors()){ // this will not get  sql multiple key error
             return "userForm";
         }
-        if(!userService.isNewUserService(user.getEmail())){
+        if(userService.isNewUserService(user.getEmail())){
             result.addError(new FieldError("user", "email", "this email already has an account!"));
 
             return  "userForm";
@@ -60,10 +65,9 @@ public class UserController {
 
 
         ModelAndView modelAndView = new ModelAndView();
-        List<Product> productList = new ArrayList<>();
-        System.out.println(email);
         User user = userService.getUserByEmail(email).getFirst();
-        productList = user.getProducts();
+        modelAndView.addObject("user",user);
+        List<Product> productList  = user.getProducts();
         modelAndView.addObject("products", productList);
         modelAndView.setViewName("boughtProduct");
         return modelAndView;

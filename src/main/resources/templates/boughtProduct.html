@@ -10,7 +10,16 @@
 
     <div class="container">
         <div th:insert="navbar" ></div>
-        <div>Hello </div>
+        <div style="background-color: #b3c4c7 ; border-radius: 10px" class="row ">
+            <h3 style="margin-top: 10px; margin-left: 10px; "> Products of user ::</h3>
+
+            <div class="col-4">
+                <div  class="p-3 border " th:text="${user.getName()}   " ></div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border " th:text="${user.getEmail()}"></div>
+            </div>
+        </div>
         <div th:each="product : ${products}" style="justify-content: space-evenly; " class="user-card row">
             <div class="col-4">
                 <div  class="p-3 border " th:text="${product.getId()}   " ></div>
