@@ -1,6 +1,6 @@
 <%@ page import="springmvc.model.Product" %><%--
   Created by IntelliJ IDEA.
-  User: john_doe
+  Seller: john_doe
   Date: ২৫/১/২৪
   Time: ৫:১২ PM
   To change this template use File | Settings | File Templates.

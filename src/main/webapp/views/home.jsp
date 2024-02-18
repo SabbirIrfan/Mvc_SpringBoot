@@ -6,7 +6,7 @@
 
 <%--
   Created by IntelliJ IDEA.
-  User: john_doe
+  Seller: john_doe
   Date: ৫/২/২৪
   Time: ১২:৫৩ PM
   To change this template use File | Settings | File Templates.

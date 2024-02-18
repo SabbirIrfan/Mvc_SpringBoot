@@ -41,4 +41,13 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProduct() {
         return (List<Product>) productRepository.findAll();
     }
+
+    @Override
+    public List<Product> getAllAvailableProduct() {
+        List<Product> all = (List<Product>) productRepository.findAll();
+        all.removeIf(product -> product.getStatus() == 0 || product.getStatus()==2);
+        return all;
+    }
+
+
 }

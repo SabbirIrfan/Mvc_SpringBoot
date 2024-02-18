@@ -15,4 +15,5 @@ public interface ProductService {
 
     public void saveProduct(Product product);
     public List<Product> getAllProduct();
+    public List<Product> getAllAvailableProduct();
 }

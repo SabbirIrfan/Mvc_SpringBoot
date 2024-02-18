@@ -26,7 +26,7 @@ public class FileUpload {
 
     }
 
-    public  boolean uploadFile(MultipartFile file , Integer id){
+    public  boolean uploadFile(MultipartFile file , Integer id) throws Exception{
         boolean uploadFlag = false;
 
 

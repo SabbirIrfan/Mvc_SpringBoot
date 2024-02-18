@@ -21,8 +21,10 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView();
 
         List<Product> productList = productService.getAllProduct();
+        productList.removeIf(product -> product.getStatus() != 1);
+
         modelAndView.addObject("productList",productList);
-        modelAndView.setViewName("home.html");
+
 
         return modelAndView;
     }

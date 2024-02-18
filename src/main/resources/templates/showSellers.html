@@ -15,17 +15,17 @@
 <div class="container">
     <div th:insert="navbar"></div>
 
-    <form action="boughtProduct" method="post" th:each="user : ${users}" style="justify-content: space-evenly; " class="user-card row">
+    <form action="producedProduct" method="post" th:each="seller : ${seller}" style="justify-content: space-evenly; " class="seller-card row">
         <div class="col-4">
-            <div  class="p-3 border " th:text="${user.getName()}   " ></div>
+            <div  class="p-3 border " th:text="${seller.getName()}   " ></div>
         </div>
         <div class="col-4">
-            <div name="email" class="p-3 border " th:text="${user.getEmail()}"></div>
+            <div name="email" class="p-3 border " th:text="${seller.getEmail()}"></div>
         </div>
         <div  style="flex-wrap: nowrap" class="row col-4">
 <!--            <button type="submit" class="p-3 border" >Edit</button>-->
-            <input type="hidden" id="email" name="email" th:value="${user.getEmail()}">
-            <button type="submit" class="p-3 border" >UserProduct</button>
+            <input type="hidden" id="email" name="email" th:value="${seller.getEmail()}">
+            <button type="submit" class="p-3 border" >SellerProduct</button>
 
         </div>
 

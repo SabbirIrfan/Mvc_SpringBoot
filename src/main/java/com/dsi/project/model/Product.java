@@ -9,7 +9,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int sellerId;
+//    private int sellerId;
 
 
     private String brandName;
@@ -20,12 +20,14 @@ public class Product {
     private String processor;
     private String generation;
 
-    private boolean sold;
+    private byte status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Seller seller;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
-
     public Product() {
-        this.sold = false;
+        this.status = 0 ;
     }
 
     public Product(String brandName, String productModel, String productDetail, String processor, String generation) {
@@ -34,7 +36,7 @@ public class Product {
         this.productDetail = productDetail;
         this.processor = processor;
         this.generation = generation;
-        this.sold = false;
+        this.status = 0;
 
     }
 
@@ -45,42 +47,35 @@ public class Product {
         this.productDetail = productDetail;
         this.processor = processor;
         this.generation = generation;
-        this.sold = false;
+        this.status = 0;
 
     }
 
-    public Product(String brandName, String productDetail, User user, int sellerId) {
-        this.sold = false;
+    public Product(String brandName, String productDetail, Seller seller) {
+        this.status = 0;
         this.brandName = brandName;
         this.productDetail = productDetail;
-        this.user = user;
-        this.sellerId = sellerId;
+        this.seller = seller;
+
     }
 
 
-    public int getSellerId() {
-        return sellerId;
+
+    public Seller getSeller() {
+        return seller;
     }
 
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
 
-    public boolean isSold() {
-        return sold;
+    public byte getStatus() {
+        return status;
     }
 
-    public void setSold(boolean sold) {
-        this.sold = sold;
+    public void setStatus(byte status) {
+        this.status = status;
     }
 
     public int getId() {
@@ -140,7 +135,15 @@ public class Product {
                 ", productDetail='" + productDetail + '\'' +
                 ", processor='" + processor + '\'' +
                 ", generation='" + generation + '\'' +
-                ", user=" + user +
+                ", seller=" + seller +
                 '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

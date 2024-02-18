@@ -3,7 +3,7 @@
 <%@ page import="org.springframework.format.annotation.DateTimeFormat" %>
 <%@ page import="java.time.format.DateTimeFormatter" %><%--
   Created by IntelliJ IDEA.
-  User: john_doe
+  Seller: john_doe
   Date: ২৯/১/২৪
   Time: ১০:১০ AM
   To change this template use File | Settings | File Templates.

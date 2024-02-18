@@ -11,7 +11,9 @@
 <div class="container">
     <div th:include="navbar"></div>
     <div>
-        <form action="orderProduct" method="post" class="form_container" >
+        <h3  th:if="${availableProductList.size() <= 0}" > There is no product</h3>
+
+    <form th:action="@{/orderProduct}"  th:method="post" class="form_container" >
             <div class="user_container">
                 <label for="userEmail">User Email</label>
                 <input type="email" id="userEmail" name="email" placeholder="User Email">
@@ -20,19 +22,18 @@
             <div class="product_container">
                 <label for="product">Example select</label>
                 <select class="form_select" id="product" name="product">
-                    <option th:each="product : ${availableProductList}" th:value="${product.id}">
-                        <span th:text="${product.id}"></span>
-                        <span th:text="${product.brandName}"></span> -
-                        <span th:text="${product.processor}"></span> -
-                        <span th:text="${product.generation}"></span>
+                    <option th:each="product : ${availableProductList}" th:value="${product?.id}">
+                        <span th:text="${product?.id}"></span>
+                        <span th:text="${product?.brandName}"></span> -
+                        <span th:text="${product?.processor}"></span> -
+                        <span th:text="${product?.generation}"></span>
                     </option>
                 </select>
                 <div class="form-group formPad">
                     <label for="productDetail">Product Detail</label>
                     <textarea class="textarea" id="productDetail" name="detail" placeholder="Write something about you about this product." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+                <button type="submit" class="btn btn-primary" th:attr="type=${availableProductList.size() > 0 ? 'submit' : 'button'}">Submit</button>            </div>
         </form>
     </div>
 </div>

@@ -1,10 +1,7 @@
 package com.dsi.project;
 
-import com.dsi.project.model.User;
-import com.dsi.project.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +19,11 @@ public class SpringBootMvc {
 
 
 
-//        UserRepository userRepository = context.getBean(UserRepository.class);
-//        User user = new User();
+//        SellerRepository userRepository = context.getBean(SellerRepository.class);
+//        Seller user = new Seller();
 //        user.setEmail("email@gmail.com");
 //        user.setName("email");
-//        User user1 = userRepository.save(user);
+//        Seller user1 = userRepository.save(user);
 //
 //        System.out.println(user1);
 
