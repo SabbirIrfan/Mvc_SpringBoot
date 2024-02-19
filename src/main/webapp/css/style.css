@@ -11,13 +11,11 @@
     flex-direction: column;
     justify-content: center;
     flex-basis: 100%;
-    gap:2rem;
+    gap:10rem;
     background-color: var(--primary-background-color);
 }
 .form_container{
     background-color: antiquewhite;
-    height: inherit;
-    width: inherit;
     border-radius: 10px 10px 20px 20px;
     padding: 20px;
     gap: 10px;
@@ -29,7 +27,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-
 }
 .card{
     display: flex;
@@ -48,10 +45,16 @@
     height: 4rem
 }
 
-.user_container{
-    font-family: sans-serif;
-    padding-top:10px;
-    padding-bottom: 10px;
+.user_profile_container{
+    display: flex;
+    flex-direction: column;
+
+    background: #077807;
+}
+.user_profile{
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
 }
 
 .product_container{

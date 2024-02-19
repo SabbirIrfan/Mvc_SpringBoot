@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div th:include="navbar"></div>
+
 <div class="container">
-    <div th:include="navbar"></div>
     <h4>Hello! Welcome to home page of bugichugi product web"cite" !!</h4>
-    <div th:class="card_container">
+    <div class="card_container">
         <div th:each="product : ${productList}" class="card" style="width: 18rem;">
             <img class="my-card-img-top card-img-top" th:src="@{'images/' + ${product.getId()} + '.png'}" alt="Card image cap">
             <div class="my-card-body ">

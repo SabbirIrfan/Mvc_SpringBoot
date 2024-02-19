@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>myProduct</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .product_container{
@@ -26,12 +28,11 @@
             display: flex;
             justify-content: space-evenly;
             gap: 5px;
-
         }
         .user-container{
             display: flex;
-            "background-color: #b3c4c7 ;
-            border-radius: 10px"
+            background-color: #b3c4c7 ;
+            border-radius: 10px
         }
         @media only screen and (max-width: 768px){
             .seller-card{
@@ -47,8 +48,8 @@
 </head>
 <body>
 
+    <div  th:insert="navbar" ></div>
     <div class="container">
-        <div th:insert="navbar" ></div>
         <div  class="user-container row ">
             <h3 style="margin-top: 10px; margin-left: 10px; "> Products of seller ::</h3>
 
@@ -61,20 +62,21 @@
         </div>
 
         <form th:action="@{/setStatus}" th:method="post" th:each="product : ${products}" class="seller-card" >
-            <div  class="product_container border " th:text="${product?.getId()}   " ></div>
+            <div  class="product_container border " style="flex:.5" th:text="${product?.getId()}   " ></div>
             <input type="hidden" name="productIdl" th:value="${product?.getId()}">
 
-            <div class="product_container border">
+            <div class="product_container border" style="flex:.5">
                 <span th:text="${product?.getBrandName()}"></span>
             </div>
-            <div class="product_container border">
+            <div class="product_container border" style="flex:3">
                 <span th:text="${product?.getProductDetail()}"></span>
 
             </div>
-
-                <div class=" border pending " th:if="${product?.getStatus()} == 0" >Product Pending to be published</div>
-                <div class=" border approved" th:if="${product?.getStatus()} == 1" >Product Approved</div>
-                <div class=" border sold" th:if="${product?.getStatus()} == 2" >Product Sold</div>
+                <div style="flex: 1" class="product_container border pending " >
+                    <span  th:if="${product?.getStatus()} == 0" >Product Pending to be published</span>
+                    <span th:if="${product?.getStatus()} == 1" >Product Approved</span>
+                    <span th:if="${product?.getStatus()} == 2" >Product Sold</span>
+                </div>
                 <div style="display: flex ; flex-direction:column; width: 80px ; height: 50px ; gap: 5px">
                 <button th:if="${product?.getStatus()} == 0" type="submit" name="status" value="1" >Approve</button>
                 <button th:if="${product?.getStatus()} == 1" type="submit" name="status" value="0" >Decline</button>
@@ -84,5 +86,7 @@
         </form>
 
     </div>
+    <div th:insert="allScript" ></div>
+
 </body>
 </html>

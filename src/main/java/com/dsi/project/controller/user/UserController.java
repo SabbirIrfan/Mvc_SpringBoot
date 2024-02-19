@@ -1,11 +1,9 @@
 package com.dsi.project.controller.user;
 
 import com.dsi.project.model.Product;
-import com.dsi.project.model.Seller;
 import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,17 +22,16 @@ public class UserController {
     }
 
 
+    @GetMapping("/showUsers")
+    public ModelAndView showUsers(){
+
+        return new ModelAndView("userProfile");
+    }
     @GetMapping("/buyProduct")
     public ModelAndView buyProduct() {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("hheello");
         List<Product> productList = productService.getAllAvailableProduct();
-//        if(productList.isEmpty()) {
-//            modelAndView.setViewName("productForm");
-//
-//            return modelAndView;
-//        }
-
         modelAndView.addObject("availableProductList", productList);
         modelAndView.setViewName("buyingForm.html");
         return modelAndView;
@@ -47,7 +44,7 @@ public class UserController {
         List<Product> productList = productService.getAllAvailableProduct();
         if(productList.isEmpty()) modelAndView.setViewName("productForm");
         if(userService.isNewUserService(email)){
-            modelAndView.addObject("email","The email you entered is not registered. please register first!");
+            modelAndView.addObject("emailError","The email you entered is not registered. please register first!");
             modelAndView.setViewName("buyingForm");
             modelAndView.addObject("availableProductList", productList);
             return  modelAndView;
@@ -68,7 +65,7 @@ public class UserController {
             productService.saveProduct(boughtProduct);
 
         }
-        modelAndView.setViewName("buyingForm");
+        modelAndView.setViewName("home");
 
 
         return modelAndView;

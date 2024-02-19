@@ -7,6 +7,7 @@ import com.dsi.project.model.Seller;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -59,8 +60,8 @@ public class ProductController {
     }
     @PostMapping(value = "/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
-                                   @RequestParam("file") MultipartFile file,
-                                   @RequestParam("sellerEmail") String sellerEmail) {
+                                   @Param("file") MultipartFile file,
+                                   @Param("sellerEmail") String sellerEmail) {
         ModelAndView modelAndView = new ModelAndView();
         Seller seller = sellerService.getSellerByEmail(sellerEmail).getFirst();
         product.setSeller(seller);

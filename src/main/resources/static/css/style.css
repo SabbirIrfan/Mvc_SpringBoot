@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: center;
     flex-basis: 100%;
-    gap:2rem;
+    gap:10px;
     background-color: var(--primary-background-color);
 }
 .form_container{
@@ -19,7 +19,7 @@
     height: inherit;
     width: inherit;
     border-radius: 10px 10px 20px 20px;
-    padding: 20px;
+
     gap: 10px;
 
 
@@ -68,7 +68,10 @@
 
 .product_container{
     font-family: sans-serif;
-    padding-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -88,8 +91,12 @@
     background: #6d9ea5;
     justify-content: left;
     border-radius: 10px;
-    padding: 10px;
 
+
+}
+.navbar-container{
+    padding: 10px;
+    margin-bottom: 10px;
 
 }
 .navbar-search{
@@ -127,7 +134,10 @@
 
 
 
+.border{
+    border-radius: 5px;
 
+}
 
 
 .flexCard{
@@ -137,5 +147,10 @@
 
 }
 
+.seller-card{
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+}
 
 
