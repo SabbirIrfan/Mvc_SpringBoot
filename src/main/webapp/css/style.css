@@ -48,13 +48,15 @@
 .user_profile_container{
     display: flex;
     flex-direction: column;
+    background-color: #077807;
+   flex-basis: auto;
 
-    background: #077807;
 }
 .user_profile{
     display: flex;
     flex-direction: column;
     background-color: blue;
+
 }
 
 .product_container{

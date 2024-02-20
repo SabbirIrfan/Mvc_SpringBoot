@@ -4,8 +4,11 @@ import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,15 +20,28 @@ public class UserController {
     ProductService productService;
 
     public UserController(UserService userService, ProductService productService) {
+
         this.userService = userService;
         this.productService = productService;
+    }
+
+    @GetMapping("/userRegForm")
+    public ModelAndView addUser(Model model){
+        model.addAttribute("user",new User());
+        ModelAndView modelAndView = new ModelAndView("userRegForm");
+
+        return modelAndView;
     }
 
 
     @GetMapping("/showUsers")
     public ModelAndView showUsers(){
+        ModelAndView modelAndView = new ModelAndView("showUsers");
 
-        return new ModelAndView("userProfile");
+        Iterable<User> users = userService.getAllUserService();
+
+        modelAndView.addObject("users", users);
+        return modelAndView;
     }
     @GetMapping("/buyProduct")
     public ModelAndView buyProduct() {
@@ -36,7 +52,48 @@ public class UserController {
         modelAndView.setViewName("buyingForm.html");
         return modelAndView;
     }
+    @PostMapping("/editUser1") // need to fix this ambiguity :: maybe with a editing view
+    public ModelAndView editUser(@Param("id") Integer userId){
+        ModelAndView modelAndView = new ModelAndView("editUser");
+        User user = userService.getUserById(userId);
+        modelAndView.addObject("user",user);
+        return modelAndView;
+    }
+    @PostMapping("/boughtProduct")
+    public ModelAndView boughtProduct(@Param("id") Integer userId){
+        ModelAndView modelAndView = new ModelAndView("boughtProduct");
+        User user = userService.getUserById(userId);
+        List<Product> productList =  productService.getProductByUser(user);
+        System.out.println(userId);
 
+        modelAndView.addObject("products",productList);
+        modelAndView.addObject("user",user);
+
+
+        return modelAndView;
+    }
+    @PostMapping("/addUser")
+    public ModelAndView addUser(@ModelAttribute User user){
+        ModelAndView modelAndView = new ModelAndView("home");
+
+        System.out.println(user);
+
+        userService.saveUserService(user);
+        return modelAndView;
+
+
+    }
+    @PostMapping("/editUser")
+    public ModelAndView editUser(@ModelAttribute User user){
+        ModelAndView modelAndView = new ModelAndView("home");
+
+        System.out.println(user);
+
+        userService.updateUserService(user);
+        return modelAndView;
+
+
+    }
     @PostMapping(path = "/orderProduct" )
     public ModelAndView orderProduct (@RequestParam("email") String email,
                                       @RequestParam("product") String selectedProduct) {

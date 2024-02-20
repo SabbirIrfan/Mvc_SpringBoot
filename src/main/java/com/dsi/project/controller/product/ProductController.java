@@ -47,8 +47,8 @@ public class ProductController {
         model.addAttribute("name", name);
 
         System.out.println("this is home and the time is "+ LocalDateTime.now());
-
-        return "productForm";
+        // this has a bug in base.html
+        return "base";
     }
 
 

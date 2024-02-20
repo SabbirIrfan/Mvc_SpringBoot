@@ -1,5 +1,6 @@
 package com.dsi.project.service;
 
+import com.dsi.project.model.User;
 import com.dsi.project.repository.ProductRepository;
 import com.dsi.project.model.Product;
 
@@ -24,6 +25,12 @@ public class ProductServiceImpl implements ProductService {
         }
         return  product;
     }
+
+    @Override
+    public List<Product> getProductByUser(User user) {
+        return  productRepository.findByUser(user );
+    }
+
 
 
     @Override

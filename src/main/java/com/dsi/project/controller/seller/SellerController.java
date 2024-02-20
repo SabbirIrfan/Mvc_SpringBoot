@@ -41,7 +41,7 @@ public class SellerController {
 
 
 
-    @GetMapping(value = "/sellerForm")
+    @GetMapping(value = "/serllerRegForm")
     public ModelAndView sellerForm(Model model){
         model.addAttribute("seller",new Seller());
         return new ModelAndView("sellerForm");

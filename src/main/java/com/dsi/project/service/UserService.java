@@ -7,12 +7,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
     UserRepository userRepository;
 
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+    public User getUserById(int userId){
+        Optional<User> user =  userRepository.findById(userId);
 
+        return user.orElse(null);
+    }
+    public  Iterable<User> getAllUsers(){
+        return userRepository.findAll();
+    }
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -27,10 +39,12 @@ public class UserService {
         userRepository.save(user);
     }
     public void updateUserService(User user){
-        userRepository.save(user);
+        User updatingUser = userRepository.findByEmail(user.getEmail());
+
+        updatingUser.setEmail(user.getEmail());
+        updatingUser.setName(user.getName());
+        userRepository.save(updatingUser);
 
     }
-    public User getUserByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
+
 }
