@@ -38,13 +38,19 @@ public class UserService {
     public void saveUserService(User user){
         userRepository.save(user);
     }
-    public void updateUserService(User user){
-        User updatingUser = userRepository.findByEmail(user.getEmail());
+    public void updateUserService(User user, Integer userId ){
 
-        updatingUser.setEmail(user.getEmail());
-        updatingUser.setName(user.getName());
-        userRepository.save(updatingUser);
+        Optional<User> updatingUserOptional = userRepository.findById(userId);
+        if(updatingUserOptional.isPresent()){
+            User updatedUser =  updatingUserOptional.get();
+            updatedUser.setName(user.getName());
+            updatedUser.setEmail(user.getEmail());
+            userRepository.save(updatedUser);
 
+            return;
+        }
+
+        System.out.println( "could not update");
     }
 
 }

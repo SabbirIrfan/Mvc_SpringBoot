@@ -14,16 +14,18 @@
         <div style="padding-top: 40px; ">
         <form class="form_container" action="addSeller" method="post" th:object="${seller}">
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
+                <label for="email" class="p-2 form-label">Email address</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
 
                 <p th:each="error: ${#fields.errors('email')}" th:text="${error}"> </p>
             </div>
             <div class="mb-3">
-                <label for="name" class="form-label">name</label>
+                <label for="name" class="p-2 form-label">name</label>
                 <input type="text" class="form-control" id="name" name="name">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="p-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
         </div>
 

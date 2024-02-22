@@ -3,7 +3,9 @@
 
 }
 :root{
-    --primary-background-color: #f9f9f9
+    --primary-background-color: #f9f9f9;
+    --primary-form-background-color: #ede8e1
+
 }
 
 .container{
@@ -15,7 +17,7 @@
     background-color: var(--primary-background-color);
 }
 .form_container{
-    background-color: #ede8e1;
+    background-color: var(--primary-form-background-color);
     height: inherit;
     width: inherit;
     border-radius: 10px 10px 20px 20px;
@@ -56,10 +58,31 @@
     height: 4rem
 }
 
-.user_container{
-    font-family: sans-serif;
-    padding-top:10px;
-    padding-bottom: 10px;
+.users-container{
+    background-color: var(--primary-form-background-color);
+    border-radius: 10px ;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*padding: 5px;*/
+
+
+}
+.sellers-container{
+    background-color: var(--primary-form-background-color);
+    border-radius: 10px ;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+
 }
 .user-card{
     display: flex;
@@ -150,7 +173,7 @@
 .seller-card{
     margin-bottom: 0;
     padding-bottom: 0;
-
+    background-color: var(--primary-form-background-color);
 }
 
 

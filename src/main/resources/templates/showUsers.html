@@ -12,34 +12,34 @@
 <div th:include="navbar"></div>
 
     <div class="container">
-        <div class="user_container" >
-              <div class="users">
+<!--        <div class="users_container" >-->
 
-                  <form id="user-profile" method="post" th:each="user : ${users}" style="justify-content: space-evenly; " class="seller-card row">
-                      <div class="col-4">
-                          <div  class="p-3 border " th:text="${user.getName()}   " ></div>
+                  <div  th:action="@{/boughtProduct}" th:each="user : ${users}" style="justify-content: space-evenly; " class="users-container">
+                      <div style="flex: 1">
+                          <div class="p-2 border" th:text="${user.getName()}"></div>
                       </div>
-                      <div class="col-4">
-                          <div name="email" class="p-3 border " th:text="${user.getEmail()}"></div>
+                      <div style="flex: 2">
+                          <div class="p-2 border" th:text="${user.getEmail()}"></div>
                       </div>
-                      <div  style="flex-wrap: nowrap" class="row col-4">
-                          <!--            <button type="submit" class="p-3 border" >Edit</button>-->
-                          <input type="hidden" id="userId" name="userId" th:value="${user.getId()}">
-                          <button type="submit" onclick="setAction('/boughtProduct')" class="p-3 border" >My Product</button>
-                          <button type="submit" onclick="setAction('/editUser1')" class="p-3 border" >Edit Profile</button>
+                      <form   style="flex: .5"  method="post" action="/boughtProduct" >
+                          <input type="hidden" th:id="${'userId-' + user.getId()}" th:name="userId" th:value="${user.getId()}">
+                          <button class="btn btn-primary" type="submit" th:name="action" value="boughtProduct">My Product</button>
+                      </form>
+                      <form   style="flex: .5; " method="post" action="/editUserForm"  >
+                          <input  type="hidden" th:id="${'userId' + user.getId()}" th:name="userId" th:value="${user.getId()}">
+                          <button class="btn btn-primary" type="submit" name="action" value="editUserForm">Edit Profile</button>
+                      </form>
+<!--                  </div>-->
 
-                      </div>
-
-
-                  </form>
               </div>
         </div>
-    </div>
-<script>
-    function setAction(action) {
-        document.getElementById('user-profile').action = action;
 
-    }
-</script>
+<!--<script>-->
+<!--    function setAction(action) {-->
+<!--        console.log(action);-->
+<!--        document.getElementById("user-profile").action = action;-->
+
+<!--    }-->
+<!--</script>-->
 </body>
 </html>

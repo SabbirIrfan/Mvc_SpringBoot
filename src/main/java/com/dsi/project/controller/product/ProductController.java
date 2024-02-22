@@ -6,16 +6,15 @@ import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
-import jakarta.validation.Valid;
 import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.time.LocalDateTime;
-import java.util.List;
+
+
 
 
 

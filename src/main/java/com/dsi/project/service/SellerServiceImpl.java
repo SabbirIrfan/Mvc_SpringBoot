@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SellerServiceImpl implements SellerService {
@@ -29,7 +30,21 @@ public class SellerServiceImpl implements SellerService {
 
 
     @Override
-    public void updateSellerService(Seller seller) {
+    public void updateSellerService(Seller seller, Integer sellerId) {
+
+        Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
+        System.out.println(sellerId);
+        if(sellerOptional.isPresent()){
+           Seller updatedSeller =  sellerOptional.get();
+           updatedSeller.setName(seller.getName());
+           updatedSeller.setEmail(seller.getEmail());
+           sellerRepository.save(updatedSeller);
+
+           return;
+        }
+
+        System.out.println( "could not update");
+
 
     }
 
@@ -37,6 +52,17 @@ public class SellerServiceImpl implements SellerService {
     public List<Seller> getSellerByEmail(String email) {
 
         return sellerRepository.findSellerByEmail(email);
+    }
+    @Override
+    public Seller getSellerById(Integer sellerId) {
+        Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
+        System.out.println("i am here ");
+         if(sellerOptional.isPresent()){
+             System.out.println("found seller");
+             return sellerOptional.get();
+         } else{
+           return  null;
+         }
     }
 
 }

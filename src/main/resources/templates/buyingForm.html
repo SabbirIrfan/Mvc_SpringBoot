@@ -12,16 +12,16 @@
 
 <div class="container">
         <h3  th:if="${availableProductList?.size() <= 0}" > There is no product</h3>
-    <div style="padding-top: 40px">
+    <div style="padding-top: 10px ">
 
     <form th:action="@{/orderProduct}"  th:method="post" class="form_container" >
             <div style="font-family: sans-serif;
                         padding-top:10px; padding-bottom: 10px;">
-                <label for="userEmail">User Email</label>
+                <label class="p-2" for="userEmail">User Email</label>
                 <input type="email" id="userEmail" name="email" placeholder="User Email">
                 <p th:if="emailError" th:text="${emailError}">  </p>
             </div>
-                <label for="product">Example select</label>
+                <label class="p-2"  for="product">Example select</label>
                 <select class="form_select" id="product" name="product">
                     <option th:each="product : ${availableProductList}" th:value="${product?.id}">
                         <span th:text="${product?.id}"></span>
@@ -31,11 +31,11 @@
                     </option>
                 </select>
                 <div >
-                    <label for="productDetail">Product Detail</label>
+                    <label class="p-2 "  for="productDetail">Product Detail</label>
                     <textarea class="textarea" id="productDetail" name="detail" placeholder="Write something about you about this product." required></textarea>
                 </div>
 <!--                <div style="display:flex; justify-content:center;align-items: center">-->
-                    <button th:if="${availableProductList?.size() > 0}" type="submit" class="button  btn btn-primary" >Submit</button>
+                    <button class="btn btn-primary" th:if="${availableProductList?.size() > 0}" type="submit" >Submit</button>
 <!--                </div>-->
 
         </form>

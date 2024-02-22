@@ -11,26 +11,31 @@
 <body>
 
 
+<div th:insert="navbar"></div>
 
 <div class="container">
-    <div th:insert="navbar"></div>
+<!--    <div  class="sellers-container">-->
+        <div   th:each="seller : ${sellers}" class="sellers-container" th:object="${seller}">
+            <div class="p-2 border" style="flex:1">
+                <div   th:text="${seller.getName()}   " ></div>
+            </div>
+            <div class="p-2 border" style="flex:2">
+                <div name="email"  th:text="${seller?.getEmail()}"></div>
+            </div>
+<!--            <div  style="flex-direction: column;flex:.5">-->
+                <form   style="flex: .5"  method="post" action="/producedProduct" >
+                    <input type="hidden" id="emailForProduct" name="email" th:value="${seller?.getEmail()}">
+                    <button type="submit" class="btn btn-primary" >SellerProduct</button>
+                </form>
+                <form   style="flex: .5; " method="post" action="/editSellerForm"  >
+                    <input type="hidden" id="emailForSeller" name="sellerId" th:value="${seller?.getId()}">
+                    <button type="submit" class="btn btn-primary" >Edit Profile</button>
+                </form>
+<!--            </div>-->
 
-    <form action="producedProduct" method="post" th:each="seller : ${seller}" style="justify-content: space-evenly; " class="seller-card row">
-        <div class="col-4">
-            <div  class="p-3 border " th:text="${seller.getName()}   " ></div>
+
         </div>
-        <div class="col-4">
-            <div name="email" class="p-3 border " th:text="${seller.getEmail()}"></div>
-        </div>
-        <div  style="flex-wrap: nowrap" class="row col-4">
-<!--            <button type="submit" class="p-3 border" >Edit</button>-->
-            <input type="hidden" id="email" name="email" th:value="${seller.getEmail()}">
-            <button type="submit" class="p-3 border" >SellerProduct</button>
-
-        </div>
-
-
-    </form>
+<!--    </div>-->
 </div>
 </body>
 </html>

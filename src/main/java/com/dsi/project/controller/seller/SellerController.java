@@ -2,8 +2,10 @@ package com.dsi.project.controller.seller;
 
 import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
+import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +21,11 @@ public class SellerController {
 //    @Autowired
     SellerService sellerService;
 
-    public SellerController(SellerService sellerService) {
+    ProductService productService;
+
+    public SellerController(SellerService sellerService, ProductService productService) {
         this.sellerService = sellerService;
+        this.productService = productService;
     }
 
     @PostMapping(value = "/addSeller")
@@ -47,19 +52,41 @@ public class SellerController {
         return new ModelAndView("sellerForm");
     }
 
+    @PostMapping("/editSellerForm")
+    public ModelAndView showEditsellerForm(@Param("sellerId") int sellerId, Model model) {
+        ModelAndView modelAndView = new ModelAndView("editSeller");
+        model.addAttribute("seller",new Seller());
+        Seller seller = sellerService.getSellerById(sellerId);
+        modelAndView.addObject("seller",seller);
+
+
+        return modelAndView;
+    }
+
+    @PostMapping("/editSeller")
+    public ModelAndView editSeller(@ModelAttribute Seller seller, @Param("sellerId") int sellerId){
+        ModelAndView modelAndView = new ModelAndView("home");
+
+        sellerService.updateSellerService(seller,sellerId);
+
+        List<Product> productList = productService.getAllAvailableProduct();
+        modelAndView.addObject("productList",productList);
+
+        return  modelAndView;
+
+    }
+
     @GetMapping(value = "/showSellers")
     public ModelAndView showSeller(){
         ModelAndView modelAndView  =  new ModelAndView();
         modelAndView.setViewName("showSellers");
         List<Seller> sellerList = sellerService.getAllSellerService();
-        modelAndView.addObject("seller", sellerList);
+        modelAndView.addObject("sellers", sellerList);
         return  modelAndView;
     }
 
     @PostMapping(value = "/producedProduct")
     public ModelAndView showMyProduct(@RequestParam("email") String email){
-
-
         ModelAndView modelAndView = new ModelAndView();
         Seller seller = sellerService.getSellerByEmail(email).getFirst();
         modelAndView.addObject("seller", seller);
