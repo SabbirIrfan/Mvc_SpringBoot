@@ -1,12 +1,8 @@
 package com.dsi.project.service;
 
-import com.dsi.project.model.Seller;
 import com.dsi.project.model.User;
 import com.dsi.project.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,9 +18,7 @@ public class UserService {
 
         return user.orElse(null);
     }
-    public  Iterable<User> getAllUsers(){
-        return userRepository.findAll();
-    }
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

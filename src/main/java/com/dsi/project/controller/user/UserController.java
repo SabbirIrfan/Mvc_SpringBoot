@@ -1,16 +1,6 @@
 package com.dsi.project.controller.user;
-import com.dsi.project.model.Product;
-import com.dsi.project.model.User;
-import com.dsi.project.service.ProductService;
-import com.dsi.project.service.UserService;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 @Controller
