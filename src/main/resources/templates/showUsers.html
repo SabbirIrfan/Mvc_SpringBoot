@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div th:include="navbar"></div>
-
+<!--<div th:include="navbar"></div>-->
+<section>
     <div class="container">
-<!--        <div class="users_container" >-->
+        <!--        <div class="users_container" >-->
 
-                  <div  th:action="@{/boughtProduct}" th:each="user : ${users}" style="justify-content: space-evenly; " class="users-container">
-                      <div style="flex: 1">
-                          <div class="p-2 border" th:text="${user.getName()}"></div>
-                      </div>
-                      <div style="flex: 2">
-                          <div class="p-2 border" th:text="${user.getEmail()}"></div>
-                      </div>
-                      <form   style="flex: .5"  method="post" action="/boughtProduct" >
-                          <input type="hidden" th:id="${'userId-' + user.getId()}" th:name="userId" th:value="${user.getId()}">
-                          <button class="btn btn-primary" type="submit" th:name="action" value="boughtProduct">My Product</button>
-                      </form>
-                      <form   style="flex: .5; " method="post" action="/editUserForm"  >
-                          <input  type="hidden" th:id="${'userId' + user.getId()}" th:name="userId" th:value="${user.getId()}">
-                          <button class="btn btn-primary" type="submit" name="action" value="editUserForm">Edit Profile</button>
-                      </form>
-<!--                  </div>-->
+        <div th:action="@{/boughtProduct}" th:each="user : ${users}" style="justify-content: space-evenly; "
+             class="users-container">
+            <div style="flex: 1">
+                <div class="p-2 border" th:text="${user.getName()}"></div>
+            </div>
+            <div style="flex: 2">
+                <div class="p-2 border" th:text="${user.getEmail()}"></div>
+            </div>
+            <form style="flex: .5" method="post" action="/boughtProduct">
+                <input type="hidden" th:id="${'userId-' + user.getId()}" th:name="userId" th:value="${user.getId()}">
+                <button class="btn btn-primary" type="submit" th:name="action" value="boughtProduct">My Product</button>
+            </form>
+            <form style="flex: .5; " method="post" action="/editUserForm">
+                <input type="hidden" th:id="${'userId' + user.getId()}" th:name="userId" th:value="${user.getId()}">
+                <button class="btn btn-primary" type="submit" name="action" value="editUserForm">Edit Profile</button>
+            </form>
+            <!--                  </div>-->
 
-              </div>
         </div>
+    </div>
 
-<!--<script>-->
-<!--    function setAction(action) {-->
-<!--        console.log(action);-->
-<!--        document.getElementById("user-profile").action = action;-->
+    <!--<script>-->
+    <!--    function setAction(action) {-->
+    <!--        console.log(action);-->
+    <!--        document.getElementById("user-profile").action = action;-->
 
-<!--    }-->
-<!--</script>-->
+    <!--    }-->
+    <!--</script>-->
+</section>
 </body>
 </html>

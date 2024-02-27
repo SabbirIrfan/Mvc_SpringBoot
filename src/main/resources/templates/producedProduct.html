@@ -1,68 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>myProduct</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .product_container{
-            width: 300px; /* Adjust width as needed */
-            max-height: 200px; /* Adjust max-height as needed */
-            overflow: auto; /* Set overflow to auto to enable scroll when content overflows */
-        }
 
-        .pending {
-            background-color: #9a7171;
-
-        }
-        .approved {
-            background-color: #077807;
-        }
-        .sold {
-            background-color: #6d9ea5;
-        }
-        .seller-card{
-            display: flex;
-            justify-content: space-evenly;
-            gap: 5px;
-        }
-        .user-container{
-            display: flex;
-            background-color: #b3c4c7 ;
-            border-radius: 10px
-        }
-        @media only screen and (max-width: 768px){
-            .seller-card{
-                flex-direction: column;
-            }
-            .user-container{
-                flex-direction: column;
-            }
-
-        }
 
     </style>
 </head>
 <body>
 
-    <div  th:insert="navbar" ></div>
+<!--    <div  th:insert="navbar" ></div>-->
+<section>
     <div class="container">
-        <div  class="user-container row ">
+        <div class="user-container row ">
             <h3 style="margin-top: 10px; margin-left: 10px; "> Products of seller ::</h3>
 
             <div th:class="col-4">
-                <div  class="p-3 border " th:text="${seller?.getName()}   " ></div>
+                <div class="p-3 border " th:text="${seller?.getName()}   "></div>
             </div>
             <div class="col-4">
                 <div class="p-3 border " th:text="${seller?.getEmail()}"></div>
             </div>
         </div>
 
-        <form th:action="@{/setStatus}" th:method="post" th:each="product : ${products}" class="seller-card" >
-            <div  class="product_container border " style="flex:.5" th:text="${product?.getId()}   " ></div>
+        <form th:action="@{/setStatus}" th:method="post" th:each="product : ${products}" class="seller-card">
+            <div class="product_container border " style="flex:.5" th:text="${product?.getId()}   "></div>
             <input type="hidden" name="productIdl" th:value="${product?.getId()}">
 
             <div class="product_container border" style="flex:.5">
@@ -72,21 +35,21 @@
                 <span th:text="${product?.getProductDetail()}"></span>
 
             </div>
-                <div style="flex: 1" class="product_container border pending " >
-                    <span  th:if="${product?.getStatus()} == 0" >Product Pending to be published</span>
-                    <span th:if="${product?.getStatus()} == 1" >Product Approved</span>
-                    <span th:if="${product?.getStatus()} == 2" >Product Sold</span>
-                </div>
-                <div style="display: flex ; flex-direction:column; width: 80px ; height: 50px ; gap: 5px">
-                <button th:if="${product?.getStatus()} == 0" type="submit" name="status" value="1" >Approve</button>
-                <button th:if="${product?.getStatus()} == 1" type="submit" name="status" value="0" >Decline</button>
+            <div style="flex: 1" class="product_container border pending ">
+                <span th:if="${product?.getStatus()} == 0">Product Pending to be published</span>
+                <span th:if="${product?.getStatus()} == 1">Product Approved</span>
+                <span th:if="${product?.getStatus()} == 2">Product Sold</span>
+            </div>
+            <div style="display: flex ; flex-direction:column; width: 80px ; height: 50px ; gap: 5px">
+                <button th:if="${product?.getStatus()} == 0" type="submit" name="status" value="1">Approve</button>
+                <button th:if="${product?.getStatus()} == 1" type="submit" name="status" value="0">Decline</button>
 
             </div>
 
         </form>
 
     </div>
-    <div th:insert="allScript" ></div>
-
+    <div th:insert="allScript"></div>
+</section>
 </body>
 </html>

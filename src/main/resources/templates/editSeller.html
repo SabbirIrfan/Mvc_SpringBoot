@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>EditSeller</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+  </head>
 <body>
-<div th:insert="navbar"></div>
+<!--<div th:insert="navbar"></div>-->
+<section>
 <div class="container">
     <form class="form_container"  action="editSeller" method="post" >
         <div class="mb-3">
@@ -23,5 +22,6 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+</section>
 </body>
 </html>

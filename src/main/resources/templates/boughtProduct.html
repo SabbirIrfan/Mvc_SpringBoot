@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
   <meta charset="UTF-8">
   <title>myProduct</title>
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
+   <style>
     .product_container{
       width: 300px; /* Adjust width as needed */
       max-height: 200px; /* Adjust max-height as needed */
@@ -47,6 +45,7 @@
 <body>
 
 <div  th:insert="navbar" ></div>
+<section>
 <div class="container">
   <div  class="user-container row ">
     <h3 style="margin-top: 10px; margin-left: 10px; ">Bought  Products of user ::</h3>
@@ -75,6 +74,6 @@
 
 </div>
 <div th:insert="allScript" ></div>
-
+</section>
 </body>
 </html>

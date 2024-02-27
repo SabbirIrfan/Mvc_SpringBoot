@@ -84,6 +84,41 @@
     gap: 5px;
 
 }
+.product_container {
+    width: 300px; /* Adjust width as needed */
+    max-height: 200px; /* Adjust max-height as needed */
+    overflow: auto; /* Set overflow to auto to enable scroll when content overflows */
+}
+
+.pending {
+    background-color: #9a7171;
+
+}
+
+
+
+.seller-card {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.user-container {
+    display: flex;
+    background-color: #b3c4c7;
+    border-radius: 10px
+}
+
+@media only screen and (max-width: 768px) {
+    .seller-card {
+        flex-direction: column;
+    }
+
+    .user-container {
+        flex-direction: column;
+    }
+
+}
 .user-card{
     display: flex;
 

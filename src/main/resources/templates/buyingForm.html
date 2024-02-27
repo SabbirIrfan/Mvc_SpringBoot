@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+   </head>
 <body>
-<div th:include="navbar"></div>
-
+<!--<div th:include="navbar"></div>-->
+<section>
 <div class="container">
         <h3  th:if="${availableProductList?.size() <= 0}" > There is no product</h3>
     <div style="padding-top: 10px ">
@@ -42,5 +40,6 @@
     </div>
 
 </div>
+</section>
 </body>
 </html>

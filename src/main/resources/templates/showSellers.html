@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
 
 
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
 
-<div th:insert="navbar"></div>
-
-<div class="container">
-<!--    <div  class="sellers-container">-->
-        <div   th:each="seller : ${sellers}" class="sellers-container" th:object="${seller}">
+<!--<div th:insert="navbar"></div>-->
+<section>
+    <div class="container">
+        <!--    <div  class="sellers-container">-->
+        <div th:each="seller : ${sellers}" class="sellers-container" th:object="${seller}">
             <div class="p-2 border" style="flex:1">
-                <div   th:text="${seller.getName()}   " ></div>
+                <div th:text="${seller.getName()}   "></div>
             </div>
             <div class="p-2 border" style="flex:2">
-                <div name="email"  th:text="${seller?.getEmail()}"></div>
+                <div name="email" th:text="${seller?.getEmail()}"></div>
             </div>
-<!--            <div  style="flex-direction: column;flex:.5">-->
-                <form   style="flex: .5"  method="post" action="/producedProduct" >
-                    <input type="hidden" id="emailForProduct" name="email" th:value="${seller?.getEmail()}">
-                    <button type="submit" class="btn btn-primary" >SellerProduct</button>
-                </form>
-                <form   style="flex: .5; " method="post" action="/editSellerForm"  >
-                    <input type="hidden" id="emailForSeller" name="sellerId" th:value="${seller?.getId()}">
-                    <button type="submit" class="btn btn-primary" >Edit Profile</button>
-                </form>
-<!--            </div>-->
+            <!--            <div  style="flex-direction: column;flex:.5">-->
+            <form style="flex: .5" method="post" action="/producedProduct">
+                <input type="hidden" id="emailForProduct" name="email" th:value="${seller?.getEmail()}">
+                <button type="submit" class="btn btn-primary">SellerProduct</button>
+            </form>
+            <form style="flex: .5; " method="post" action="/editSellerForm">
+                <input type="hidden" id="emailForSeller" name="sellerId" th:value="${seller?.getId()}">
+                <button type="submit" class="btn btn-primary">Edit Profile</button>
+            </form>
+            <!--            </div>-->
 
 
         </div>
-<!--    </div>-->
-</div>
+        <!--    </div>-->
+    </div>
+</section>
 </body>
 </html>

@@ -1,62 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div th:include="navbar"></div>
+<!--<div th:include="navbar"></div>-->
+<section>
+    <div class="container">
+        <div style="padding-top: 40px">
+            <form action="addproduct" class="form_container row" method="post" enctype="multipart/form-data">
+                <div class="col-12 mb-3">
+                    <label for="sellerEmail" class="form-label">Write your selling Registered Email</label>
+                    <input type="text" class="form-control" id="sellerEmail" name="sellerEmail">
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="productName" class="form-label">Brand Name</label>
+                    <input type="text" class="form-control" id="productName" name="brandName">
+                </div>
 
-<div class="container">
-    <div style="padding-top: 40px">
-        <form action="addproduct" class="form_container row" method="post" enctype="multipart/form-data">
-            <div class="col-12 mb-3">
-                <label for="sellerEmail" class="form-label">Write your selling Registered Email</label>
-                <input type="text" class="form-control" id="sellerEmail" name="sellerEmail">
-            </div>
-            <div class="col-12 mb-3">
-                <label for="productName" class="form-label">Brand Name</label>
-                <input type="text" class="form-control" id="productName" name="brandName">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label for="productModel" class="form-label">Model</label>
-                <input type="text" class="form-control" id="productModel" name="productModel">
-            </div>
-            <div class="col-12   mb-3">
-                <label for="productDetail" class="form-label">Product Detail</label>
-                <input type="text" class="form-control" id="productDetail" placeholder="Product Detail" name="productDetail">
-            </div>
-            <div class="col-6 mb-3">
-                <label for="processor" class="form-label">Processor</label>
-                <select id="processor" class="form-select" name="processor">
-                    <option>Intel</option>
-                    <option>Ryzen</option>
-                </select>
-            </div>
-            <div class="col-md-4 mb-3">
-                <label for="generation" class="form-label">Generation</label>
-                <select id="generation" class="form-select" name="generation">
-                    <option selected>Choose...</option>
-                    <option>i5-14th gen</option>
-                    <option>i7-14th gen</option>
-                    <option>i9-14th gen</option>
-                    <option>ryzen 3050G</option>
-                    <option>ryzen 3090X</option>
-                </select>
-            </div>
-            <div class="col-12 mb-3">
-                <label for="file">Image of the product:</label>
-                <input type="file" id="file" name="file">
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Add Product</button>
-            </div>
-        </form>
+                <div class="col-12 mb-3">
+                    <label for="productModel" class="form-label">Model</label>
+                    <input type="text" class="form-control" id="productModel" name="productModel">
+                </div>
+                <div class="col-12   mb-3">
+                    <label for="productDetail" class="form-label">Product Detail</label>
+                    <input type="text" class="form-control" id="productDetail" placeholder="Product Detail"
+                           name="productDetail">
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="processor" class="form-label">Processor</label>
+                    <select id="processor" class="form-select" name="processor">
+                        <option>Intel</option>
+                        <option>Ryzen</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="generation" class="form-label">Generation</label>
+                    <select id="generation" class="form-select" name="generation">
+                        <option selected>Choose...</option>
+                        <option>i5-14th gen</option>
+                        <option>i7-14th gen</option>
+                        <option>i9-14th gen</option>
+                        <option>ryzen 3050G</option>
+                        <option>ryzen 3090X</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="file">Image of the product:</label>
+                    <input type="file" id="file" name="file">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+</section>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.dsi.project.controller.user;
 
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
 @Controller
 public class UserController {
 //    UserService userService;
