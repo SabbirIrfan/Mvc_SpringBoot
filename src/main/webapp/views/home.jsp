@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<div class="container">
+<div class="body-container">
     <div >
         <%@include file="navbar.jsp"%>
         <h4> Hello! Welcome to home page of bugichugi product web"cite" !! </h4>

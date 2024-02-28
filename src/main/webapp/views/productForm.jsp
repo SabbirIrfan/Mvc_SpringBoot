@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div class="container">
+<div class="body-container">
     <div>
         <%@include file="navbar.jsp"%>
     </div>

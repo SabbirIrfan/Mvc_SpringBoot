@@ -8,12 +8,46 @@
 
 }
 
-.container{
+.main-section{
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    gap: 10px;
+    flex-basis: 100%;
+    /*grid-template-columns: 1fr 5fr;*/
+    background-color: var(--primary-background-color);
+
+}
+.sidebar-container{
     display: flex;
     flex-direction: column;
+    gap: 3vh;
+    width: 13vw;
+    height: 100vh;
+    position: fixed;
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    margin-left: .5rem;
+    background-color: #fbffdc;
+
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar-container{
+        position: relative;
+    }
+}
+
+
+.body-container{
+    margin-left: 220px;
+    display: flex;
+    width: 70vw;
+    flex-direction: column;
     justify-content: center;
-    flex-basis: 100%;
     gap:10px;
+    /*padding-top: 2.5rem;*/
+
     background-color: var(--primary-background-color);
 }
 .form_container{
@@ -21,7 +55,6 @@
     height: inherit;
     width: inherit;
     border-radius: 10px 10px 20px 20px;
-
     gap: 10px;
 
 
@@ -80,7 +113,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    margin-top: 3vh;
+
+    padding: 1vh;
     gap: 5px;
 
 }
@@ -144,13 +179,11 @@
     display: flex;
     background: aqua;
 }
-.navbar{
-
+.navbar-my{
     background: #6d9ea5;
+    display: flex;
     justify-content: left;
     border-radius: 10px;
-
-
 }
 .navbar-container{
     padding: 10px;

@@ -5,11 +5,11 @@
     <title>base</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></head>
 <body>
 <nav style="padding: 5px" class="navbar-expand-lg navbar-light ">
 
-    <div class="navbar">
+    <div class="navbar-my fixed-top">
         <a class="navbar-brand" href="">Product</a>
         <div class="collapse navbar-collapse navbar" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -38,7 +38,6 @@
                 </li>
             </ul>
 
-        </div>
         <form class="my-2 my-lg-0 search">
             <div class="navbar-search">
                 <div class="me-2">
@@ -50,6 +49,9 @@
             </div>
 
         </form>
+
+        </div>
+
         <div th:include="allScript"></div>
 
         <div>
@@ -62,6 +64,25 @@
     </div>
 </nav>
 
-<div th:replace="${content}"></div>
+
+
+
+<div class="main-section mt-5" style=" height: auto">
+    <div class="sidebar-container">
+        <i class="fa fa-home" aria-hidden="true"> Home</i>
+        <i class="fa fa-user-plus" aria-hidden="true">Register Seller</i>
+        <i class="fa fa-user-plus" aria-hidden="true">Register User</i>
+        <i class="fa fa-plus" aria-hidden="true">Add product</i>
+        <i class="fa fa-plus" aria-hidden="true">Buy product</i>
+        <i class="fa fa-users" aria-hidden="true">Show Sellers</i>
+        <i class="fa fa-users" aria-hidden="true">Show Users</i>
+
+    </div>
+    <div  th:replace="${content}" ></div>
+</div>
+
+
+
+
 </body>
 </html>
