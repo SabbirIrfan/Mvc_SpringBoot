@@ -28,7 +28,7 @@ public class SellerController {
         this.productService = productService;
     }
 
-    @PostMapping(value = "/addSeller")
+    @PostMapping(value = "/seller/addSeller")
     public String addSeller(@Valid  @ModelAttribute("seller") Seller seller, BindingResult result) {
 
         if(result.hasErrors()){ // this will not get  sql multiple key error
@@ -46,13 +46,13 @@ public class SellerController {
 
 
 
-    @GetMapping(value = "/serllerRegForm")
+    @GetMapping(value = "/seller/serllerRegForm")
     public ModelAndView sellerForm(Model model){
         model.addAttribute("seller",new Seller());
         return new ModelAndView("sellerForm");
     }
 
-    @PostMapping("/editSellerForm")
+    @PostMapping("/seller/editSellerForm")
     public ModelAndView showEditsellerForm(@Param("sellerId") int sellerId, Model model) {
         ModelAndView modelAndView = new ModelAndView("editSeller");
         model.addAttribute("seller",new Seller());
@@ -63,7 +63,7 @@ public class SellerController {
         return modelAndView;
     }
 
-    @PostMapping("/editSeller")
+    @PostMapping("/seller/editSeller")
     public ModelAndView editSeller(@ModelAttribute Seller seller, @Param("sellerId") int sellerId){
         ModelAndView modelAndView = new ModelAndView("home");
 
@@ -76,7 +76,7 @@ public class SellerController {
 
     }
 
-    @GetMapping(value = "/showSellers")
+    @GetMapping(value = "/seller/showSellers")
     public ModelAndView showSeller(){
         ModelAndView modelAndView  =  new ModelAndView();
         modelAndView.setViewName("showSellers");
@@ -85,7 +85,7 @@ public class SellerController {
         return  modelAndView;
     }
 
-    @PostMapping(value = "/producedProduct")
+    @PostMapping(value = "/seller/producedProduct")
     public ModelAndView showMyProduct(@RequestParam("email") String email){
         ModelAndView modelAndView = new ModelAndView();
         Seller seller = sellerService.getSellerByEmail(email).getFirst();

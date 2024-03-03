@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <form th:action="@{/setStatus}" th:method="post" th:each="product : ${products}" class="seller-card">
+        <form th:action="@{/admin/setStatus}" th:method="post" th:each="product : ${products}" class="seller-card">
             <div class="product_container border " style="flex:.5" th:text="${product?.getId()}   "></div>
             <input type="hidden" name="productIdl" th:value="${product?.getId()}">
 

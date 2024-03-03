@@ -5,6 +5,7 @@ import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,17 +26,19 @@ public class ProfileController {
         this.productService = productService;
     }
 
-    @GetMapping("/userRegForm")
-    public ModelAndView addUser(Model model){
-        model.addAttribute("user",new User());
+//    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user/userRegForm")
+    public ModelAndView addUser(Model model) {
+        model.addAttribute("user", new User());
         ModelAndView modelAndView = new ModelAndView("userRegForm");
 
         return modelAndView;
     }
 
 
-    @GetMapping("/showUsers")
-    public ModelAndView showUsers(){
+//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @GetMapping("/user/showUsers")
+    public ModelAndView showUsers() {
         ModelAndView modelAndView = new ModelAndView("showUsers");
 
         Iterable<User> users = userService.getAllUserService();
@@ -44,9 +47,9 @@ public class ProfileController {
         return modelAndView;
     }
 
-
-    @PostMapping("/addUser")
-    public ModelAndView addUser(@ModelAttribute User user){
+//    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/user/addUser")
+    public ModelAndView addUser(@ModelAttribute User user) {
         ModelAndView modelAndView = new ModelAndView("home");
 
         System.out.println(user);
@@ -56,20 +59,24 @@ public class ProfileController {
 
 
     }
-    @PostMapping("/editUserForm") // need to fix this ambiguity :: maybe with a editing view
-    public ModelAndView showEditUser(@Param("userid") Integer userId){
+
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/user/editUserForm") // need to fix this ambiguity :: maybe with a editing view
+    public ModelAndView showEditUser(@Param("userid") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("editUser");
         User user = userService.getUserById(userId);
-        modelAndView.addObject("user",user);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
-    @PostMapping("/editUser")
-    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId){
+
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/user/editUser")
+    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId) {
         ModelAndView modelAndView = new ModelAndView("home");
 
         System.out.println(user);
 
-        userService.updateUserService(user,userId);
+        userService.updateUserService(user, userId);
         List<Product> productList = productService.getAllAvailableProduct();
         modelAndView.addObject("productList", productList);
         return modelAndView;

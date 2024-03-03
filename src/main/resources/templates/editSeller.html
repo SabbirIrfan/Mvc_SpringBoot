@@ -8,7 +8,7 @@
 <!--<div th:insert="navbar"></div>-->
 <section>
 <div class="body-container">
-    <form class="form_container"  action="editSeller" method="post" >
+    <form class="form_container"  action="/seller/editSeller" method="post" >
         <div class="mb-3">
             <label  class="p-2"  for="name">name</label>
             <input type="text" class="form-control" id="name" name="name" th:value="${seller.getName()}">

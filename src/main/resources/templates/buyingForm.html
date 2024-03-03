@@ -12,7 +12,7 @@
         <h3  th:if="${availableProductList?.size() <= 0}" > There is no product</h3>
     <div style="padding-top: 10px ">
 
-    <form th:action="@{/orderProduct}"  th:method="post" class="form_container" >
+    <form th:action="@{/user/orderProduct}"  th:method="post" class="form_container" >
             <div style="font-family: sans-serif;
                         padding-top:10px; padding-bottom: 10px;">
                 <label class="p-2" for="userEmail">User Email</label>

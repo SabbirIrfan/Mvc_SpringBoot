@@ -7,6 +7,7 @@ import com.dsi.project.model.Seller;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -51,13 +52,14 @@ public class ProductController {
     }
 
 
-
-    @GetMapping(value = "/productForm")
+//@PreAuthorize("hasRole('SELLER')")
+    @GetMapping(value = "/seller/productForm")
     public ModelAndView productForm(Model model){
         return new ModelAndView("productForm");
 
     }
-    @PostMapping(value = "/addproduct")
+//    @PreAuthorize("hasRole('SELLER')")
+    @PostMapping(value = "/seller/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,
                                    @Param("sellerEmail") String sellerEmail) {
@@ -75,8 +77,8 @@ public class ProductController {
 
     }
 
-
-    @PostMapping("/setStatus")
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/setStatus")
     public String setStatus(@RequestParam("productIdl") int productId,
                             @RequestParam byte status ){
 
@@ -87,7 +89,4 @@ public class ProductController {
         return  "redirect:/showSellers";
 
     }
-
-
-
 }

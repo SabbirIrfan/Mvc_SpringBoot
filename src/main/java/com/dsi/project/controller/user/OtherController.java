@@ -5,6 +5,7 @@ import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,8 @@ public class OtherController {
         this.productService = productService;
     }
 
-    @GetMapping("/buyProduct")
+//    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user/buyProduct")
     public ModelAndView buyProduct() {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("hheello");
@@ -35,42 +37,43 @@ public class OtherController {
         return modelAndView;
     }
 
-    @PostMapping("/boughtProduct")
-    public ModelAndView boughtProduct(@Param("id") Integer userId){
+//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PostMapping("/user/boughtProduct")
+    public ModelAndView boughtProduct(@Param("id") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("boughtProduct");
         User user = userService.getUserById(userId);
-        List<Product> productList =  productService.getProductByUser(user);
+        List<Product> productList = productService.getProductByUser(user);
         System.out.println(userId);
 
-        modelAndView.addObject("products",productList);
-        modelAndView.addObject("user",user);
+        modelAndView.addObject("products", productList);
+        modelAndView.addObject("user", user);
 
 
         return modelAndView;
     }
 
-    @PostMapping(path = "/orderProduct" )
-    public ModelAndView orderProduct (@RequestParam("email") String email,
-                                      @RequestParam("product") String selectedProduct) {
+//    @PreAuthorize("hasRole('USER')")
+    @PostMapping(path = "/user/orderProduct")
+    public ModelAndView orderProduct(@RequestParam("email") String email,
+                                     @RequestParam("product") String selectedProduct) {
         ModelAndView modelAndView = new ModelAndView();
         List<Product> productList = productService.getAllAvailableProduct();
-        if(productList.isEmpty()) modelAndView.setViewName("productForm");
-        if(userService.isNewUserService(email)){
-            modelAndView.addObject("emailError","The email you entered is not registered. please register first!");
+        if (productList.isEmpty()) modelAndView.setViewName("productForm");
+        if (userService.isNewUserService(email)) {
+            modelAndView.addObject("emailError", "The email you entered is not registered. please register first!");
             modelAndView.setViewName("buyingForm");
             modelAndView.addObject("availableProductList", productList);
-            return  modelAndView;
+            return modelAndView;
         }
 
         User user = userService.getUserByEmail(email);
         int productId = Integer.parseInt(selectedProduct.split("\\s+")[0]);
         Product boughtProduct = productService.getProductById(productId);
-        boughtProduct.setStatus((byte)2);
+        boughtProduct.setStatus((byte) 2);
 
-        if(user == null) {
+        if (user == null) {
             System.out.println("Wrong Email");
-        }
-        else {
+        } else {
             boughtProduct.setUser(user);
             List<Product> productsList = user.getProducts();
             productsList.add(boughtProduct);
