@@ -9,12 +9,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("user")
 public class OtherController {
 
     UserService userService;
@@ -26,8 +28,8 @@ public class OtherController {
         this.productService = productService;
     }
 
-//    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/user/buyProduct")
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/buyProduct")
     public ModelAndView buyProduct() {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("hheello");
@@ -37,8 +39,8 @@ public class OtherController {
         return modelAndView;
     }
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @PostMapping("/user/boughtProduct")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PostMapping("/boughtProduct")
     public ModelAndView boughtProduct(@Param("id") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("boughtProduct");
         User user = userService.getUserById(userId);
@@ -52,8 +54,8 @@ public class OtherController {
         return modelAndView;
     }
 
-//    @PreAuthorize("hasRole('USER')")
-    @PostMapping(path = "/user/orderProduct")
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping(path = "/orderProduct")
     public ModelAndView orderProduct(@RequestParam("email") String email,
                                      @RequestParam("product") String selectedProduct) {
         ModelAndView modelAndView = new ModelAndView();

@@ -48,17 +48,17 @@ public class ProductController {
 
         System.out.println("this is home and the time is "+ LocalDateTime.now());
         // this has a bug in base.html
-        return "base";
+        return "home";
     }
 
 
-//@PreAuthorize("hasRole('SELLER')")
+@PreAuthorize("hasRole('SELLER')")
     @GetMapping(value = "/seller/productForm")
     public ModelAndView productForm(Model model){
         return new ModelAndView("productForm");
 
     }
-//    @PreAuthorize("hasRole('SELLER')")
+    @PreAuthorize("hasRole('SELLER')")
     @PostMapping(value = "/seller/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,
@@ -77,8 +77,8 @@ public class ProductController {
 
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/admin/setStatus")
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/setStatus")
     public String setStatus(@RequestParam("productIdl") int productId,
                             @RequestParam byte status ){
 

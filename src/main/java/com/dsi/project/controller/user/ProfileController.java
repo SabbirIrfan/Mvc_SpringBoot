@@ -11,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("user")
 public class ProfileController {
     UserService userService;
     ProductService productService;
@@ -26,19 +28,19 @@ public class ProfileController {
         this.productService = productService;
     }
 
-//    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/user/userRegForm")
-    public ModelAndView addUser(Model model) {
-        model.addAttribute("user", new User());
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/userRegForm")
+    public ModelAndView addUser(Model model){
+        model.addAttribute("user",new User());
         ModelAndView modelAndView = new ModelAndView("userRegForm");
 
         return modelAndView;
     }
 
 
-//    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/user/showUsers")
-    public ModelAndView showUsers() {
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/showUsers")
+    public ModelAndView showUsers(){
         ModelAndView modelAndView = new ModelAndView("showUsers");
 
         Iterable<User> users = userService.getAllUserService();
@@ -47,9 +49,9 @@ public class ProfileController {
         return modelAndView;
     }
 
-//    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/user/addUser")
-    public ModelAndView addUser(@ModelAttribute User user) {
+    @PreAuthorize("hasAnyRole('USER')")
+    @PostMapping("/addUser")
+    public ModelAndView addUser(@ModelAttribute User user){
         ModelAndView modelAndView = new ModelAndView("home");
 
         System.out.println(user);
@@ -59,24 +61,22 @@ public class ProfileController {
 
 
     }
-
-//    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/user/editUserForm") // need to fix this ambiguity :: maybe with a editing view
-    public ModelAndView showEditUser(@Param("userid") Integer userId) {
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PostMapping("/editUserForm") // need to fix this ambiguity :: maybe with a editing view
+    public ModelAndView showEditUser(@Param("userid") Integer userId){
         ModelAndView modelAndView = new ModelAndView("editUser");
         User user = userService.getUserById(userId);
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user",user);
         return modelAndView;
     }
-
-//    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/user/editUser")
-    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId) {
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PostMapping("/editUser")
+    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId){
         ModelAndView modelAndView = new ModelAndView("home");
 
         System.out.println(user);
 
-        userService.updateUserService(user, userId);
+        userService.updateUserService(user,userId);
         List<Product> productList = productService.getAllAvailableProduct();
         modelAndView.addObject("productList", productList);
         return modelAndView;

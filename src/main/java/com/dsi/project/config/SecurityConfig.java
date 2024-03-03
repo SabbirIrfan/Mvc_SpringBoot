@@ -3,7 +3,9 @@ package com.dsi.project.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -46,10 +49,10 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests((authorize) -> authorize
 
-                        .requestMatchers("/seller/**").hasRole("SELLER")
-                        .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/**").permitAll()
+//                        .requestMatchers("/seller/**").hasRole("SELLER")
+//                        .requestMatchers("/user/**").hasRole("USER")
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults());

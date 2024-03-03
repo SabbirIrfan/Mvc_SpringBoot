@@ -6,6 +6,7 @@ import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import jakarta.validation.Valid;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequestMapping("seller")
 public class SellerController {
 
 //    @Autowired
@@ -28,7 +30,8 @@ public class SellerController {
         this.productService = productService;
     }
 
-    @PostMapping(value = "/seller/addSeller")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PostMapping(value = "/addSeller")
     public String addSeller(@Valid  @ModelAttribute("seller") Seller seller, BindingResult result) {
 
         if(result.hasErrors()){ // this will not get  sql multiple key error
@@ -45,14 +48,15 @@ public class SellerController {
     }
 
 
-
-    @GetMapping(value = "/seller/serllerRegForm")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @GetMapping(value = "/serllerRegForm")
     public ModelAndView sellerForm(Model model){
         model.addAttribute("seller",new Seller());
         return new ModelAndView("sellerForm");
     }
 
-    @PostMapping("/seller/editSellerForm")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PostMapping("/editSellerForm")
     public ModelAndView showEditsellerForm(@Param("sellerId") int sellerId, Model model) {
         ModelAndView modelAndView = new ModelAndView("editSeller");
         model.addAttribute("seller",new Seller());
@@ -63,7 +67,8 @@ public class SellerController {
         return modelAndView;
     }
 
-    @PostMapping("/seller/editSeller")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PostMapping("/editSeller")
     public ModelAndView editSeller(@ModelAttribute Seller seller, @Param("sellerId") int sellerId){
         ModelAndView modelAndView = new ModelAndView("home");
 
@@ -75,8 +80,8 @@ public class SellerController {
         return  modelAndView;
 
     }
-
-    @GetMapping(value = "/seller/showSellers")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @GetMapping(value = "/showSellers")
     public ModelAndView showSeller(){
         ModelAndView modelAndView  =  new ModelAndView();
         modelAndView.setViewName("showSellers");
@@ -84,8 +89,8 @@ public class SellerController {
         modelAndView.addObject("sellers", sellerList);
         return  modelAndView;
     }
-
-    @PostMapping(value = "/seller/producedProduct")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PostMapping(value = "/producedProduct")
     public ModelAndView showMyProduct(@RequestParam("email") String email){
         ModelAndView modelAndView = new ModelAndView();
         Seller seller = sellerService.getSellerByEmail(email).getFirst();

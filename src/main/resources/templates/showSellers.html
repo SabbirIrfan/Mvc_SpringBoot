@@ -21,11 +21,11 @@
                 <div name="email" th:text="${seller?.getEmail()}"></div>
             </div>
             <!--            <div  style="flex-direction: column;flex:.5">-->
-            <form style="flex: .5" method="post" action="/seller/producedProduct">
+            <form style="flex: .5" method="post" th:action="@{/seller/producedProduct}">
                 <input type="hidden" id="emailForProduct" name="email" th:value="${seller?.getEmail()}">
                 <button type="submit" class="btn btn-primary">SellerProduct</button>
             </form>
-            <form style="flex: .5; " method="post" action="/seller/editSellerForm">
+            <form style="flex: .5; " method="post" th:action="@{/seller/editSellerForm}">
                 <input type="hidden" id="emailForSeller" name="sellerId" th:value="${seller?.getId()}">
                 <button type="submit" class="btn btn-primary">Edit Profile</button>
             </form>
