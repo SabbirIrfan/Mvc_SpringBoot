@@ -8,8 +8,9 @@
 </head>
 <body>
 <section class="main-section mt-5">
-
         <div class="body-container">
+            <h2 th:if="${principal}" th:text="${principal.getName()}"></h2>
+
             <h4>Hello! Welcome to home page of bugichugi product web"cite" !!</h4>
             <div class="card_container">
                 <div th:each="product : ${productList}" class="card" style="width: 18rem;">

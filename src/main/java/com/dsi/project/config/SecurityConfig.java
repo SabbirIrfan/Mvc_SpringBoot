@@ -2,8 +2,11 @@ package com.dsi.project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.SecurityBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
     @Bean
@@ -22,26 +26,45 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails admin = User
+//                .withUsername("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//
+////        UserDetails seller = User
+////                .withUsername("seller")
+////                .password(passwordEncoder().encode("seller"))
+////                .roles("SELLER")
+////                .build();
+////        UserDetails user = User
+////                .withUsername("user")
+////                .password(passwordEncoder().encode("user"))
+////                .roles("USER")
+////                .build();
+//
+//        return new InMemoryUserDetailsManager( admin);
+//    }
+
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User
-                .withUsername("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
+    public UserDetailServiceImpl getUserDetailServiceImpl(){
+        return new UserDetailServiceImpl();
+    }
 
-        UserDetails seller = User
-                .withUsername("seller")
-                .password(passwordEncoder().encode("seller"))
-                .roles("SELLER")
-                .build();
-        UserDetails user = User
-                .withUsername("user")
-                .password(passwordEncoder().encode("user"))
-                .roles("USER")
-                .build();
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return  new BCryptPasswordEncoder();
+    }
 
-        return new InMemoryUserDetailsManager(user, admin, seller);
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+
+        daoAuthenticationProvider.setUserDetailsService(getUserDetailServiceImpl());
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        return daoAuthenticationProvider;
     }
 
     @Bean
@@ -59,4 +82,6 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
+
+
 }

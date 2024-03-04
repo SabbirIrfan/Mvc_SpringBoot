@@ -14,11 +14,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class ProfileController {
+
+    @ModelAttribute
+    public void getPrincipal(Principal principal, Model model){
+        System.out.println("hi from ProfileController");
+        model.addAttribute("principal", principal);
+    }
+
     UserService userService;
     ProductService productService;
 
@@ -31,6 +39,8 @@ public class ProfileController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/userRegForm")
     public ModelAndView addUser(Model model){
+        Principal principal = (Principal) model.getAttribute("principal");
+
         model.addAttribute("user",new User());
         ModelAndView modelAndView = new ModelAndView("userRegForm");
 
@@ -38,7 +48,7 @@ public class ProfileController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/showUsers")
     public ModelAndView showUsers(){
         ModelAndView modelAndView = new ModelAndView("showUsers");
@@ -55,6 +65,7 @@ public class ProfileController {
         ModelAndView modelAndView = new ModelAndView("home");
 
         System.out.println(user);
+        user.setRole("USER");
 
         userService.saveUserService(user);
         return modelAndView;

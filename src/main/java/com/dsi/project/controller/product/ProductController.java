@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 
@@ -21,6 +23,13 @@ import java.time.LocalDateTime;
 
 @Controller
 public class ProductController {
+
+
+    @ModelAttribute
+    public void getPrincipal(Principal principal, Model model){
+        System.out.println("hi from product");
+        model.addAttribute("principal", principal);
+    }
 //    @Autowired
     final private ProductService productService;
 

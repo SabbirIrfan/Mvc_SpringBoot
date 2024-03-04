@@ -14,11 +14,18 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("seller")
+@RequestMapping("/seller")
 public class SellerController {
+
+    @ModelAttribute
+    public void getPrincipal(Principal principal, Model model){
+        System.out.println("hi from seller");
+        model.addAttribute("principal", principal);
+    }
 
 //    @Autowired
     SellerService sellerService;
