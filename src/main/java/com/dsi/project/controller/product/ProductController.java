@@ -61,13 +61,13 @@ public class ProductController {
     }
 
 
-@PreAuthorize("hasRole('SELLER')")
+    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @GetMapping(value = "/seller/productForm")
     public ModelAndView productForm(Model model){
         return new ModelAndView("productForm");
 
     }
-    @PreAuthorize("hasRole('SELLER')")
+    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @PostMapping(value = "/seller/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,

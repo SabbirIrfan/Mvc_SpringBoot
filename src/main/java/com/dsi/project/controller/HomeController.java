@@ -18,14 +18,21 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+
     @Autowired
     private ProductService productService;
 
+    @ModelAttribute
+    public void getPrincipal(Principal principal, Model model){
+        System.out.println("hi from ProfileController");
+        model.addAttribute("principal", principal);
+    }
 
     @GetMapping("/home")
-    public ModelAndView home(){
+    public ModelAndView home(Model model){
         ModelAndView modelAndView = new ModelAndView();
-
+        Principal principal = (Principal) model.getAttribute("principal");
+        model.addAttribute("principal", principal);
         List<Product> productList = productService.getAllAvailableProduct();
 
 

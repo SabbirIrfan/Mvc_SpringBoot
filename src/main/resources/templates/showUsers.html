@@ -10,10 +10,6 @@
 <!--<div th:include="navbar"></div>-->
 <section>
     <div class="body-container">
-        <!--        <div class="users_container" >-->
-
-        <h2 th:text="${principal.getName()}"></h2>
-
         <div th:action="@{/boughtProduct}" th:each="user : ${users}" style="justify-content: space-evenly; "
              class="users-container">
             <div style="flex: 1">

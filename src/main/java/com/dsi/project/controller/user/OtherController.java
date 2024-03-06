@@ -32,7 +32,7 @@ public class OtherController {
         this.productService = productService;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/buyProduct")
     public ModelAndView buyProduct() {
         ModelAndView modelAndView = new ModelAndView();
@@ -58,7 +58,8 @@ public class OtherController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('USER')")
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping(path = "/orderProduct")
     public ModelAndView orderProduct(@RequestParam("email") String email,
                                      @RequestParam("product") String selectedProduct) {

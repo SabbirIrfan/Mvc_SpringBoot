@@ -19,8 +19,6 @@ public class Seller {
     @NotBlank
     @Email( message = "wrong Email")
     private String email;
-    private String password;
-    private String role;
     @NotBlank
     private String name;
     @OneToMany(mappedBy ="seller" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -28,34 +26,16 @@ public class Seller {
     public Seller() {
     }
 
-    public Seller(Integer id, String email, String name,String role) {
+    public Seller(Integer id, String email, String name) {
         this.id = id;
         this.email = email;
         this.name = name;
-        this.role = role;
     }
 
-    public Seller(String name, String email ,String role) {
+    public Seller(String name, String email) {
         this.name = name;
         this.email = email;
-        this.role = role;
 
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getEmail() {

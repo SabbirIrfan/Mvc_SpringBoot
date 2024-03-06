@@ -36,7 +36,7 @@ public class ProfileController {
         this.productService = productService;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/userRegForm")
     public ModelAndView addUser(Model model){
         Principal principal = (Principal) model.getAttribute("principal");
@@ -59,13 +59,12 @@ public class ProfileController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasAnyRole('USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/addUser")
     public ModelAndView addUser(@ModelAttribute User user){
         ModelAndView modelAndView = new ModelAndView("home");
 
         System.out.println(user);
-        user.setRole("USER");
 
         userService.saveUserService(user);
         return modelAndView;

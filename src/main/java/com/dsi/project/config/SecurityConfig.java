@@ -26,27 +26,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails admin = User
-//                .withUsername("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//
-////        UserDetails seller = User
-////                .withUsername("seller")
-////                .password(passwordEncoder().encode("seller"))
-////                .roles("SELLER")
-////                .build();
-////        UserDetails user = User
-////                .withUsername("user")
-////                .password(passwordEncoder().encode("user"))
-////                .roles("USER")
-////                .build();
-//
-//        return new InMemoryUserDetailsManager( admin);
-//    }
 
     @Bean
     public UserDetailServiceImpl getUserDetailServiceImpl(){
