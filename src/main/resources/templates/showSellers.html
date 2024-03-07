@@ -15,7 +15,7 @@
         <!--    <div  class="sellers-container">-->
         <div th:each="seller : ${sellers}" class="sellers-container" th:object="${seller}">
             <div class="p-2 border" style="flex:1">
-                <div th:text="${seller.getName()}   "></div>
+                <div th:text="${seller.getPassword()}   "></div>
             </div>
             <div class="p-2 border" style="flex:2">
                 <div name="email" th:text="${seller?.getEmail()}"></div>

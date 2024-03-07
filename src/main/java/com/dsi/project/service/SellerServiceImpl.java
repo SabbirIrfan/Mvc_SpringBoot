@@ -36,7 +36,6 @@ public class SellerServiceImpl implements SellerService {
         System.out.println(sellerId);
         if(sellerOptional.isPresent()){
            Seller updatedSeller =  sellerOptional.get();
-           updatedSeller.setName(seller.getName());
            updatedSeller.setEmail(seller.getEmail());
            sellerRepository.save(updatedSeller);
 

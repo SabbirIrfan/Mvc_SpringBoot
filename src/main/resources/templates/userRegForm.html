@@ -11,16 +11,18 @@
     <div class="body-container">
 
         <div style="padding-top: 40px; ">
-            <form class="form_container" th:action="@{/user/addUser}"  method="post" th:object="${user}">
-                <div class="mb-3">
-                    <label for="name" class="p-2 form-label">name</label>
-                    <input type="text" class="form-control" id="name" name="name">
-                </div>
+            <form class="form_container" th:action="@{/addUser}"  method="post" th:object="${user}">
+
                 <div class="mb-3">
                     <label for="email" class="p-2 form-label">Email address</label>
                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
 
                     <p th:each="error: ${#fields.errors('email')}" th:text="${error}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="p-2 form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" aria-describedby="emailHelp" >
+
                 </div>
                 <div class="p-2">
                     <button type="submit" class="p-2 btn btn-primary">Submit</button>

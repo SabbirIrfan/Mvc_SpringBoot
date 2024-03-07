@@ -179,20 +179,24 @@
     display: flex;
     background: aqua;
 }
-.navbar-my{
-    background: #6d9ea5;
+.navbar-custom{
     display: flex;
-    justify-content: left;
-    border-radius: 10px;
 }
 .navbar-container{
-    padding: 10px;
-    margin-bottom: 10px;
+    background: #6d9ea5;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
 
+}
+.navbar-collapse-mine{
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-end;
 }
 .navbar-search{
     display: flex;
-    justify-content: space-between;
     background-color: var(--primary-background-color);
 }
 

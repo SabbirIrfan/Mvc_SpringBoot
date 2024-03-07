@@ -37,30 +37,30 @@ public class SellerController {
         this.productService = productService;
     }
 
-    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @PostMapping(value = "/addSeller")
-    public String addSeller(@Valid  @ModelAttribute("seller") Seller seller, BindingResult result) {
-
-        if(result.hasErrors()){ // this will not get  sql multiple key error
-            return "sellerForm";
-        }
-        if(sellerService.isNewSellerService(seller.getEmail())){
-            result.addError(new FieldError("seller", "email", "this email already has an account!"));
-            return "sellerForm";
-        }
-        sellerService.saveSellerService(seller);
-
-        return "sellerForm";
-
-    }
-
-
-    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @GetMapping(value = "/serllerRegForm")
-    public ModelAndView sellerForm(Model model){
-        model.addAttribute("seller",new Seller());
-        return new ModelAndView("sellerForm");
-    }
+//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+//    @PostMapping(value = "/addSeller")
+//    public String addSeller(@Valid  @ModelAttribute("seller") Seller seller, BindingResult result) {
+//
+//        if(result.hasErrors()){ // this will not get  sql multiple key error
+//            return "sellerForm";
+//        }
+//        if(sellerService.isNewSellerService(seller.getEmail())){
+//            result.addError(new FieldError("seller", "email", "this email already has an account!"));
+//            return "sellerForm";
+//        }
+//        sellerService.saveSellerService(seller);
+//
+//        return "sellerForm";
+//
+//    }
+//
+//
+//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+//    @GetMapping(value = "/serllerRegForm")
+//    public ModelAndView sellerForm(Model model){
+//        model.addAttribute("seller",new Seller());
+//        return new ModelAndView("sellerForm");
+//    }
 
     @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @PostMapping("/editSellerForm")

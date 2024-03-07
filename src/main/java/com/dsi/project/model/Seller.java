@@ -17,23 +17,24 @@ public class Seller {
 
     @NotNull
     @NotBlank
+    @Column(unique = true)
     @Email( message = "wrong Email")
     private String email;
     @NotBlank
-    private String name;
+    private String password;
     @OneToMany(mappedBy ="seller" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Product> products;
     public Seller() {
     }
 
-    public Seller(Integer id, String email, String name) {
+    public Seller(Integer id, String email, String password) {
         this.id = id;
         this.email = email;
-        this.name = name;
+        this.password = password;
     }
 
-    public Seller(String name, String email) {
-        this.name = name;
+    public Seller(String password, String email) {
+        this.password = password;
         this.email = email;
 
     }
@@ -66,12 +67,12 @@ public class Seller {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -79,7 +80,7 @@ public class Seller {
         return "Seller{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
+
                 ", products=" + products +
                 '}';
     }

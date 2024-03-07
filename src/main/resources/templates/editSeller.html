@@ -11,7 +11,7 @@
     <form class="form_container"  th:action="@{/seller/editSeller}" method="post" >
         <div class="mb-3">
             <label  class="p-2"  for="name">name</label>
-            <input type="text" class="form-control" id="name" name="name" th:value="${seller.getName()}">
+            <input type="text" class="form-control" id="name" name="name" th:value="${seller.getPassword()}">
         </div>
         <div class="mb-3">
             <label for="email" class="p-2 ">Email address</label>

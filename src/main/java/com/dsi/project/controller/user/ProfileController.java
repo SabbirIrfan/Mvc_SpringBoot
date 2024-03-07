@@ -46,19 +46,6 @@ public class ProfileController {
 
         return modelAndView;
     }
-
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/showUsers")
-    public ModelAndView showUsers(){
-        ModelAndView modelAndView = new ModelAndView("showUsers");
-
-        Iterable<User> users = userService.getAllUserService();
-
-        modelAndView.addObject("users", users);
-        return modelAndView;
-    }
-
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/addUser")
     public ModelAndView addUser(@ModelAttribute User user){
@@ -71,6 +58,19 @@ public class ProfileController {
 
 
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @GetMapping("/showUsers")
+    public ModelAndView showUsers(){
+        ModelAndView modelAndView = new ModelAndView("showUsers");
+
+        Iterable<User> users = userService.getAllUserService();
+
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
+
+
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/editUserForm") // need to fix this ambiguity :: maybe with a editing view
     public ModelAndView showEditUser(@Param("userid") Integer userId){

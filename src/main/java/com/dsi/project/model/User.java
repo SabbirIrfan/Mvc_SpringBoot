@@ -15,25 +15,20 @@ public class User {
 
     @NotNull
     @NotBlank
+    @Column(unique = true)
     @Email( message = "wrong Email")
     private String email;
 
-    private String password;
 
     @NotBlank
-    private String name;
+    private String password;
     @OneToMany(mappedBy ="user" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Product> products;
     public User() {
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
     public Integer getId() {
         return id;
@@ -51,12 +46,12 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Product> getProducts() {
