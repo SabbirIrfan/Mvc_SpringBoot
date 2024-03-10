@@ -19,16 +19,27 @@ public class User {
     @Email( message = "wrong Email")
     private String email;
 
+    private String name;
 
-    @NotBlank
-    private String password;
+
     @OneToMany(mappedBy ="user" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Product> products;
     public User() {
     }
 
+    public User(Integer id, String email, String name) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;
@@ -46,13 +57,7 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public List<Product> getProducts() {
         return products;
@@ -60,5 +65,15 @@ public class User {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", products=" + products +
+                '}';
     }
 }

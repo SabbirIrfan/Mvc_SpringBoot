@@ -13,7 +13,7 @@
         <div th:action="@{/boughtProduct}" th:each="user : ${users}" style="justify-content: space-evenly; "
              class="users-container">
             <div style="flex: 1">
-                <div class="p-2 border" th:text="${user.getName()}"></div>
+                <div class="p-2 border" th:text="${user?.getName()}"></div>
             </div>
             <div style="flex: 2">
                 <div class="p-2 border" th:text="${user.getEmail()}"></div>

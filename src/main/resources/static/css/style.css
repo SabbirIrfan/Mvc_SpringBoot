@@ -2,6 +2,16 @@
 
 
 }
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
 :root{
     --primary-background-color: #f9f9f9;
     --primary-form-background-color: #ede8e1
@@ -18,6 +28,13 @@
     background-color: var(--primary-background-color);
 
 }
+.base-section{
+    display: flex;
+    /*flex-direction: column;*/
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
 .sidebar-container{
     display: flex;
     flex-direction: column;
@@ -32,12 +49,6 @@
 
 }
 
-@media only screen and (max-width: 768px) {
-    .sidebar-container{
-        position: relative;
-    }
-}
-
 
 .body-container{
     margin-left: 220px;
@@ -47,17 +58,38 @@
     justify-content: center;
     gap:10px;
     /*padding-top: 2.5rem;*/
+    /*width: 100%; !* Expands to full width *!*/
 
     background-color: var(--primary-background-color);
 }
-.form_container{
+
+
+.profile_container{
     background-color: var(--primary-form-background-color);
-    height: inherit;
-    width: inherit;
     border-radius: 10px 10px 20px 20px;
     gap: 10px;
+    padding-left: 2rem;
 
 
+}
+
+
+
+.profile{
+    width: inherit; /* Full width */
+    margin-left: 1rem;
+}
+@media only screen and (max-width: 768px) {
+    .sidebar-container{
+        position: relative;
+    }
+    .body-container{
+        margin-left: 30px;
+    }
+    .profile_container{
+        margin-bottom: 0;
+        margin-left: 2rem;
+    }
 }
 
 .card_container{
@@ -181,6 +213,7 @@
 }
 .navbar-custom{
     display: flex;
+
 }
 .navbar-container{
     background: #6d9ea5;
@@ -198,6 +231,9 @@
 .navbar-search{
     display: flex;
     background-color: var(--primary-background-color);
+}
+.nav-item{
+    justify-content: flex-end;
 }
 
 @media only screen and (max-width: 768px){

@@ -2,17 +2,17 @@
 
 
 }
-:root{
-    --primary-background-color: #f9f9f9
-}
-
 .body-container{
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    flex-basis: 100%;
+    align-items: center;
+    padding-left: 10rem;
     gap:10rem;
     background-color: var(--primary-background-color);
+}
+
+:root{
+    --primary-background-color: #f9f9f9
 }
 .form_container{
     background-color: antiquewhite;

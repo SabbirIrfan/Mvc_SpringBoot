@@ -13,15 +13,15 @@
         <form class="form_container" th:action="@{/user/editUser}" method="post">
             <div class="mb-3">
                 <label class="p-2" for="name">name</label>
-                <input type="text" class="form-control" id="name" name="name" th:value="${user.getName()}">
+                <input type="text" class="form-control" id="name" name="name" th:value="${user?.getName()}">
             </div>
             <div class="mb-3">
                 <label for="email" class="p-2 ">Email address</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
-                       th:value="${user.getEmail()}">
+                       th:value="${user?.getEmail()}">
                 <!--            <p th:each="error: ${#fields.errors('email')}" th:text="${error}"> </p>-->
             </div>
-            <input hidden="hidden" name="userId" th:value="${user.getId()}">
+            <input hidden="hidden" name="userId" th:value="${user?.getId()}">
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

@@ -1,5 +1,6 @@
 package com.dsi.project.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
@@ -11,6 +12,7 @@ public class AllUser {
     @NotNull
     @NotBlank
     @Email( message = "wrong Email")
+    @Column(unique = true)
     private String email;
 
     private String role;
@@ -51,7 +53,7 @@ public class AllUser {
 
     @Override
     public String toString() {
-        return "AllUser{" +
+        return "AllUserService{" +
                 "email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 ", password='" + password + '\'' +

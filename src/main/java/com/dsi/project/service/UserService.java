@@ -38,6 +38,7 @@ public class UserService {
         if(updatingUserOptional.isPresent()){
             User updatedUser =  updatingUserOptional.get();
             updatedUser.setEmail(user.getEmail());
+            updatedUser.setName(user.getName());
             userRepository.save(updatedUser);
 
             return;

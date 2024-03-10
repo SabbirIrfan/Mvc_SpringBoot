@@ -13,12 +13,15 @@
         <a class="navbar-brand mt-2" href="">Product</a>
         <div class="navbar-custom collapse navbar-collapse " id="navbarSupportedContent">
 
-            <ul style="justify-content: flex-end"  th:if="${principal == null}" class="navbar-nav mr-auto">
+            <ul style="justify-content: flex-end"  th:if="${principal == null}" class="navbar-custom navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/serllerRegForm" >Register Seller</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/userRegForm">Register User</a>
+                </li>
+                <li  class="nav-item">
+                    <a class="nav-link" href="/signin">Log In</a>
                 </li>
             </ul>
             <ul style="justify-content: flex-end"  th:if="${#strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_USER')}" class="navbar-nav mr-auto">
@@ -31,9 +34,17 @@
                 <li class="nav-item">
                     <a class="nav-link " href="/user/buyProduct">Buy</a>
                 </li>
+
+                <li class="nav-item active">
+<!--                    <p th:text="${principal?.getName()}"></p>-->
+<!--                    <input hidden="hidden" name="email" th:value="${principal?.getName()}">-->
+                    <a class="nav-link" name="email" th:value="${principal?.getName()}" href="/user/profile">Profile</a>
+                </li>
+
                 <li class="nav-item active">
                     <a class="nav-link " href="/logout">Logout</a>
                 </li>
+
 
             </ul>
             <ul style="justify-content: flex-end"   th:if="${#strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_SELLER')}"  class="navbar-nav mr-auto">
@@ -120,7 +131,9 @@
 
     </div>
 <!--    <h1 th:if="${principal.getAuthorities()}" th:value="${principal.getAuthorities().iterator().next()  }">  hello </h1>-->
-    <div  th:replace="${content}" ></div>
+    <div class="base-section">
+        <div  th:replace="${content}"></div>
+    </div>
 
 </div>
 

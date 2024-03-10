@@ -1,7 +1,9 @@
 package com.dsi.project.controller.user;
 
+import com.dsi.project.model.AllUser;
 import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
+import com.dsi.project.service.AllUserService;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
 import org.springframework.data.repository.query.Param;
@@ -29,11 +31,13 @@ public class ProfileController {
 
     UserService userService;
     ProductService productService;
+    AllUserService allUserService;
 
-    public ProfileController(UserService userService, ProductService productService) {
+    public ProfileController(UserService userService, ProductService productService , AllUserService allUserService ) {
 
         this.userService = userService;
         this.productService = productService;
+        this.allUserService = allUserService;
     }
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -48,15 +52,15 @@ public class ProfileController {
     }
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/addUser")
-    public ModelAndView addUser(@ModelAttribute User user){
+    public ModelAndView addUser(@ModelAttribute AllUser allUser){
         ModelAndView modelAndView = new ModelAndView("home");
-
+        User user = new User();
+        user.setEmail(allUser.getEmail());
         System.out.println(user);
 
         userService.saveUserService(user);
+        allUserService.saveUserService(allUser);
         return modelAndView;
-
-
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
@@ -71,20 +75,33 @@ public class ProfileController {
     }
 
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @GetMapping("/profile")
+    public ModelAndView showUserProfile(Model model) {
+        Principal principal = (Principal) model.getAttribute("principal");
+        ModelAndView modelAndView = new ModelAndView("userProfile");
+        System.out.println(principal.getName());
+        User user = userService.getUserByEmail(principal.getName());
+        System.out.println(user.toString());
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/editUserForm") // need to fix this ambiguity :: maybe with a editing view
     public ModelAndView showEditUser(@Param("userid") Integer userId){
         ModelAndView modelAndView = new ModelAndView("editUser");
+        System.out.println("user id" + userId);
         User user = userService.getUserById(userId);
         modelAndView.addObject("user",user);
         return modelAndView;
     }
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/editUser")
-    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId){
+    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId, @Param("name") String name){
         ModelAndView modelAndView = new ModelAndView("home");
 
-        System.out.println(user);
+        System.out.println(userId+ " "+ name);
+        user.setName(name);
 
         userService.updateUserService(user,userId);
         List<Product> productList = productService.getAllAvailableProduct();
