@@ -22,12 +22,12 @@ import java.util.List;
 public class SellerController {
 
     @ModelAttribute
-    public void getPrincipal(Principal principal, Model model){
+    public void getPrincipal(Principal principal, Model model) {
         System.out.println("hi from seller");
         model.addAttribute("principal", principal);
     }
 
-//    @Autowired
+    //    @Autowired
     SellerService sellerService;
 
     ProductService productService;
@@ -37,72 +37,69 @@ public class SellerController {
         this.productService = productService;
     }
 
-//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-//    @PostMapping(value = "/addSeller")
-//    public String addSeller(@Valid  @ModelAttribute("seller") Seller seller, BindingResult result) {
-//
-//        if(result.hasErrors()){ // this will not get  sql multiple key error
-//            return "sellerForm";
-//        }
-//        if(sellerService.isNewSellerService(seller.getEmail())){
-//            result.addError(new FieldError("seller", "email", "this email already has an account!"));
-//            return "sellerForm";
-//        }
-//        sellerService.saveSellerService(seller);
-//
-//        return "sellerForm";
-//
-//    }
-//
-//
-//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-//    @GetMapping(value = "/serllerRegForm")
-//    public ModelAndView sellerForm(Model model){
-//        model.addAttribute("seller",new Seller());
-//        return new ModelAndView("sellerForm");
-//    }
 
     @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @PostMapping("/editSellerForm")
     public ModelAndView showEditsellerForm(@Param("sellerId") int sellerId, Model model) {
         ModelAndView modelAndView = new ModelAndView("editSeller");
-        model.addAttribute("seller",new Seller());
+        model.addAttribute("seller", new Seller());
         Seller seller = sellerService.getSellerById(sellerId);
+        modelAndView.addObject("seller", seller);
+
+
+        return modelAndView;
+    }
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PostMapping("/editSeller")
+    public ModelAndView editSeller(@ModelAttribute Seller seller, @Param("sellerId") int sellerId) {
+        ModelAndView modelAndView = new ModelAndView("home");
+        System.out.println(seller.toString());
+
+        sellerService.updateSellerService(seller, sellerId);
+
+        List<Product> productList = productService.getAllAvailableProduct();
+        modelAndView.addObject("productList", productList);
+
+        return modelAndView;
+
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
+    @GetMapping("/profile")
+    public ModelAndView showProfile(Model model) {
+        ModelAndView modelAndView = new ModelAndView("sellerProfile");
+
+        Principal principal = (Principal) model.getAttribute("principal");
+
+        assert principal != null;
+        String sellerMail = principal.getName();
+
+        Seller seller =  sellerService.getSellerByEmail(sellerMail);
         modelAndView.addObject("seller",seller);
 
 
         return modelAndView;
     }
 
-    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @PostMapping("/editSeller")
-    public ModelAndView editSeller(@ModelAttribute Seller seller, @Param("sellerId") int sellerId){
-        ModelAndView modelAndView = new ModelAndView("home");
 
-        sellerService.updateSellerService(seller,sellerId);
 
-        List<Product> productList = productService.getAllAvailableProduct();
-        modelAndView.addObject("productList",productList);
-
-        return  modelAndView;
-
-    }
     @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @GetMapping(value = "/showSellers")
-    public ModelAndView showSeller(){
-        ModelAndView modelAndView  =  new ModelAndView();
+    public ModelAndView showSeller() {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("showSellers");
         List<Seller> sellerList = sellerService.getAllSellerService();
         modelAndView.addObject("sellers", sellerList);
-        return  modelAndView;
+        return modelAndView;
     }
+
     @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @PostMapping(value = "/producedProduct")
-    public ModelAndView showMyProduct(@RequestParam("email") String email){
+    public ModelAndView showMyProduct(@RequestParam("email") String email) {
         ModelAndView modelAndView = new ModelAndView();
-        Seller seller = sellerService.getSellerByEmail(email).getFirst();
+        Seller seller = sellerService.getSellerByEmail(email);
         modelAndView.addObject("seller", seller);
-        List<Product> productList  = seller.getProducts();
+        List<Product> productList = seller.getProducts();
         modelAndView.addObject("products", productList);
         modelAndView.setViewName("producedProduct");
         return modelAndView;

@@ -12,6 +12,6 @@ public interface SellerService {
     public boolean isNewSellerService(String email);
     public void saveSellerService(Seller seller);
     public void updateSellerService(Seller seller , Integer sellerId);
-    public List<Seller> getSellerByEmail(String email);
+    public Seller getSellerByEmail(String email);
 
 }

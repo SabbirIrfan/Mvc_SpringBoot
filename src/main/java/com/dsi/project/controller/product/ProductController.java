@@ -73,11 +73,11 @@ public class ProductController {
                                    @Param("file") MultipartFile file,
                                    @Param("sellerEmail") String sellerEmail) {
         ModelAndView modelAndView = new ModelAndView();
-        Seller seller = sellerService.getSellerByEmail(sellerEmail).getFirst();
+        Seller seller = sellerService.getSellerByEmail(sellerEmail);
         product.setSeller(seller);
         productService.saveProduct(product);
         try {
-            boolean uploadResult = fileUpload.uploadFile(file,product.getId());
+            boolean uploadResult = fileUpload.uploadFile(file,product.getId(),"product");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

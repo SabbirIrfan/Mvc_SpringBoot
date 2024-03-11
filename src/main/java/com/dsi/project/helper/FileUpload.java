@@ -26,7 +26,7 @@ public class FileUpload {
 
     }
 
-    public  boolean uploadFile(MultipartFile file , Integer id) throws Exception{
+    public  boolean uploadFile(MultipartFile file , Integer id, String user) throws Exception{
         boolean uploadFlag = false;
 
 
@@ -47,13 +47,12 @@ public class FileUpload {
             if(file.isEmpty()){
                 System.out.println("image/file not found");
                 return false;
-            } else if (!file.getContentType().equals("image/jpeg") &&
-                     !file.getContentType().equals("image/png" )) {
-                System.out.println("we accept png and jpeg file only." + file.getContentType());
+            } else if (!file.getContentType().equals("image/jpeg")) {
+                System.out.println("we accept png only for now" );
                 return false;
             }
             System.out.println(uploadDir+id+".png" );
-            Files.copy(file.getInputStream(), Paths.get(uploadDir+ File.separator + id+ ".png"), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), Paths.get(uploadDir+'/'+user+ File.separator + id+ ".png"), StandardCopyOption.REPLACE_EXISTING);
             uploadFlag = true;
 
 

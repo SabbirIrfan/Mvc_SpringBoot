@@ -18,4 +18,10 @@ public class AllUserServiceImpl implements AllUserService{
     public void saveUserService(AllUser allUser) {
         allUserRepository.save(allUser);
     }
+
+    @Override
+    public boolean isNewUserService(String email) {
+        return allUserRepository.findByEmail(email) == null;
+    }
+
 }

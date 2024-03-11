@@ -1,5 +1,6 @@
 package com.dsi.project.controller.user;
 
+import com.dsi.project.helper.FileUpload;
 import com.dsi.project.model.AllUser;
 import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -23,22 +25,27 @@ import java.util.List;
 @RequestMapping("/user")
 public class ProfileController {
 
+
+    FileUpload fileUpload;
+    UserService userService;
+    ProductService productService;
+    AllUserService allUserService;
+
+
+    public ProfileController(FileUpload fileUpload, UserService userService, ProductService productService, AllUserService allUserService) {
+        this.fileUpload = fileUpload;
+        this.userService = userService;
+        this.productService = productService;
+        this.allUserService = allUserService;
+    }
+
     @ModelAttribute
     public void getPrincipal(Principal principal, Model model){
         System.out.println("hi from ProfileController");
         model.addAttribute("principal", principal);
     }
 
-    UserService userService;
-    ProductService productService;
-    AllUserService allUserService;
 
-    public ProfileController(UserService userService, ProductService productService , AllUserService allUserService ) {
-
-        this.userService = userService;
-        this.productService = productService;
-        this.allUserService = allUserService;
-    }
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/userRegForm")
@@ -97,18 +104,30 @@ public class ProfileController {
     }
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/editUser")
-    public ModelAndView editUser(@ModelAttribute User user, @Param("userId") int userId, @Param("name") String name){
+    public ModelAndView editUser(@ModelAttribute User user,
+                                 @Param("userId") int userId,
+                                 @Param("name") String name,
+                                 @Param("file") MultipartFile file
+                                 ){
         ModelAndView modelAndView = new ModelAndView("home");
 
-        System.out.println(userId+ " "+ name);
         user.setName(name);
+
 
         userService.updateUserService(user,userId);
         List<Product> productList = productService.getAllAvailableProduct();
         modelAndView.addObject("productList", productList);
+
+        try {
+            boolean uploadResult = fileUpload.uploadFile(file,userId,"user");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         return modelAndView;
 
 
     }
 
 }
+

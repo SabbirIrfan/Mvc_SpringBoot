@@ -37,6 +37,7 @@ public class SellerServiceImpl implements SellerService {
         if(sellerOptional.isPresent()){
            Seller updatedSeller =  sellerOptional.get();
            updatedSeller.setEmail(seller.getEmail());
+           updatedSeller.setName(seller.getName());
            sellerRepository.save(updatedSeller);
 
            return;
@@ -48,9 +49,9 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public List<Seller> getSellerByEmail(String email) {
+    public Seller getSellerByEmail(String email) {
 
-        return sellerRepository.findSellerByEmail(email);
+        return sellerRepository.findSellerByEmail(email).getFirst();
     }
     @Override
     public Seller getSellerById(Integer sellerId) {

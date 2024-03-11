@@ -21,7 +21,7 @@
 .main-section{
     display: flex;
     flex-direction: row;
-    width: inherit;
+    width: 100%;
     gap: 10px;
     flex-basis: 100%;
     /*grid-template-columns: 1fr 5fr;*/
@@ -51,7 +51,7 @@
 
 
 .body-container{
-    margin-left: 220px;
+    margin-left: 240px;
     display: flex;
     width: 70vw;
     flex-direction: column;
@@ -79,7 +79,17 @@
     width: inherit; /* Full width */
     margin-left: 1rem;
 }
-@media only screen and (max-width: 768px) {
+
+
+.card_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+
+
+
+}@media only screen and (max-width: 768px) {
     .sidebar-container{
         position: relative;
     }
@@ -90,12 +100,17 @@
         margin-bottom: 0;
         margin-left: 2rem;
     }
+    .card_container{
+        flex-direction: column;
+    }
 }
+.card_image{
+    height: inherit;
+    width: inherit;
+    margin-left: 3rem;
 
-.card_container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+
+
 
 }
 .my-card-img-top{
@@ -110,8 +125,9 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: auto;
+    height: inherit;
     margin: 5px;
+    width: 30%;
 
 
 }
@@ -119,7 +135,7 @@
     border-radius: 10px;
     justify-content: left;
     align-items:flex-start;
-    width: 8rem;
+    width: inherit;
     height: 4rem
 }
 

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.sql.SQLException;
 
 @Controller
 
@@ -33,6 +32,14 @@ public class RegisterController {
     public AllUserService allUserService;
 
 
+    private String setPassword(AllUser allUser){
+        String password = allUser.getPassword();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        password = bCryptPasswordEncoder.encode(password);
+
+        return password;
+
+    }
     public RegisterController(SellerService sellerService, ProductService productService, UserService userService, AllUserService allUserService) {
         this.sellerService = sellerService;
         this.productService = productService;
@@ -47,15 +54,25 @@ public class RegisterController {
     }
 //    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @PostMapping(value = "/addSeller")
-    public String addSeller(@Valid @ModelAttribute("seller") Seller seller, BindingResult result) {
+    public String addSeller(@Valid @ModelAttribute  AllUser allUser, BindingResult result ,Model model) {
 
         if(result.hasErrors()){ // this will not get  sql multiple key error
             return "sellerForm";
         }
-        if(sellerService.isNewSellerService(seller.getEmail())){
+        if(!allUserService.isNewUserService(allUser.getEmail())){
             result.addError(new FieldError("seller", "email", "this email already has an account!"));
+            model.addAttribute("error", "this email already has an account!");
+
             return "sellerForm";
+
         }
+        Seller seller = new Seller();
+
+        String password  = setPassword(allUser);
+        allUser.setPassword(password);
+
+        seller.setEmail(allUser.getEmail());
+        allUserService.saveUserService(allUser);
         sellerService.saveSellerService(seller);
 
         return "sellerForm";
@@ -86,10 +103,9 @@ public class RegisterController {
     public ModelAndView addUser(@Valid @ModelAttribute AllUser allUser, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("home");
 
-        String password = allUser.getPassword();
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        password = bCryptPasswordEncoder.encode(password);
+        String password  = setPassword(allUser);
         allUser.setPassword(password);
+
         System.out.println(allUser);
         User user = new User();
         user.setEmail(allUser.getEmail());

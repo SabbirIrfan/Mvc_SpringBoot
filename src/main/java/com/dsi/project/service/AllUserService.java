@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 public interface AllUserService {
 
     public void saveUserService(AllUser allUser);
+    public boolean isNewUserService(String email);
+
 }
