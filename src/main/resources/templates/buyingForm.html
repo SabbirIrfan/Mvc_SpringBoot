@@ -16,7 +16,7 @@
             <div style="font-family: sans-serif;
                         padding-top:10px; padding-bottom: 10px;">
                 <label class="p-2" for="userEmail">User Email</label>
-                <input type="email" id="userEmail" name="email" placeholder="User Email">
+                <input type="email" id="userEmail" name="email" th:value="${principal?.getName()}">
                 <p th:if="emailError" th:text="${emailError}">  </p>
             </div>
                 <label class="p-2"  for="product">Example select</label>

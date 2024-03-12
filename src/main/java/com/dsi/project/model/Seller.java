@@ -79,12 +79,14 @@ public class Seller {
         this.id = id;
     }
 
+
+
     @Override
     public String toString() {
         return "Seller{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
+
                 ", products=" + products +
                 '}';
     }

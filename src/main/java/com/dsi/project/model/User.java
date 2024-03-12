@@ -73,7 +73,7 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
-                ", products=" + products +
+//                ", products=" + products +
                 '}';
     }
 }

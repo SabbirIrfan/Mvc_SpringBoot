@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Component
 public class FileUpload {
@@ -47,7 +48,7 @@ public class FileUpload {
             if(file.isEmpty()){
                 System.out.println("image/file not found");
                 return false;
-            } else if (!file.getContentType().equals("image/jpeg")) {
+            } else if (!Objects.equals(file.getContentType(), "image/jpeg")) {
                 System.out.println("we accept png only for now" );
                 return false;
             }

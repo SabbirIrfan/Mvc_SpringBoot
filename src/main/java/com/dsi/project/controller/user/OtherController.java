@@ -81,7 +81,7 @@ public class OtherController {
         if (user == null) {
             System.out.println("Wrong Email");
         } else {
-            boughtProduct.setUser(user);
+//            boughtProduct.setUser(user);
             List<Product> productsList = user.getProducts();
             productsList.add(boughtProduct);
             productService.saveProduct(boughtProduct);
