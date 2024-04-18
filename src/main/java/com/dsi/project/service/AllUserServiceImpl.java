@@ -15,7 +15,10 @@ public class AllUserServiceImpl implements AllUserService{
     }
 
     @Override
+
     public void saveUserService(AllUser allUser) {
+
+        allUser.setRole("ROLE_SELLER");
         allUserRepository.save(allUser);
     }
 

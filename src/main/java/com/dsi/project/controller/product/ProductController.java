@@ -78,6 +78,7 @@ public class ProductController {
         productService.saveProduct(product);
         try {
             boolean uploadResult = fileUpload.uploadFile(file,product.getId(),"product");
+            System.err.println(uploadResult);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

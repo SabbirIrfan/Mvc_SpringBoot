@@ -17,10 +17,10 @@ import java.util.Objects;
 
 @Component
 public class FileUpload {
-//    final String uploadDir = "src/main/resources/static/images";
+    final String uploadDir = "src/main/resources/static/images";
 
 // this will upload the file in target directory which hold the compiled content from which the application runs
-    public final String uploadDir =  new ClassPathResource("static/images").getFile().getAbsolutePath();
+//    public final String uploadDir =  new ClassPathResource("static/images").getFile().getAbsolutePath();
 
 
     public FileUpload() throws IOException {
@@ -48,11 +48,8 @@ public class FileUpload {
             if(file.isEmpty()){
                 System.out.println("image/file not found");
                 return false;
-            } else if (!Objects.equals(file.getContentType(), "image/jpeg")) {
-                System.out.println("we accept png only for now" );
-                return false;
             }
-            System.out.println(uploadDir+id+".png" );
+            System.err.println(uploadDir+id+".png" + file+" "+ id + " "+ user  + " has uploaded a photo");
             Files.copy(file.getInputStream(), Paths.get(uploadDir+'/'+user+ File.separator + id+ ".png"), StandardCopyOption.REPLACE_EXISTING);
             uploadFlag = true;
 
