@@ -32,11 +32,13 @@ public class OtherController {
         this.productService = productService;
     }
 
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @GetMapping("/buyProduct")
-    public ModelAndView buyProduct() {
+    @PreAuthorize("hasAnyRole('USER','ADMIN','SELLER')")
+    @GetMapping("/buyProduct/{id}")
+    public ModelAndView buyProduct(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("hheello");
+        Product product = productService.getProductById(id);
+        modelAndView.addObject("product", product);
         List<Product> productList = productService.getAllAvailableProduct();
         modelAndView.addObject("availableProductList", productList);
         modelAndView.setViewName("buyingForm.html");
