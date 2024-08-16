@@ -45,9 +45,9 @@
 <body>
 
 <div  th:insert="navbar" ></div>
-<section>
-<div class="body-container">
-  <div  class="user-container row ">
+<section style="padding: 20px">
+<div class="container">
+  <div  class="container row ">
     <h3 style="margin-top: 10px; margin-left: 10px; ">Bought  Products of user ::</h3>
 
     <div th:class="col-4">
@@ -59,13 +59,13 @@
   </div>
 
   <div  th:method="post" th:each="product : ${products}" class="seller-card" >
-    <div  class="product_container border " style="flex:.5" th:text="${product?.getId()}   " ></div>
+    <div  class="container border " style="flex:.5" th:text="${product?.getId()}   " ></div>
     <input type="hidden" name="productIdl" th:value="${product?.getId()}">
 
-    <div class="product_container border" style="flex:.5">
+    <div class="container border" style="flex:.5">
       <span th:text="${product?.getBrandName()}"></span>
     </div>
-    <div class="product_container border" style="flex:3">
+    <div class="container border" style="flex:3">
       <span th:text="${product?.getProductDetail()}"></span>
 
     </div>
