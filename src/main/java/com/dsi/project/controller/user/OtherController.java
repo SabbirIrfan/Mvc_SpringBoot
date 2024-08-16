@@ -39,8 +39,6 @@ public class OtherController {
         System.out.println("hheello");
         Product product = productService.getProductById(id);
         modelAndView.addObject("product", product);
-        List<Product> productList = productService.getAllAvailableProduct();
-        modelAndView.addObject("availableProductList", productList);
         modelAndView.setViewName("buyingForm.html");
         return modelAndView;
     }
@@ -64,32 +62,31 @@ public class OtherController {
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping(path = "/orderProduct")
     public ModelAndView orderProduct(@RequestParam("email") String email,
-                                     @RequestParam("product") String selectedProduct) {
+                                     @RequestParam("id") Integer productId) {
         ModelAndView modelAndView = new ModelAndView();
-        List<Product> productList = productService.getAllAvailableProduct();
-        if (productList.isEmpty()) modelAndView.setViewName("productForm");
         if (userService.isNewUserService(email)) {
             modelAndView.addObject("emailError", "The email you entered is not registered. please register first!");
-            modelAndView.setViewName("buyingForm");
-            modelAndView.addObject("availableProductList", productList);
+            modelAndView.setViewName("buyingForm.html");
             return modelAndView;
         }
 
         User user = userService.getUserByEmail(email);
-        int productId = Integer.parseInt(selectedProduct.split("\\s+")[0]);
         Product boughtProduct = productService.getProductById(productId);
         boughtProduct.setStatus((byte) 2);
 
         if (user == null) {
             System.out.println("Wrong Email");
+            return modelAndView;
         } else {
-//            boughtProduct.setUser(user);
+            boughtProduct.setUser(user);
             List<Product> productsList = user.getProducts();
             productsList.add(boughtProduct);
             productService.saveProduct(boughtProduct);
 
         }
-        modelAndView.setViewName("home");
+        modelAndView.setViewName("home.html");
+        List<Product> productList = productService.getAllAvailableProduct();
+        modelAndView.addObject("productList",productList);
 
 
         return modelAndView;

@@ -44,17 +44,16 @@
 </head>
 <body>
 
-<div  th:insert="navbar" ></div>
-<section style="padding: 20px">
+<section style="padding: 20px ; width: 80rem">
 <div class="container">
   <div  class="container row ">
-    <h3 style="margin-top: 10px; margin-left: 10px; ">Bought  Products of user ::</h3>
+    <h4 style="margin-left: 10px; ">Purchased products:</h4>
 
     <div th:class="col-4">
-      <div  class="p-3 border " th:text="${user?.getName()}   " ></div>
+      <div  class="p-1 border " th:text=" ${user?.getName()}   " ></div>
     </div>
     <div class="col-4">
-      <div class="p-3 border " th:text="${user?.getEmail()}"></div>
+      <div class="p-1 border " th:text="${user?.getEmail()}"></div>
     </div>
   </div>
 

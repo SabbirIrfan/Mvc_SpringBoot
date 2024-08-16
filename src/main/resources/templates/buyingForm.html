@@ -3,43 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-   </head>
+    <title>Product Order</title>
+    <style>
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        .card {
+            width: 60%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
 <body>
-<!--<div th:include="navbar"></div>-->
-<section style="padding: 20px">
-<div class="container">
-        <h3  th:if="${availableProductList?.size() <= 0}" > There is no product</h3>
-    <div style="padding-top: 10px ">
-
-    <form th:action="@{/user/orderProduct}"  th:method="post" class="form_container" >
-            <div style="font-family: sans-serif;
-                        padding-top:10px; padding-bottom: 10px;">
-                <label class="p-2" for="userEmail">User Email</label>
-                <input type="email" id="userEmail" name="email" th:value="${principal?.getName()}">
-                <p th:if="emailError" th:text="${emailError}">  </p>
+<section class="card-container">
+    <div class="card">
+        <h2 class="text-center mb-4">Order Product</h2>
+        <form th:action="@{/user/orderProduct}" th:method="post">
+            <div class="form-group">
+                <label for="userEmail">User Email</label>
+                <input type="email" id="userEmail" name="email" th:value="${principal?.getName()}" class="form-control">
+                <p th:if="${emailError}" th:text="${emailError}" class="text-danger"></p>
             </div>
-                <label class="p-2"  for="product">Example select</label>
-                <select class="form_select" id="product" name="product">
-                    <option th:each="product : ${availableProductList}" th:value="${product?.id}">
-                        <span th:text="${product?.id}"></span>
-                        <span th:text="${product?.brandName}"></span> -
-                        <span th:text="${product?.processor}"></span> -
-                        <span th:text="${product?.generation}"></span>
-                    </option>
-                </select>
-                <div >
-                    <label class="p-2 "  for="productDetail">Product Detail</label>
-                    <textarea class="textarea" id="productDetail" name="detail" placeholder="Write something about you about this product." required></textarea>
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
+                    </div>
+                    <div class="carousel-item active">
+                        <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
+                    </div>
+                    <div class="carousel-item active">
+                        <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
+                    </div>
                 </div>
-<!--                <div style="display:flex; justify-content:center;align-items: center">-->
-                    <button class="btn btn-primary" th:if="${availableProductList?.size() > 0}" type="submit" >Submit</button>
-<!--                </div>-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
 
+
+            <div class="form-group">
+                <label for="productDetail">Product Detail</label>
+                <textarea id="productDetail" name="detail" placeholder="Write something about this product." required class="form-control"></textarea>
+                <input hidden="hidden" th:name="id" th:value="${product.getId()}">
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary"  type="submit">Submit Order</button>
+            </div>
         </form>
     </div>
-
-</div>
 </section>
 </body>
 </html>
