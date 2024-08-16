@@ -11,13 +11,13 @@
     <div class="body-container">
         <div class="profile_container">
             <div class="profile">
-                <div class="card mb-3" style="border-radius: .5rem;">
+                <div class="card mb-3" style="border-radius: .5rem; ">
                     <div class="row g-0">
                         <div class="col-md-4 gradient-custom text-center text-white"
                              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                             <div class="col-12 mb-3">
 
-                                <img style="width: 150px ; border-radius: 50%;" th:src="@{'/images/seller/' +  ${seller.getId()}+ '.png'}"
+                                <img style="width: 140px ; border-radius: 10% ; margin-top: 2rem" th:src="@{'/images/seller/' +  ${seller.getId()}+ '.png'}"
                                      th:alt="'images/seller/' +${seller.getId()}+ '.png'"/>
 
                             </div>
@@ -27,6 +27,13 @@
                                 <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
                                 <button class="btn btn-primary" type="submit" name="action" value="editsellerForm">
                                     <i th:type="submit" class="fa fa-edit" aria-hidden="true"> edit</i>
+                                </button>
+                            </form>
+                            <hr>
+                            <form style="flex: .5" method="post" th:action="@{/seller/products}">
+                                <input type="hidden" th:id="${'userId' + user?.getId()}" th:name="userId" th:value="${user?.getId()}">
+                                <button class="btn btn-primary" type="submit" name="action" value="editUserForm">
+                                    <i th:type="submit" class="fa fa-product-hunt" aria-hidden="true"> Products</i>
                                 </button>
                             </form>
 
@@ -43,8 +50,7 @@
                                     <div class="col-6 mb-3">
                                         <h6>Phone</h6>
                                         <p class="text-muted">123 456 789</p>
-                                        <img th:src="@{'images/' + ${seller.getEmail().substring(0,seller.getEmail().indexOf('@'))} + '.png'}"
-                                             th:alt="'images/' + ${seller.getEmail().substring(0,seller.getEmail().indexOf('@'))} + '.png'"/>
+
                                     </div>
                                 </div>
                                 <h6>Projects</h6>

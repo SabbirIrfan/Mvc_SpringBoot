@@ -2,26 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
-    <title>EditSeller</title>
-  </head>
+    <title>Edit Seller</title>
+
+</head>
 <body>
 <!--<div th:insert="navbar"></div>-->
-<section style="padding: 20px">
-<div class="body-container">
-    <form class="form_container"  th:action="@{/seller/editSeller}" method="post" >
-        <div class="mb-3">
-            <label  class="p-2"  for="name">name</label>
-            <input type="text" class="form-control" id="name" name="name" th:value="${seller?.getName()}">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="p-2 ">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" th:value="${seller.getEmail()}">
 
-        </div>
-        <input hidden="hidden" name="sellerId" th:value="${seller.getId()}">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+<section style="padding: 20px">
+    <div class="body-container">
+        <form class="form_container" th:action="@{/seller/editSeller}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="p-2" for="name">name</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${seller?.getName()}">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="p-2 ">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
+                       th:value="${seller?.getEmail()}">
+                <!--            <p th:each="error: ${#fields.errors('email')}" th:text="${error}"> </p>-->
+            </div>
+            <label for="file">update image::</label>
+            <input type="file" id="file" name="file">
+            <label>
+                <input hidden="hidden" name="sellerId" th:value="${seller?.getId()}">
+            </label>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
 </section>
 </body>
 </html>

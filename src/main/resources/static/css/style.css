@@ -65,8 +65,13 @@
 
 
 .profile_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
     background-color: var(--primary-form-background-color);
     border-radius: 10px 10px 20px 20px;
+
     gap: 10px;
 
 

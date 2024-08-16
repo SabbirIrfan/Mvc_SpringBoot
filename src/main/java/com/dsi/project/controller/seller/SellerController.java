@@ -1,7 +1,9 @@
 package com.dsi.project.controller.seller;
 
+import com.dsi.project.helper.FileUpload;
 import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
+import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import jakarta.validation.Valid;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -29,12 +32,14 @@ public class SellerController {
 
     //    @Autowired
     SellerService sellerService;
+    FileUpload fileUpload;
 
     ProductService productService;
 
-    public SellerController(SellerService sellerService, ProductService productService) {
+    public SellerController(SellerService sellerService, ProductService productService, FileUpload fileUpload) {
         this.sellerService = sellerService;
         this.productService = productService;
+        this.fileUpload = fileUpload;
     }
 
 
@@ -46,23 +51,34 @@ public class SellerController {
         Seller seller = sellerService.getSellerById(sellerId);
         modelAndView.addObject("seller", seller);
 
-
         return modelAndView;
     }
     @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @PostMapping("/editSeller")
-    public ModelAndView editSeller(@ModelAttribute Seller seller, @Param("sellerId") int sellerId) {
+    public ModelAndView editSeller(@ModelAttribute Seller seller,
+                                   @Param("sellerId") Integer sellerId,
+                                   @Param("name") String name,
+                                   @Param("file") MultipartFile file
+    ){
         ModelAndView modelAndView = new ModelAndView("home");
         System.out.println(seller.toString());
 
         sellerService.updateSellerService(seller, sellerId);
-
+        System.out.println(seller);
         List<Product> productList = productService.getAllAvailableProduct();
         modelAndView.addObject("productList", productList);
+
+        try {
+            boolean uploadResult = fileUpload.uploadFile(file,sellerId,"seller");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return modelAndView;
 
     }
+
+
 
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @GetMapping("/profile")
