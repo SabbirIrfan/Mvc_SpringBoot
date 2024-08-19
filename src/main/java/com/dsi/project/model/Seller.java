@@ -4,12 +4,20 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.security.Principal;
 import java.util.List;
 
 
 @Entity
 public class Seller {
+    @ModelAttribute
+    public void getPrincipal(Principal principal, Model model) {
+        System.out.println("hi from seller controller");
+        model.addAttribute("principal", principal);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

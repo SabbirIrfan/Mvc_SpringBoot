@@ -48,17 +48,17 @@ public class ProfileController {
 
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @GetMapping("/userRegForm")
+    @GetMapping("/registerUser")
     public ModelAndView addUser(Model model){
         Principal principal = (Principal) model.getAttribute("principal");
 
         model.addAttribute("user",new User());
-        ModelAndView modelAndView = new ModelAndView("userRegForm");
+        ModelAndView modelAndView = new ModelAndView("registerUser");
 
         return modelAndView;
     }
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/addUser")
+    @PostMapping("/registerUser")
     public ModelAndView addUser(@ModelAttribute AllUser allUser){
         ModelAndView modelAndView = new ModelAndView("home");
         User user = new User();
@@ -66,7 +66,7 @@ public class ProfileController {
         System.out.println(user);
 
         userService.saveUserService(user);
-        allUserService.saveUserService(allUser);
+        allUserService.saveUserService(allUser,false);
         return modelAndView;
     }
 

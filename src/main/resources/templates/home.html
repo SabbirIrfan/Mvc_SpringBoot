@@ -21,9 +21,11 @@
                     <div >
                         <h5 class="card-title" th:text="${product.getBrandName()}"></h5>
                         <p class="card-text text-truncate" th:text="${product.getProductDetail()}"></p>
-                        <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary"
-                           style="margin-top: auto; display: flex ; align-items: center" th:text="'Available products:'+${product.getStatus()}">
-                        </a>
+                        <h6  th:text="'Available products:  '+${product.getStatus()}"
+                           style="margin-top: auto; display: flex ; align-items: center ; max-width: 65% ;flex-wrap: nowrap; "  >
+
+                        </h6>
+                        <a  th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" th:text="'Buy NOw'"  th:if="${#strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_USER')}" class="btn btn-primary" ></a>
                     </div>
                 </div>
             </div>

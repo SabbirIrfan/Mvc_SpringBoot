@@ -72,7 +72,7 @@ public class RegisterController {
         allUser.setPassword(password);
 
         seller.setEmail(allUser.getEmail());
-        allUserService.saveUserService(allUser);
+        allUserService.saveUserService(allUser, true);
         sellerService.saveSellerService(seller);
 
         return "sellerForm";
@@ -89,17 +89,17 @@ public class RegisterController {
 
 
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @GetMapping("/userRegForm")
+    @GetMapping("/registerUser")
     public ModelAndView addUser(Model model){
         Principal principal = (Principal) model.getAttribute("principal");
 
         model.addAttribute("user",new User());
-        ModelAndView modelAndView = new ModelAndView("userRegForm");
+        ModelAndView modelAndView = new ModelAndView("registerUser");
 
         return modelAndView;
     }
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/addUser")
+    @PostMapping("/registerUser")
     public ModelAndView addUser(@Valid @ModelAttribute AllUser allUser, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("home");
 
@@ -114,12 +114,12 @@ public class RegisterController {
         System.out.println("i am here at regi cont line 98");
         try{
             userService.saveUserService(user);
-            allUserService.saveUserService(allUser);
+            allUserService.saveUserService(allUser, false);
         }catch (Exception sqlException){
             System.out.println("i am here at regi cont line 103");
             System.out.println(sqlException);
             result.addError(new FieldError("user", "email", "this email already has an account!"));
-            modelAndView.setViewName("userRegForm");
+            modelAndView.setViewName("registerUser");
             modelAndView.addObject("error", "this email already has an account!");
 
             return modelAndView;
