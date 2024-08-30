@@ -83,6 +83,7 @@ public class SellerController {
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @GetMapping("/profile")
     public ModelAndView showProfile(Model model) {
+        System.out.println("hi from profile of seller");
         ModelAndView modelAndView = new ModelAndView("sellerProfile");
 
         Principal principal = (Principal) model.getAttribute("principal");

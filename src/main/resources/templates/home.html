@@ -16,12 +16,12 @@
 
                 <div class="card-body" style="display: flex; flex-direction: column;">
                     <div class="card ">
-                        <img class="card-img-top " style="align-items: center; width:10rem;height:10rem; " th:src="@{'/images/product/' + ${product.getId()} + '.png'}" alt="Card image cap">
+                        <img class="card-img-top " style="align-items: center; justify-content: center; " th:src="@{'/images/product/' + ${product.getId()} + '.png'}" alt="Card image cap">
                     </div>
                     <div >
                         <h5 class="card-title" th:text="${product.getBrandName()}"></h5>
                         <p class="card-text text-truncate" th:text="${product.getProductDetail()}"></p>
-                        <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary"
+                        <a th:if="${#strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_USER')}" th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary"
                            style="margin-top: auto; display: flex ; align-items: center" th:text="'Available products:'+${product.getStatus()}">
                         </a>
                     </div>

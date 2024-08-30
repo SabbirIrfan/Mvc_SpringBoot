@@ -31,7 +31,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public ModelAndView home(Model model) {
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("home");
         Principal principal = (Principal) model.getAttribute("principal");
         model.addAttribute("principal", principal);
         List<Product> productList = productService.getAllAvailableProduct();

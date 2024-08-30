@@ -59,7 +59,7 @@
 
   <div  th:method="post" th:each="product : ${products}" class="seller-card" >
     <div  class="container border " style="flex:.5" th:text="${product?.getId()}   " ></div>
-    <input type="hidden" name="productIdl" th:value="${product?.getId()}">
+    <input type="hidden" name="productId" th:value="${product?.getId()}">
 
     <div class="container border" style="flex:.5">
       <span th:text="${product?.getBrandName()}"></span>

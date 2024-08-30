@@ -31,7 +31,7 @@ public class AdminController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/setStatus")
-    public String setStatus(@RequestParam("productIdl") int productId,
+    public String setStatus(@RequestParam("productId") int productId,
                             @RequestParam byte status ){
 
         Product product = productService.getProductById(productId);
