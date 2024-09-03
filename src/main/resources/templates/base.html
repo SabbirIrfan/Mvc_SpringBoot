@@ -3,42 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <title>base</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   </head>
 
   <body>
-    <nav style="padding: 5px" class="navbar-expand-lg navbar-light">
-      <div class="navbar-container fixed-top">
-        <a class="navbar-brand mt-2" href="">Product</a>
+    <nav  class="navbar-expand-lg navbar-light ">
+      <div class="navbar-container fixed-top ">
+        <a class="navbar-brand ml-2" href="">Product</a>
         <div class="navbar-custom collapse navbar-collapse" id="navbarSupportedContent">
           <ul style="justify-content: flex-end" class="navbar-custom navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/home">Home</a>
+              <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item"
+           
+            sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER') || isAnonymous()">
+        
+              <a class="nav-link" th:href="@{/serllerRegForm}">Register Seller</a>
             </li>
             <li
               class="nav-item"
-              th:if="${principal == null or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_USER') or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_ADMIN')}"
-            >
-              <a class="nav-link" href="/serllerRegForm">Register Seller</a>
-            </li>
-            <li
-              class="nav-item"
-              th:if="${principal == null or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_SELLER') or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_ADMIN')}"
+              sec:authorize = "hasAnyRole('ROLE_ADMIN','ROLE_SELLER') || isAnonymous()"
             >
               <a class="nav-link" href="/userRegForm">Register User</a>
             </li>
 
           
-            <li class="nav-item" th:if="${principal != null and (#strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_ADMIN') or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_SELLER'))}">
+            <li class="nav-item" 
+            sec:authorize = "hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">
+            
               <a class="nav-link" href="/seller/productForm">Add Product</a>
             </li>
-            <li class="nav-item" th:if="${principal != null and #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_ADMIN')}">
+            <li class="nav-item" 
+            sec:authorize = "hasAnyRole('ROLE_ADMIN')">
               <a class="nav-link" href="/seller/showSellers">Sellers</a>
             </li>
 
-            <li class="nav-item" th:if="${principal != null and #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_ADMIN')}">
+            <li class="nav-item"
+            sec:authorize = "hasAnyRole('ROLE_ADMIN') ">
+            
               <a class="nav-link" href="/user/showUsers">Users</a>
             </li>
             <li class="nav-item active">
@@ -47,7 +52,7 @@
                   name="email"
                   th:value="${principal?.getName()}"
                   href="/user/profile"
-                  th:if="${principal != null and #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_USER')}"
+                  sec:authorize = "hasRole('ROLE_USER') "
                 >
                   Profile
                 </a>
@@ -55,8 +60,8 @@
                 <a
                   class="nav-link"
                   href="/seller/profile"
-                  th:if="${principal != null and #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_SELLER')}"
-                >
+                  sec:authorize = "hasRole('ROLE_SELLER') ">
+                  
                   Profile
                 </a>
               </li>
@@ -67,7 +72,8 @@
 
             <li
               class="nav-item active"
-              th:if="${principal != null and (#strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_USER') or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_ADMIN') or #strings.equals(principal?.getAuthorities()?.iterator()?.next(), 'ROLE_SELLER'))}"
+              sec:authorize = "hasAnyRole('ROLE_ADMIN','ROLE_SELLER','ROLE_USER')"
+              
             >
               <a class="nav-link" href="/logout">Logout</a>
             </li>

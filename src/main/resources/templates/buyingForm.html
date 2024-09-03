@@ -47,7 +47,7 @@
                 <p th:if="${emailError}" th:text="${emailError}" class="text-danger"></p>
             </div>
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
+                <div class="carousel-inner  " style="text-align: center;">
                     <div class="carousel-item active">
                         <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
                     </div>

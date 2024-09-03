@@ -2,7 +2,6 @@ package com.dsi.project.controller.admin;
 
 import com.dsi.project.model.Product;
 import com.dsi.project.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
