@@ -37,9 +37,8 @@
     </style>
 </head>
 <body>
-<section class="card-container">
+<section class="body-container">
     <div class="card">
-        <h2 class="text-center mb-4">Order Product</h2>
         <form th:action="@{/user/orderProduct}" th:method="post">
             <div class="form-group">
                 <label for="userEmail">User Email</label>
@@ -47,7 +46,7 @@
                 <p th:if="${emailError}" th:text="${emailError}" class="text-danger"></p>
             </div>
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner  " style="text-align: center;">
+                <div class="carousel-inner  " style="text-align: center; width: 70vw; height: 60vh;">
                     <div class="carousel-item active">
                         <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
                     </div>
@@ -58,13 +57,13 @@
                         <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <button class="carousel-control-prev" style="height: 10vh; width: 10vw; margin-top: 20vh ; background-color: black;" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <button class="carousel-control-next" style="height: 10vh; width: 10vw; margin-top: 20vh ; background-color: black;" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
                     <span class="visually-hidden">Next</span>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </button>
             </div>
 

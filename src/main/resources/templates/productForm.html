@@ -7,36 +7,36 @@
 </head>
 <body>
 <!--<div th:include="navbar"></div>-->
-<section style="padding: 20px">
+<section>
     <div class="body-container">
-        <div style="padding-top: 3vh; padding-left: 3vh">
-            <form th:action="@{/seller/addproduct}" class="form_container row" method="post" enctype="multipart/form-data">
-                <div class="col-12 mb-3">
+        <div style="padding-top: 1vh;">
+            <form th:action="@{/seller/addproduct}"  method="post" enctype="multipart/form-data">
+                <div class="col-12 mb-2">
                     <label for="sellerEmail" class="form-label">Write your selling Registered Email</label>
                     <input type="text" class="form-control" id="sellerEmail" name="sellerEmail">
                 </div>
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-2">
                     <label for="productName" class="form-label">Brand Name</label>
                     <input type="text" class="form-control" id="productName" name="brandName">
                 </div>
 
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-2">
                     <label for="productModel" class="form-label">Model</label>
                     <input type="text" class="form-control" id="productModel" name="productModel">
                 </div>
-                <div class="col-12   mb-3">
+                <div class="col-12   mb-2">
                     <label for="productDetail" class="form-label">Product Detail</label>
                     <input type="text" class="form-control" id="productDetail" placeholder="Product Detail"
                            name="productDetail">
                 </div>
-                <div class="col-6 mb-3">
+                <div class="col-6 mb-2">
                     <label for="processor" class="form-label">Processor</label>
                     <select id="processor" class="form-select" name="processor">
                         <option>Intel</option>
                         <option>Ryzen</option>
                     </select>
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-2">
                     <label for="generation" class="form-label">Generation</label>
                     <select id="generation" class="form-select" name="generation">
                         <option selected>Choose...</option>
@@ -47,7 +47,7 @@
                         <option>ryzen 3090X</option>
                     </select>
                 </div>
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-2">
                     <label for="file">Image of the product:</label>
                     <input type="file" id="file" name="file">
                 </div>
