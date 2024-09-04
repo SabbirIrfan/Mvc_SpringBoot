@@ -4,6 +4,8 @@ package com.dsi.project.service;
 import com.dsi.project.model.User;
 import com.dsi.project.repository.ProductRepository;
 import com.dsi.project.model.Product;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +19,5 @@ public interface ProductService {
 
     public void saveProduct(Product product);
     public List<Product> getAllProduct();
-    public List<Product> getAllAvailableProduct();
+    public Page<Product> getAllAvailableProduct(Pageable pageable);
 }

@@ -21,6 +21,7 @@ public class Product {
     private String generation;
 
     private byte status;
+    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Seller seller;
@@ -30,34 +31,35 @@ public class Product {
         this.status = 0 ;
     }
 
-    public Product(String brandName, String productModel, String productDetail, String processor, String generation) {
+    public Product(String brandName, String productModel, String productDetail, String processor, String generation, Integer quantity) {
         this.brandName = brandName;
         this.productModel = productModel;
         this.productDetail = productDetail;
         this.processor = processor;
         this.generation = generation;
+        this.quantity = quantity;
         this.status = 0;
 
     }
 
-    public Product(int id, String brandName, String productModel, String productDetail, String processor, String generation) {
-        this.id = id;
-        this.brandName = brandName;
-        this.productModel = productModel;
-        this.productDetail = productDetail;
-        this.processor = processor;
-        this.generation = generation;
-        this.status = 0;
+    // public Product(int id, String brandName, String productModel, String productDetail, String processor, String generation) {
+    //     this.id = id;
+    //     this.brandName = brandName;
+    //     this.productModel = productModel;
+    //     this.productDetail = productDetail;
+    //     this.processor = processor;
+    //     this.generation = generation;
+    //     this.status = 0;
 
-    }
+    // }
 
-    public Product(String brandName, String productDetail, Seller seller) {
-        this.status = 0;
-        this.brandName = brandName;
-        this.productDetail = productDetail;
-        this.seller = seller;
+    // public Product(String brandName, String productDetail, Seller seller) {
+    //     this.status = 0;
+    //     this.brandName = brandName;
+    //     this.productDetail = productDetail;
+    //     this.seller = seller;
 
-    }
+    // }
 
 
 
@@ -67,6 +69,13 @@ public class Product {
 
     public void setSeller(Seller seller) {
         this.seller = seller;
+    }
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setquantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
 

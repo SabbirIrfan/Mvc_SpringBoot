@@ -3,7 +3,8 @@ package com.dsi.project.service;
 import com.dsi.project.model.User;
 import com.dsi.project.repository.ProductRepository;
 import com.dsi.project.model.Product;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,9 +51,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllAvailableProduct() {
-        List<Product> all = (List<Product>) productRepository.findAll();
-        all.removeIf(product -> product.getStatus() == 0 || product.getStatus()==2);
+    public Page<Product> getAllAvailableProduct(Pageable pageable) {
+        Page<Product> all = productRepository.findAllAvailableProducts(pageable);
         return all;
     }
 

@@ -48,13 +48,13 @@
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner  " style="text-align: center; width: 70vw; height: 60vh;">
                     <div class="carousel-item active">
-                        <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
+                        <img th:src="@{'/images/product/' + ${product?.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
                     </div>
                     <div class="carousel-item active">
-                        <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
+                        <img th:src="@{'/images/product/' + ${product?.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
                     </div>
                     <div class="carousel-item active">
-                        <img th:src="@{'/images/product/' + ${product.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
+                        <img th:src="@{'/images/product/' + ${product?.getId()} + '.png'}"   style="max-width: 40%; max-height: 40%" alt="...">
                     </div>
                 </div>
                 <button class="carousel-control-prev" style="height: 10vh; width: 10vw; margin-top: 20vh ; background-color: black;" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -71,7 +71,7 @@
             <div class="form-group">
                 <label for="productDetail">Product Detail</label>
                 <textarea id="productDetail" name="detail" placeholder="Write something about this product." required class="form-control"></textarea>
-                <input hidden="hidden" th:name="id" th:value="${product.getId()}">
+                <input hidden="hidden" th:name="id" th:value="${product?.getId()}">
             </div>
 
             <div class="text-center">
