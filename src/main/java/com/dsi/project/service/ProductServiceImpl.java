@@ -1,8 +1,16 @@
 package com.dsi.project.service;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
 
+=======
+import com.dsi.project.model.User;
+import com.dsi.project.repository.ProductRepository;
+import com.dsi.project.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+>>>>>>> fa9b18a... feat pagination added
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> getAllAvailableProduct(Pageable pageable) {
+<<<<<<< HEAD
         Page<Product> availableProducts = productRepository.findAllAvailableProducts(pageable);
         return availableProducts;
     }
@@ -60,6 +69,10 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> getSearchedProduct(Pageable pageable, String query) {
         Page<Product> searchedProducts = productRepository.findSearchedProducts(pageable,query);
         return searchedProducts;
+=======
+        Page<Product> all = productRepository.findAllAvailableProducts(pageable);
+        return all;
+>>>>>>> fa9b18a... feat pagination added
     }
 
 

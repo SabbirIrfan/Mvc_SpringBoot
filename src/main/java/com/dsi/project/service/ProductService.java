@@ -20,6 +20,9 @@ public interface ProductService {
     public void saveProduct(Product product);
     public List<Product> getAllProduct();
     public Page<Product> getAllAvailableProduct(Pageable pageable);
+<<<<<<< HEAD
     public Page<Product> getSearchedProduct(Pageable pageable, String query);
     
+=======
+>>>>>>> fa9b18a... feat pagination added
 }

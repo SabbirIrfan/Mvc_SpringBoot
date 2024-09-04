@@ -4,6 +4,10 @@ import com.dsi.project.model.Product;
 import com.dsi.project.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+<<<<<<< HEAD
+=======
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+>>>>>>> fa9b18a... feat pagination added
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.ResponseBody;
+>>>>>>> fa9b18a... feat pagination added
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -30,6 +38,7 @@ public class HomeController {
     }
 
     @GetMapping("/home")
+<<<<<<< HEAD
     public ModelAndView home(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "9") int size,
@@ -51,6 +60,19 @@ public class HomeController {
             @RequestParam(value = "size", defaultValue = "9") int size,
             @RequestParam(value = "query") String query,
             Principal principal) {
+=======
+    public ModelAndView home(Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "9") int size) {
+        ModelAndView modelAndView = new ModelAndView("home");
+        Principal principal = (Principal) model.getAttribute("principal");
+        model.addAttribute("principal", principal);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productService.getAllAvailableProduct(pageable);
+        model.addAttribute("productList", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+>>>>>>> fa9b18a... feat pagination added
 
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("principal", principal);
