@@ -1,15 +1,16 @@
 package com.dsi.project.service;
 
-import com.dsi.project.model.User;
-import com.dsi.project.repository.ProductRepository;
-import com.dsi.project.model.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.dsi.project.model.Product;
+import com.dsi.project.model.User;
+import com.dsi.project.repository.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -52,8 +53,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> getAllAvailableProduct(Pageable pageable) {
-        Page<Product> all = productRepository.findAllAvailableProducts(pageable);
-        return all;
+        Page<Product> availableProducts = productRepository.findAllAvailableProducts(pageable);
+        return availableProducts;
+    }
+    @Override
+    public Page<Product> getSearchedProduct(Pageable pageable, String query) {
+        Page<Product> searchedProducts = productRepository.findSearchedProducts(pageable,query);
+        return searchedProducts;
     }
 
 
