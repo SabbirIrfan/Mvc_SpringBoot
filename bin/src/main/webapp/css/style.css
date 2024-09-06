@@ -1,0 +1,121 @@
+.body{
+
+}
+
+.body-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10rem;
+    gap: 10rem;
+    background-color: var(--primary-background-color);
+}
+
+:root{
+    --primary-background-color: #f9f9f9;
+}
+
+.form_container{
+    background-color: antiquewhite;
+    /* border-radius: 10px 10px 20px 20px; */
+    padding: 20px;
+    gap: 10px;
+}
+
+.card_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    margin: 5px;
+}
+
+.button{
+    border-radius: 10px;
+    justify-content: left;
+    align-items: flex-start;
+    width: 8rem;
+    height: 4rem;
+}
+
+.user_profile_container{
+    display: flex;
+    flex-direction: column;
+    background-color: #077807;
+    flex-basis: auto;
+}
+
+.user_profile{
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+
+.product_container{
+    font-family: sans-serif;
+    padding-bottom: 10px;
+}
+
+.textarea{
+    width: 400px;
+}
+
+.select{
+    width: 380px;
+}
+
+.search{
+    display: flex;
+    background: aqua;
+}
+
+.navbar{
+    background: bisque;
+    justify-content: left;
+    padding: 10px;
+}
+
+.navbar-search{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-background-color);
+}
+
+@media only screen and (max-width: 768px){
+    .navbar{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.counterHeading{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 50%;
+    justify-content: center;
+}
+
+.counterBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    display: flex;
+    justify-content: space-around;
+    background-color: cadetblue;
+}
+
+.flexCard{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}

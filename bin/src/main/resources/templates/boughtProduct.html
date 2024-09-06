@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>myProduct</title>
+   <style>
+    .product_container{
+      width: 300px; /* Adjust width as needed */
+      max-height: 200px; /* Adjust max-height as needed */
+      overflow: auto; /* Set overflow to auto to enable scroll when content overflows */
+    }
+
+    .pending {
+      background-color: #9a7171;
+
+    }
+    .approved {
+      background-color: #077807;
+    }
+    .sold {
+      background-color: #6d9ea5;
+    }
+    .seller-card{
+      display: flex;
+      justify-content: space-evenly;
+      gap: 5px;
+    }
+    .user-container{
+      display: flex;
+      background-color: #b3c4c7 ;
+      border-radius: 10px
+    }
+    @media only screen and (max-width: 768px){
+      .seller-card{
+        flex-direction: column;
+      }
+      .user-container{
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+<section style="padding: 20px ; width: 80rem">
+<div class="container">
+  <div  class="container row ">
+    <h4 style="margin-left: 10px; ">Purchased products:</h4>
+
+    <div th:class="col-4">
+      <div  class="p-1 border " th:text=" ${user?.getName()}   " ></div>
+    </div>
+    <div class="col-4">
+      <div class="p-1 border " th:text="${user?.getEmail()}"></div>
+    </div>
+  </div>
+
+  <div  th:method="post" th:each="product : ${products}" class="seller-card" >
+    <div  class="container border " style="flex:.5" th:text="${product?.getId()}   " ></div>
+    <input type="hidden" name="productId" th:value="${product?.getId()}">
+
+    <div class="container border" style="flex:.5">
+      <span th:text="${product?.getBrandName()}"></span>
+    </div>
+    <div class="container border" style="flex:3">
+      <span th:text="${product?.getProductDetail()}"></span>
+
+    </div>
+
+  </div>
+
+</div>
+<div th:insert="allScript" ></div>
+</section>
+</body>
+</html>

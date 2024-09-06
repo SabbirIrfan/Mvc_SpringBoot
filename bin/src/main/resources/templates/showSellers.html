@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+
+</head>
+<body>
+
+
+<!--<div th:insert="navbar"></div>-->
+<section>
+    <div class="body-container">
+        <!--    <div  class="sellers-container">-->
+        <div th:each="seller : ${sellers}" class="sellers-container" th:object="${seller}">
+            <div class="p-2 border" style="flex:1">
+                <div th:text="${seller.getName()}   "></div>
+            </div>
+            <div class="p-2 border" style="flex:2">
+                <div name="email" th:text="${seller?.getEmail()}"></div>
+            </div>
+            <form  method="post" th:action="@{/seller/products}">
+                <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
+                <button type="submit" class="btn btn-primary">SellerProduct</button>
+            </form>
+            <form  method="post" th:action="@{/seller/editSellerForm}">
+                <input type="hidden" id="emailForSeller" name="sellerId" th:value="${seller?.getId()}">
+                <button type="submit" class="btn btn-primary">Edit Profile</button>
+            </form>
+            <!--            </div>-->
+
+
+        </div>
+        <!--    </div>-->
+    </div>
+</section>
+</body>
+</html>

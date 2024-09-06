@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Profile</title>
+</head>
+<body>
+<section style="padding: 20px">
+    <div class="body-container">
+        <div class="profile_container">
+            <div class="profile">
+                <!-- Check if the seller object is null -->
+                <div th:if="${seller != null}">
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            <div class="col-md-4 gradient-custom text-center text-white"
+                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                <div class="col-12 mb-3">
+                                    <img style="width: 140px; border-radius: 10%; margin-top: 2rem" th:src="@{'/images/seller/' + ${seller.getId()} + '.png'}"
+                                         th:alt="'images/seller/' + ${seller.getId()} + '.png'"/>
+                                </div>
+
+                                <h5 th:text="${seller.getName()}"></h5>
+                                <form style="flex: .5;" method="post" th:action="@{/seller/editSellerForm}">
+                                    <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
+                                    <button class="btn btn-primary" type="submit" name="action" value="editsellerForm">
+                                        <i th:type="submit" class="fa fa-edit" aria-hidden="true"> edit</i>
+                                    </button>
+                                </form>
+                                <hr>
+                                <form style="flex: .5" method="post" th:action="@{/seller/products}">
+                                    <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
+                                    <button class="btn btn-primary" type="submit" name="action" value="products">
+                                        <i th:type="submit" class="fa fa-product-hunt" aria-hidden="true"> Products</i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <h6>Information</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Email</h6>
+                                            <p class="text-muted" th:text="${seller.getEmail()}">info@example.com</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Phone</h6>
+                                            <p class="text-muted">123 456 789</p>
+                                        </div>
+                                    </div>
+                                    <h6>Projects</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Recent</h6>
+                                            <p class="text-muted">Lorem ipsum</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Most Viewed</h6>
+                                            <p class="text-muted">Dolor sit amet</p>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </body>
+    </html>

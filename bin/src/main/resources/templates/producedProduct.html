@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>myProduct</title>
+    <style></style>
+  </head>
+  <body>
+    <!--    <div  th:insert="navbar" ></div>-->
+    <section style="padding: 10px">
+      <div class="body-container">
+        <div class="flex row">
+          
+            <div class="p-3 " th:text="${seller?.getName()}"></div>
+          
+            <div class="p-3 border" th:text="${seller?.getEmail()}"></div>
+          
+        </div>
+
+        <form
+          th:action="@{/admin/setStatus}"
+          th:method="post"
+          th:each="product : ${products}"
+          class="seller-card"
+        >
+          <div
+            class="product_container border"
+            style="flex: 0.5"
+            th:text="${product?.getId()}   "
+          ></div>
+          <input
+            type="hidden"
+            name="productId"
+            th:value="${product?.getId()}"
+          />
+
+          <div class="product_container border" style="flex: 0.5">
+            <span th:text="${product?.getBrandName()}"></span>
+          </div>
+          <div class="product_container border" style="flex: 3">
+            <span th:text="${product?.getProductDetail()}"></span>
+          </div>
+          <div style="flex: 1" class="product_container border pending">
+            <span th:if="${product?.getStatus()} == 0"
+              >Product Pending to be published</span
+            >
+            <span th:if="${product?.getStatus()} == 1">Product Approved</span>
+            <span th:if="${product?.getStatus()} == 2">Product Sold</span>
+          </div>
+<div sec:authorize="hasRole('ADMIN')" style="display: flex ; flex-direction:column; width: 80px ; height: 50px ; gap: 5px">
+                <button th:if="${product?.getStatus()} == 0" type="submit" name="status" value="1">Approve</button>
+                <button th:if="${product?.getStatus()} == 1" type="submit" name="status" value="0">Decline</button>
+
+            </div>
+
+        </form>
+      </div>
+      <div th:insert="allScript"></div>
+    </section>
+  </body>
+</html>

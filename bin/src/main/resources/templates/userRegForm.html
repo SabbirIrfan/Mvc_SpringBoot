@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user Register</title>
+</head>
+<body>
+<!--<div th:insert="navbar"></div>-->
+<section style="padding: 20px">
+    <div class="body-container">
+
+        <div style="padding-top: 40px; ">
+            <form class="form_container" th:action="@{/addUser}"  method="post" th:object="${user}">
+
+                <div class="mb-3">
+                    <label for="email" class="p-2 form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
+
+                    <p th:text="${error}"> </p>
+<!--                    <p th:each="error: ${#fields.errors('email')}" th:text="${error}"></p>-->
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="p-2 form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" aria-describedby="emailHelp" >
+
+                </div>
+                <div class="p-2">
+                    <button type="submit" class="p-2 btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>
