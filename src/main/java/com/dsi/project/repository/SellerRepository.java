@@ -12,14 +12,11 @@ public interface SellerRepository extends CrudRepository<Seller, Integer> {
 
      List<Seller> findSellerByEmail(String email);
 
-    // jQL??
+
     @Query("select  seller from Seller seller")
      List<Seller> getAllSeller();
 
-    // native querry language
-//    @Query(value = "select * from Seller", nativeQuery = true)
-//     List<Seller> getAllUserNative();
-     Seller findByEmail(String  Email);
+
 
 
 

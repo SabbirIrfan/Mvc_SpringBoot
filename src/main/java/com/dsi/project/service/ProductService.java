@@ -13,15 +13,15 @@ import java.util.List;
 @Service
 public interface ProductService {
 //    public ProductDao getProductDao();
-    public Product getProductById(int id);
-    public List<Product> getProductByUser(User user);
-    public void setProductDao(ProductRepository productRepository);
+      Product getProductById(int id);
+      List<Product> getProductByUser(User user);
+      void setProductDao(ProductRepository productRepository);
 
-    public void saveProduct(Product product);
-    public List<Product> getAllProduct();
-    public Page<Product> getAllAvailableProduct(Pageable pageable);
+      void saveProduct(Product product);
+      List<Product> getAllProduct();
+      Page<Product> getAllAvailableProduct(Pageable pageable);
 
-    public Page<Product> getSearchedProduct(Pageable pageable, String query);
-    public Page<Product> getProductsBySeller(Pageable pageable, Integer sellerId);
+      Page<Product> getSearchedProduct(Pageable pageable, String query);
+      Page<Product> getProductsBySeller(Pageable pageable, Integer sellerId);
 
 }

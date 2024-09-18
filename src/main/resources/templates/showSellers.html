@@ -18,7 +18,7 @@
                 <div th:text="${seller.getName()}   "></div>
             </div>
             <div class="p-2 border" style="flex:2">
-                <div name="email" th:text="${seller?.getEmail()}"></div>
+                <div th:name="email" th:text="${seller?.getEmail()}"></div>
             </div>
             <form  method="get" th:action="@{/seller/products}">
                 <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
