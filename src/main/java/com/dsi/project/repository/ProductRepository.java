@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
-    public List<Product> findByUser(User user);
+     List<Product> findByUser(User user);
     @Query("SELECT p FROM Product p WHERE p.status <> 0 AND p.status <> 2")
     Page<Product> findAllAvailableProducts(Pageable pageable);
 

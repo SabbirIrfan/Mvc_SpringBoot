@@ -1,21 +1,18 @@
 package com.dsi.project.service;
 
 
-import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public interface SellerService {
-    public Seller getSellerById(Integer sellerId) ;
-        public List<Seller> getAllSellerService();
-    public boolean isNewSellerService(String email);
-    public void saveSellerService(Seller seller);
-    public void updateSellerService(Seller seller , Integer sellerId);
-    public Seller getSellerByEmail(String email);
+     Seller getSellerById(Integer sellerId) ;
+     List<Seller> getAllSellerService();
+     boolean isNewSellerService(String email);
+     void saveSellerService(Seller seller);
+     void updateSellerService(Seller seller , Integer sellerId);
+     Seller getSellerByEmail(String email);
 //    public Page<Product> getSellerProducts(Pageable pageable);
 
 }

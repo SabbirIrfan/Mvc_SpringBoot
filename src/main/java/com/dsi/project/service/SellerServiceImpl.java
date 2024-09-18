@@ -1,11 +1,8 @@
 package com.dsi.project.service;
 
-import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
 import com.dsi.project.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
