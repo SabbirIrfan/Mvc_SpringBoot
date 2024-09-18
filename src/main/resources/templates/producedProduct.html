@@ -11,13 +11,13 @@
   </head>
   <body>
     <!--    <div  th:insert="navbar" ></div>-->
-    <section style="padding: 10px">
-      <div class="body-container">
-        <div class="flex row">
+    <section >
+      <div class="body-container" >
+        <div th:style="'display: flex; justify-content: center; align-items: center; '">
           
             <div class="p-3 " th:text="${seller?.getName()}"></div>
           
-            <div class="p-3 border" th:text="${seller?.getEmail()}"></div>
+            <div class="p-3  " th:text="${seller?.getEmail()}"></div>
           
         </div>
 
@@ -58,7 +58,21 @@
             </div>
 
         </form>
+          <div class="pagination-controls" th:style="'display: flex; justify-content: center; align-items: center;'">
+              <ul class="pagination">
+                  <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                      <a class="page-link" th:href="@{/seller/products(page=${currentPage - 1}, size=${9}, sellerId = ${sellerId})}">Previous</a>
+                  </li>
+                  <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${i == currentPage} ? 'active'">
+                      <a class="page-link" th:href="@{/seller/products(page=${i}, size=${9},sellerId = ${sellerId})}" th:text="${i + 1}">1</a>
+                  </li>
+                  <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                      <a class="page-link" th:href="@{/seller/products(page=${currentPage + 1}, size=${9}, sellerId = ${sellerId})}">Next</a>
+                  </li>
+              </ul>
+          </div>
       </div>
+
       <div th:insert="allScript"></div>
     </section>
   </body>

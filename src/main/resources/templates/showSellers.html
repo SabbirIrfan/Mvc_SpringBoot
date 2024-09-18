@@ -20,9 +20,9 @@
             <div class="p-2 border" style="flex:2">
                 <div name="email" th:text="${seller?.getEmail()}"></div>
             </div>
-            <form  method="post" th:action="@{/seller/products}">
+            <form  method="get" th:action="@{/seller/products}">
                 <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
-                <button type="submit" class="btn btn-primary">SellerProduct</button>
+                <button type="submit" class="btn btn-primary">SellerProducts</button>
             </form>
             <form  method="post" th:action="@{/seller/editSellerForm}">
                 <input type="hidden" id="emailForSeller" name="sellerId" th:value="${seller?.getId()}">

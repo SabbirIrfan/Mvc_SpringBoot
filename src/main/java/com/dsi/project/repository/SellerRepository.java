@@ -22,6 +22,7 @@ public interface SellerRepository extends CrudRepository<Seller, Integer> {
     public Seller findByEmail(String  Email);
 
 
+
 //    @Query("select u From Seller u where u.name =:name and u.email=:email")
 //    public  List<Seller> getUserByNameAndEmail(@Param("name") String name, @Param("email") String email);
 //

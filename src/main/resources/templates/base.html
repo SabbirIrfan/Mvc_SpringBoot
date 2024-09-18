@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <title>base</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  </head>
+    <link rel="stylesheet"  th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
+    <link rel="stylesheet"  th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" />
+   </head>
 
   <body>
     <nav  class="navbar-expand-lg navbar-light ">
@@ -18,9 +18,9 @@
               <a class="nav-link" th:href="@{/home}">Home</a>
             </li>
             <li class="nav-item"
-           
+
             sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER') || isAnonymous()">
-        
+
               <a class="nav-link" th:href="@{/serllerRegForm}">Register Seller</a>
             </li>
             <li
@@ -30,20 +30,20 @@
               <a class="nav-link" href="/userRegForm">Register User</a>
             </li>
 
-          
-            <li class="nav-item" 
+
+            <li class="nav-item"
             sec:authorize = "hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">
-            
+
               <a class="nav-link" href="/seller/productForm">Add Product</a>
             </li>
-            <li class="nav-item" 
+            <li class="nav-item"
             sec:authorize = "hasAnyRole('ROLE_ADMIN')">
               <a class="nav-link" href="/seller/showSellers">Sellers</a>
             </li>
 
             <li class="nav-item"
             sec:authorize = "hasAnyRole('ROLE_ADMIN') ">
-            
+
               <a class="nav-link" href="/user/showUsers">Users</a>
             </li>
             <li class="nav-item active">
@@ -56,12 +56,12 @@
                 >
                   Profile
                 </a>
-  
+
                 <a
                   class="nav-link"
                   href="/seller/profile"
                   sec:authorize = "hasRole('ROLE_SELLER')">
-                  
+
                   Profile
                 </a>
               </li>
@@ -73,7 +73,7 @@
             <li
               class="nav-item active"
               sec:authorize = "hasAnyRole('ROLE_ADMIN','ROLE_SELLER','ROLE_USER')"
-              
+
             >
               <a class="nav-link" href="/logout">Logout</a>
             </li>

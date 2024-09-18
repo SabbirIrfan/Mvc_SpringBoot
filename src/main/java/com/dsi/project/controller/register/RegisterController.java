@@ -8,6 +8,7 @@ import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import com.dsi.project.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +53,7 @@ public class RegisterController {
         System.out.println("REGISTER CONTROLLER");
         model.addAttribute("principal", principal);
     }
-//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @PostMapping(value = "/addSeller")
     public String addSeller(@Valid @ModelAttribute  AllUser allUser, BindingResult result ,Model model) {
 
@@ -80,7 +81,7 @@ public class RegisterController {
     }
 
 
-//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
     @GetMapping(value = "/serllerRegForm")
     public ModelAndView sellerForm(Model model){
         model.addAttribute("seller",new Seller());
@@ -88,7 +89,7 @@ public class RegisterController {
     }
 
 
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/registerUser")
     public ModelAndView addUser(Model model){
         Principal principal = (Principal) model.getAttribute("principal");
@@ -98,7 +99,7 @@ public class RegisterController {
 
         return modelAndView;
     }
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/registerUser")
     public ModelAndView addUser(@Valid @ModelAttribute AllUser allUser, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("home");

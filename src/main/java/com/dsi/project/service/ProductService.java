@@ -22,5 +22,6 @@ public interface ProductService {
     public Page<Product> getAllAvailableProduct(Pageable pageable);
 
     public Page<Product> getSearchedProduct(Pageable pageable, String query);
+    public Page<Product> getProductsBySeller(Pageable pageable, Integer sellerId);
 
 }

@@ -1,7 +1,10 @@
 package com.dsi.project.service;
 
 
+import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,5 +16,6 @@ public interface SellerService {
     public void saveSellerService(Seller seller);
     public void updateSellerService(Seller seller , Integer sellerId);
     public Seller getSellerByEmail(String email);
+//    public Page<Product> getSellerProducts(Pageable pageable);
 
 }

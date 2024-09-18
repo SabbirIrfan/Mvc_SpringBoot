@@ -33,7 +33,6 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-
     public ModelAndView home(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "9") int size,

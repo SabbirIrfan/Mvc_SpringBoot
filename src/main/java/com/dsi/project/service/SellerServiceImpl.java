@@ -1,8 +1,11 @@
 package com.dsi.project.service;
 
+import com.dsi.project.model.Product;
 import com.dsi.project.model.Seller;
 import com.dsi.project.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +55,12 @@ public class SellerServiceImpl implements SellerService {
     public Seller getSellerByEmail(String email) {
         return sellerRepository.findSellerByEmail(email).getFirst();
     }
+
+//    @Override
+//    public Page<Product> getSellerProducts(Pageable pageable) {
+//        return sellerRepository.getSellerProducts();
+//    }
+
     @Override
     public Seller getSellerById(Integer sellerId) {
         Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);
