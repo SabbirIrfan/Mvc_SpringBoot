@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+<section class="container-fluid" >
+    <div class="row ml-1 mr-1" style="flex-wrap: wrap; display: flex; justify-content: space-around;">
+        <div class="card" style="width: 18rem;" th:each="product : ${productList}">
+            <div class="card-body" style="display: flex; flex-direction: column;">
+                <div class="card">
+                    <img class="card-img-top" style="width: inherit;height:14rem;" 
+                         th:src="@{'/images/product/' + ${product.getId()} + '.png'}" alt="Card image cap">
+                </div>
+                <div>
+                    <h5 class="card-title mt-1" th:text="${product.getBrandName()}"></h5>
+                    <p class="card-text text-truncate" th:text="${product.getProductDetail()}"></p>
+                </div>
+            </div>
+            <div>
+                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary"
+                   style="margin-top: auto; display: flex;" th:text="'Available products: ' + ${product.getQuantity()}">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/home(page=${currentPage - 1}, size=9)}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages-1)}"
+                th:classappend="${currentPage == i} ? 'active'">
+                <a class="page-link" th:href="@{/home(page=${i}, size=9)}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
+                <a class="page-link" th:href="@{/home(page=${currentPage + 1}, size=9)}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+</body>
+</html>

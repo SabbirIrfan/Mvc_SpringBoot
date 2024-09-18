@@ -36,7 +36,6 @@ public class OtherController {
     @GetMapping("/buyProduct/{id}")
     public ModelAndView buyProduct(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("hheello");
         Product product = productService.getProductById(id);
         modelAndView.addObject("product", product);
         modelAndView.setViewName("buyingForm.html");
@@ -50,11 +49,8 @@ public class OtherController {
         User user = userService.getUserById(userId);
         List<Product> productList = productService.getProductByUser(user);
         System.out.println(userId);
-
         modelAndView.addObject("products", productList);
         modelAndView.addObject("user", user);
-
-
         return modelAndView;
     }
 
@@ -85,8 +81,7 @@ public class OtherController {
 
         }
         modelAndView.setViewName("home.html");
-        List<Product> productList = productService.getAllAvailableProduct();
-        modelAndView.addObject("productList",productList);
+        
 
 
         return modelAndView;

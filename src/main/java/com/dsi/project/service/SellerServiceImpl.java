@@ -50,7 +50,6 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Seller getSellerByEmail(String email) {
-
         return sellerRepository.findSellerByEmail(email).getFirst();
     }
     @Override

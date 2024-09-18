@@ -2,7 +2,6 @@ package com.dsi.project.controller.admin;
 
 import com.dsi.project.model.Product;
 import com.dsi.project.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +30,7 @@ public class AdminController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/setStatus")
-    public String setStatus(@RequestParam("productIdl") int productId,
+    public String setStatus(@RequestParam("productId") int productId,
                             @RequestParam byte status ){
 
         Product product = productService.getProductById(productId);
