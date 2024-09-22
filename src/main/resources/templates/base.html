@@ -21,13 +21,13 @@
 
             sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER') || isAnonymous()">
 
-              <a class="nav-link" th:href="@{/serllerRegForm}">Register Seller</a>
+              <a class="nav-link" th:href="@{/registerSeller}">Register Seller</a>
             </li>
             <li
               class="nav-item"
               sec:authorize = "hasAnyRole('ROLE_ADMIN','ROLE_SELLER') || isAnonymous()"
             >
-              <a class="nav-link" href="/userRegForm">Register User</a>
+              <a class="nav-link" th:href="@{/registerUser}">Register User</a>
             </li>
 
 

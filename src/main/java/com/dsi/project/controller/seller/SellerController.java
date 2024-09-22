@@ -46,7 +46,7 @@ public class SellerController {
 
 
     @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @PostMapping("/editSellerForm")
+    @GetMapping("/editSeller")
     public ModelAndView showEditsellerForm(@Param("sellerId") int sellerId, Model model) {
         ModelAndView modelAndView = new ModelAndView("editSeller");
         model.addAttribute("seller", new Seller());
@@ -65,6 +65,7 @@ public class SellerController {
     ){
         ModelAndView modelAndView = new ModelAndView("sellerProfile");
         System.out.println(seller.toString());
+        seller.setId(sellerId);
         
         sellerService.updateSellerService(seller, sellerId);
         modelAndView.addObject("seller",seller);

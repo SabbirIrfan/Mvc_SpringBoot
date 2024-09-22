@@ -53,8 +53,8 @@ public class RegisterController {
         System.out.println("REGISTER CONTROLLER");
         model.addAttribute("principal", principal);
     }
-    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @PostMapping(value = "/addSeller")
+//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @PostMapping(value = "/registerSeller")
     public String addSeller(@Valid @ModelAttribute  AllUser allUser, BindingResult result ,Model model) {
 
         if(result.hasErrors()){ // this will not get  sql multiple key error
@@ -81,15 +81,15 @@ public class RegisterController {
     }
 
 
-    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @GetMapping(value = "/serllerRegForm")
+//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
+    @GetMapping(value = "/registerSeller")
     public ModelAndView sellerForm(Model model){
         model.addAttribute("seller",new Seller());
         return new ModelAndView("sellerForm");
     }
 
 
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/registerUser")
     public ModelAndView addUser(Model model){
         Principal principal = (Principal) model.getAttribute("principal");
@@ -99,7 +99,7 @@ public class RegisterController {
 
         return modelAndView;
     }
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/registerUser")
     public ModelAndView addUser(@Valid @ModelAttribute AllUser allUser, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("home");
