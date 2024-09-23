@@ -41,14 +41,17 @@ public class HomeController {
         modelAndView.addObject("principal", principal);
 
         Pageable pageable = PageRequest.of(page, size);
+        boolean searching = false;
+
         Page<Product> productPage = productService.getAllAvailableProduct(pageable);
+        modelAndView.addObject("searching",searching);
         modelAndView.addObject("productList", productPage.getContent());
         modelAndView.addObject("totalPages", productPage.getTotalPages());
         modelAndView.addObject("currentPage", page);
         return modelAndView;
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public ModelAndView search(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "9") int size,
@@ -60,7 +63,9 @@ public class HomeController {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Product> productPage = productService.getSearchedProduct(pageable, query);
-       
+        boolean searching = true;
+        modelAndView.addObject("searching",searching);
+        modelAndView.addObject("query", query);
         modelAndView.addObject("productList", productPage.getContent());
         modelAndView.addObject("totalPages", productPage.getTotalPages());
         modelAndView.addObject("currentPage", page);

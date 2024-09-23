@@ -22,10 +22,20 @@
 
             </div>
             <div>
-                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary"
-                   style="margin-top: auto; display: flex;" th:text="'Available products: ' + ${product.getQuantity()}">
-                </a>
+<!--                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" -->
+<!--                   style="margin-top: auto; display: flex;" th:text="'Available products: ' + ${product.getQuantity()}">-->
+<!--                </a>-->
             </div>
+            <div style="display: flex; justify-content: space-between">
+                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary" style="flex-basis: 60%; flex-grow: 1;border-top-right-radius: 0; border-bottom-right-radius: 0;"> Buy </a>
+                <a class="btn btn-primary add-to-cart"
+                   style="flex-basis: 40%; flex-grow: 1; border-top-left-radius: 0; border-bottom-left-radius: 0;"
+                   data-product-id="${product.getId()}">
+                    Add to cart
+                </a>
+
+            </div>
+
 
         </div>
     </div>
@@ -33,22 +43,54 @@
     <!-- Pagination Controls -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
+            <!-- Previous button -->
             <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                <a class="page-link" th:href="@{/home(page=${currentPage - 1}, size=9)}" aria-label="Previous">
+                <a th:if="${searching}" class="page-link" th:href="@{/search(page=${currentPage - 1}, size=9,query=${query})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                <a th:if="${!searching}" class="page-link" th:href="@{/home(page=${currentPage - 1}, size=9,query=${query})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages-1)}"
-                th:classappend="${currentPage == i} ? 'active'">
-                <a class="page-link" th:href="@{/home(page=${i}, size=9)}" th:text="${i + 1}">1</a>
+
+            <!-- Page numbers -->
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${currentPage == i} ? 'active'">
+                <a th:if="${searching}" class="page-link" th:href="@{/search(page=${i}, size=9, query=${query})}" th:text="${i + 1}">1</a>
+                <a th:if="${!searching}" class="page-link" th:href="@{/home(page=${i}, size=9, query=${query})}" th:text="${i + 1}">1</a>
             </li>
-            <li class="page-item" th:classappend="${currentPage == totalPages-1} ? 'disabled'">
-                <a class="page-link" th:href="@{/home(page=${currentPage + 1}, size=9)}" aria-label="Next">
+
+            <!-- Next button -->
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a th:if="${searching}" class="page-link" th:href="@{/search(page=${currentPage + 1}, size=9, query=${query})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                <a th:if="${!searching}" class="page-link" th:href="@{/home(page=${currentPage + 1}, size=9, query=${query})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Event listener for the "Add to cart" button
+            $('.add-to-cart').on('click', function(e) {
+                e.preventDefault();
+
+                // Get the current cart count
+                let currentCount = parseInt($('#cart-count').text());
+
+                // Increment the cart count
+                let newCount = currentCount + 1;
+
+                // Update the cart count badge
+                $('#cart-count').text(newCount);
+            });
+        });
+    </script>
+
 </section>
 </body>
 </html>
