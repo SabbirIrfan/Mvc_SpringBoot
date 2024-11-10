@@ -10,20 +10,18 @@ import java.util.List;
 @Repository
 public interface SellerRepository extends CrudRepository<Seller, Integer> {
 
-    public List<Seller> findSellerByEmail(String email);
+     List<Seller> findSellerByEmail(String email);
 
-    // jQL??
+
     @Query("select  seller from Seller seller")
-    public List<Seller> getAllSeller();
+     List<Seller> getAllSeller();
 
-    // native querry language
-//    @Query(value = "select * from Seller", nativeQuery = true)
-//    public List<Seller> getAllUserNative();
-    public Seller findByEmail(String  Email);
+
+
 
 
 //    @Query("select u From Seller u where u.name =:name and u.email=:email")
-//    public  List<Seller> getUserByNameAndEmail(@Param("name") String name, @Param("email") String email);
+//      List<Seller> getUserByNameAndEmail(@Param("name") String name, @Param("email") String email);
 //
 
 }

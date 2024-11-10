@@ -8,6 +8,7 @@ import com.dsi.project.service.ProductService;
 import com.dsi.project.service.SellerService;
 import com.dsi.project.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,7 @@ public class RegisterController {
         model.addAttribute("principal", principal);
     }
 //    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @PostMapping(value = "/addSeller")
+    @PostMapping(value = "/registerSeller")
     public String addSeller(@Valid @ModelAttribute  AllUser allUser, BindingResult result ,Model model) {
 
         if(result.hasErrors()){ // this will not get  sql multiple key error
@@ -72,7 +73,7 @@ public class RegisterController {
         allUser.setPassword(password);
 
         seller.setEmail(allUser.getEmail());
-        allUserService.saveUserService(allUser);
+        allUserService.saveUserService(allUser, true);
         sellerService.saveSellerService(seller);
 
         return "sellerForm";
@@ -81,7 +82,7 @@ public class RegisterController {
 
 
 //    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @GetMapping(value = "/serllerRegForm")
+    @GetMapping(value = "/registerSeller")
     public ModelAndView sellerForm(Model model){
         model.addAttribute("seller",new Seller());
         return new ModelAndView("sellerForm");
@@ -89,17 +90,17 @@ public class RegisterController {
 
 
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @GetMapping("/userRegForm")
+    @GetMapping("/registerUser")
     public ModelAndView addUser(Model model){
         Principal principal = (Principal) model.getAttribute("principal");
 
         model.addAttribute("user",new User());
-        ModelAndView modelAndView = new ModelAndView("userRegForm");
+        ModelAndView modelAndView = new ModelAndView("registerUser");
 
         return modelAndView;
     }
 //    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/addUser")
+    @PostMapping("/registerUser")
     public ModelAndView addUser(@Valid @ModelAttribute AllUser allUser, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("home");
 
@@ -114,12 +115,12 @@ public class RegisterController {
         System.out.println("i am here at regi cont line 98");
         try{
             userService.saveUserService(user);
-            allUserService.saveUserService(allUser);
+            allUserService.saveUserService(allUser, false);
         }catch (Exception sqlException){
             System.out.println("i am here at regi cont line 103");
             System.out.println(sqlException);
             result.addError(new FieldError("user", "email", "this email already has an account!"));
-            modelAndView.setViewName("userRegForm");
+            modelAndView.setViewName("registerUser");
             modelAndView.addObject("error", "this email already has an account!");
 
             return modelAndView;

@@ -52,6 +52,12 @@ public class SellerServiceImpl implements SellerService {
     public Seller getSellerByEmail(String email) {
         return sellerRepository.findSellerByEmail(email).getFirst();
     }
+
+//    @Override
+//    public Page<Product> getSellerProducts(Pageable pageable) {
+//        return sellerRepository.getSellerProducts();
+//    }
+
     @Override
     public Seller getSellerById(Integer sellerId) {
         Optional<Seller> sellerOptional = sellerRepository.findById(sellerId);

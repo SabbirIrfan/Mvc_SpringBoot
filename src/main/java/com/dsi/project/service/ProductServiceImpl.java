@@ -56,13 +56,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getAllAvailableProduct(Pageable pageable) {
 
-        Page<Product> availableProducts = productRepository.findAllAvailableProducts(pageable);
-        return availableProducts;
+        return productRepository.findAllAvailableProducts(pageable);
     }
     @Override
     public Page<Product> getSearchedProduct(Pageable pageable, String query) {
-        Page<Product> searchedProducts = productRepository.findSearchedProducts(pageable,query);
-        return searchedProducts;
+        return productRepository.findSearchedProducts(pageable,query);
+    }
+
+    @Override
+    public Page<Product> getProductsBySeller(Pageable pageable, Integer sellerId) {
+        return productRepository.getProductsBySeller(pageable,sellerId);
     }
 
 

@@ -7,11 +7,11 @@
 </head>
 <body>
 <section style="padding: 20px">
-    <div class="body-container">
+    <div class="body-container" th:object="${seller}">
         <div class="profile_container">
             <div class="profile">
                 <!-- Check if the seller object is null -->
-                <div th:if="${seller != null}">
+                <div th:if="${seller != null}" >
                     <div class="card mb-3" style="border-radius: .5rem;">
                         <div class="row g-0">
                             <div class="col-md-4 gradient-custom text-center text-white"
@@ -22,14 +22,14 @@
                                 </div>
 
                                 <h5 th:text="${seller.getName()}"></h5>
-                                <form style="flex: .5;" method="post" th:action="@{/seller/editSellerForm}">
+                                <form style="flex: .5;" method="get" th:action="@{/seller/editSeller}">
                                     <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
                                     <button class="btn btn-primary" type="submit" name="action" value="editsellerForm">
                                         <i th:type="submit" class="fa fa-edit" aria-hidden="true"> edit</i>
                                     </button>
                                 </form>
                                 <hr>
-                                <form style="flex: .5" method="post" th:action="@{/seller/products}">
+                                <form style="flex: .5" method="get" th:action="@{/seller/products}">
                                     <input type="hidden" th:id="${'sellerId' + seller.getId()}" th:name="sellerId" th:value="${seller.getId()}">
                                     <button class="btn btn-primary" type="submit" name="action" value="products">
                                         <i th:type="submit" class="fa fa-product-hunt" aria-hidden="true"> Products</i>

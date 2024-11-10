@@ -22,10 +22,20 @@
 
             </div>
             <div>
-                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary"
-                   style="margin-top: auto; display: flex;" th:text="'Available products: ' + ${product.getQuantity()}">
-                </a>
+<!--                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" -->
+<!--                   style="margin-top: auto; display: flex;" th:text="'Available products: ' + ${product.getQuantity()}">-->
+<!--                </a>-->
             </div>
+            <div style="display: flex; justify-content: space-between">
+                <a th:href="@{/user/buyProduct/{id}(id=${product.getId()})}" class="btn btn-primary" style="flex-basis: 60%; flex-grow: 1;border-top-right-radius: 0; border-bottom-right-radius: 0;"> Buy </a>
+                <a class="btn btn-primary add-to-cart"
+                   style="flex-basis: 40%; flex-grow: 1; border-top-left-radius: 0; border-bottom-left-radius: 0;"
+                   data-product-id="${product.getId()}">
+                    Add to cart
+                </a>
+
+            </div>
+
 
         </div>
     </div>

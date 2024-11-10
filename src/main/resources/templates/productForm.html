@@ -13,7 +13,7 @@
             <form th:action="@{/seller/addproduct}"  method="post" enctype="multipart/form-data">
                 <div class="col-12 mb-2">
                     <label for="sellerEmail" class="form-label">Write your selling Registered Email</label>
-                    <input type="text" class="form-control" id="sellerEmail" name="sellerEmail">
+                    <input type="text" class="form-control" id="sellerEmail" name="sellerEmail" th:value="${principal?.getName()}">
                 </div>
                 <div class="col-12 mb-2">
                     <label for="productName" class="form-label">Brand Name</label>

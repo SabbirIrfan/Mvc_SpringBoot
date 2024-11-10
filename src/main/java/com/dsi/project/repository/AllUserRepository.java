@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface AllUserRepository extends CrudRepository<AllUser, String> {
-    public AllUser findByEmail(String email);
+    AllUser findByEmail(String email);
 }

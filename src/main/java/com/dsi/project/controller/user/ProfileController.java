@@ -50,27 +50,27 @@ public class ProfileController {
 
 
 
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @GetMapping("/userRegForm")
-    public ModelAndView addUser(Model model){
-
-        model.addAttribute("user",new User());
-        ModelAndView modelAndView = new ModelAndView("userRegForm");
-
-        return modelAndView;
-    }
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/addUser")
-    public ModelAndView addUser(@ModelAttribute AllUser allUser){
-        ModelAndView modelAndView = new ModelAndView("home");
-        User user = new User();
-        user.setEmail(allUser.getEmail());
-        System.out.println(user);
-
-        userService.saveUserService(user);
-        allUserService.saveUserService(allUser);
-        return modelAndView;
-    }
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @GetMapping("/registerUser")
+//    public ModelAndView addUser(Model model){
+//
+//        model.addAttribute("user",new User());
+//        ModelAndView modelAndView = new ModelAndView("registerUser");
+//
+//        return modelAndView;
+//    }
+//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+//    @PostMapping("/registerUser")
+//    public ModelAndView addUser(@ModelAttribute AllUser allUser){
+//        ModelAndView modelAndView = new ModelAndView("home");
+//        User user = new User();
+//        user.setEmail(allUser.getEmail());
+//        System.out.println(user);
+//
+//        userService.saveUserService(user);
+//        allUserService.saveUserService(allUser,false);
+//        return modelAndView;
+//    }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/showUsers")

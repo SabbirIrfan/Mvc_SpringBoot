@@ -26,8 +26,8 @@ public class ProductController {
 
 
     @ModelAttribute
-    public void getPrincipal(Principal principal, Model model){
-        System.out.println("hi from product");
+    public void getPrincipal(Principal principal, Model model) {
+        System.out.println("hi from ProfileController");
         model.addAttribute("principal", principal);
     }
 //    @Autowired
@@ -64,6 +64,9 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @GetMapping(value = "/seller/productForm")
     public ModelAndView productForm(Model model){
+        Principal principal = (Principal) model.getAttribute("principal");
+        model.addAttribute("principal", principal);
+        System.out.println("in sell product form");
         return new ModelAndView("productForm");
 
     }
@@ -71,8 +74,12 @@ public class ProductController {
     @PostMapping(value = "/seller/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,
-                                   @Param("sellerEmail") String sellerEmail) {
+                                   @Param("sellerEmail") String sellerEmail,
+                                    Model model) {
+
         ModelAndView modelAndView = new ModelAndView();
+        Principal principal = (Principal) model.getAttribute("principal");
+        model.addAttribute("principal", principal);
         Seller seller = sellerService.getSellerByEmail(sellerEmail);
         product.setSeller(seller);
         productService.saveProduct(product);
