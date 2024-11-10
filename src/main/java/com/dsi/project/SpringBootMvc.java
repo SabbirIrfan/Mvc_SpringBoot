@@ -17,17 +17,6 @@ public class SpringBootMvc {
 
        ApplicationContext context =  SpringApplication.run(SpringBootMvc.class, args);
 
-
-
-
-//        SellerRepository userRepository = context.getBean(SellerRepository.class);
-//        Seller user = new Seller();
-//        user.setEmail("email@gmail.com");
-//        user.setName("email");
-//        Seller user1 = userRepository.save(user);
-//
-//        System.out.println(user1);
-
     }
 
 }
