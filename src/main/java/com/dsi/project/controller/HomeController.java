@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 
 @Controller
 public class HomeController {
@@ -46,6 +47,21 @@ public class HomeController {
 
         return getPaginatedProducts(page, size, null);
     }
+
+    /**
+     * Renders the home page with paginated products.
+     *
+     * @param page      Current page number, default is 0.
+     * @param size      Number of products per page, default is 9.
+     * @return          ModelAndView with paginated product list.
+     */
+    @GetMapping("/")
+    public ModelAndView showProductForm(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "9") int size) {
+
+            return getPaginatedProducts(page, size, null);
+        }
 
     /**
      * Handles product search with pagination.

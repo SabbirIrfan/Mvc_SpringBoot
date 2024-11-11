@@ -1,24 +1,20 @@
 package com.dsi.project.controller.product;
 
 
+import java.time.LocalDateTime;
 import com.dsi.project.helper.FileUpload;
-import com.dsi.project.model.Product;
+import java.security.Principal;
+import org.springframework.ui.Model;
 import com.dsi.project.model.Seller;
-import com.dsi.project.service.ProductService;
+import com.dsi.project.model.Product;
 import com.dsi.project.service.SellerService;
+import com.dsi.project.service.ProductService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.security.Principal;
-import java.time.LocalDateTime;
-
-
-
 
 
 @Controller
@@ -30,35 +26,19 @@ public class ProductController {
         System.out.println("hi from ProfileController");
         model.addAttribute("principal", principal);
     }
-//    @Autowired
     final private ProductService productService;
 
-//    @Autowired
     final private SellerService sellerService;
 
-//    @Autowired
     final private FileUpload fileUpload;
-
 
     public ProductController(ProductService productService, SellerService sellerService, FileUpload fileUpload) {
         this.productService = productService;
         this.sellerService = sellerService;
         this.fileUpload = fileUpload;
     }
-
     @ModelAttribute
-    public void setProduct(Model model){
-
-    }
-    @GetMapping("/")
-    public String showProductForm(Model model){
-        String name = "spring mvc configuration!! ";
-        model.addAttribute("name", name);
-
-        System.out.println("this is home and the time is "+ LocalDateTime.now());
-        // this has a bug in base.html
-        return "home";
-    }
+    public void setProduct(Model model){}
 
 
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")

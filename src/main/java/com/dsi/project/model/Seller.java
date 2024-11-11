@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import java.security.Principal;
 import java.util.List;
 
 
+@Setter
 @Entity
 public class Seller {
     @ModelAttribute
@@ -23,14 +25,17 @@ public class Seller {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Getter
     @NotNull
     @NotBlank
     @Column(unique = true)
     @Email( message = "wrong Email")
     private String email;
 
+    @Getter
     private String name;
 
+    @Getter
     @OneToMany(mappedBy ="seller" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Product> products;
     public Seller() {
@@ -46,37 +51,6 @@ public class Seller {
         this.email = email;
 
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-
-
 
 
     public int getId() {
