@@ -35,9 +35,7 @@ public class Seller {
     @Getter
     private String name;
 
-    @Getter
-    @OneToMany(mappedBy ="seller" ,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Product> products;
+
     public Seller() {
     }
 
@@ -69,7 +67,7 @@ public class Seller {
                 "id=" + id +
                 ", email='" + email + '\'' +
 
-                ", products=" + products +
+                "," +
                 '}';
     }
 }

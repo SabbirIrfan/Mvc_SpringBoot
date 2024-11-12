@@ -1,72 +1,109 @@
 package com.dsi.project.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
 import com.dsi.project.repository.ProductRepository;
-import com.dsi.project.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
+/**
+ * Implementation of the ProductService interface providing CRUD operations
+ * and custom queries for Product entities.
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
 
-    @Override
-    public Product getProductById(int id) {
-        Product product = null;
-        Optional<Product> optionalProduct =  productRepository.findById(id);
+    private final ProductRepository productRepository;
 
-        if(optionalProduct.isPresent()){
-            product = optionalProduct.get();
-            return product;
-        }
-        return  product;
-    }
-
-    @Override
-    public List<Product> getProductByUser(User user) {
-        return  productRepository.findByUser(user );
-    }
-
-
-
-    @Override
+    /**
+     * Constructor injection for ProductRepository.
+     *
+     * @param productRepository the product repository
+     */
     @Autowired
-    public void setProductDao(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Fetch a product by its ID.
+     *
+     * @param id the ID of the product
+     * @return the product if found, otherwise null
+     */
     @Override
-    public void saveProduct(Product product){
-        this.productRepository.save(product);
+    public Product getProductById(int id) {
+        return productRepository.findById(id).orElse(null);
     }
 
+
+
+    /**
+     * Save a product to the database.
+     *
+     * @param product the product to be saved
+     */
+    @Override
+    public void saveProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    /**
+     * Fetch all products from the database.
+     *
+     * @return a list of all products
+     */
     @Override
     public List<Product> getAllProduct() {
-        return (List<Product>) productRepository.findAll();
+        return productRepository.findAll();
     }
 
+    /**
+     * Fetch available products with pagination.
+     *
+     * @param pageable the pagination information
+     * @return a paginated list of available products
+     */
     @Override
-    public Page<Product> getAllAvailableProduct(Pageable pageable) {
-
-        return productRepository.findAllAvailableProducts(pageable);
+    public Page<Product> getAvailableProduct(Pageable pageable) {
+        return productRepository.findAvailableProducts(pageable);
     }
+
+    /**
+     * Fetch available products with pagination-
+     *
+     * @return a list of available products
+     */
+    @Override
+    public List<Product> getAvailableProduct() {
+        return productRepository.findAvailableProductsList();
+    }
+
+
+    /**
+     * Search products by query with pagination.
+     *
+     * @param pageable the pagination information
+     * @param query the search keyword
+     * @return a paginated list of products matching the search query
+     */
     @Override
     public Page<Product> getSearchedProduct(Pageable pageable, String query) {
-        return productRepository.findSearchedProducts(pageable,query);
+        return productRepository.findSearchedProducts(pageable, query);
     }
 
+    /**
+     * Get all products associated with a specific user.
+     *
+     * @param user the user owning the products
+     * @return a list of products
+     */
     @Override
-    public Page<Product> getProductsBySeller(Pageable pageable, Integer sellerId) {
-        return productRepository.getProductsBySeller(pageable,sellerId);
+    public Page<Product> getProductsByUser(Pageable pageable, Integer userId) {
+        return productRepository.getProductsByUserId(pageable, userId);
     }
-
-
 }

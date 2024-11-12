@@ -4,7 +4,6 @@ import com.dsi.project.helper.FileUpload;
 import com.dsi.project.model.User;
 import com.dsi.project.model.Product;
 import org.springframework.ui.Model;
-import com.dsi.project.service.AllUserService;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
 import org.springframework.data.domain.Page;
@@ -32,22 +31,19 @@ public class ProfileController {
     private final FileUpload fileUpload;
     private final UserService userService;
     private final ProductService productService;
-    private final AllUserService allUserService;
 
     /**
      * Constructor for ProfileController with required services.
      *
      * @param fileUpload      Helper class for file upload operations
      * @param userService     Service for user-related operations
-     * @param productService  Service for product-related operations
-     * @param allUserService  Service for handling all user operations
+     * @param productService  Service for product-related operation
      */
     public ProfileController(FileUpload fileUpload, UserService userService,
-                             ProductService productService, AllUserService allUserService) {
+                             ProductService productService) {
         this.fileUpload = fileUpload;
         this.userService = userService;
         this.productService = productService;
-        this.allUserService = allUserService;
     }
 
     /**
@@ -66,11 +62,25 @@ public class ProfileController {
      *
      * @return ModelAndView for showing users
      */
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/showUsers")
     public ModelAndView showUsers() {
         ModelAndView modelAndView = new ModelAndView("showUsers");
-        Iterable<User> users = userService.getAllUserService();
+        Iterable<User> users = userService.getUsers("ROLE_USER");
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
+
+    /**
+     * Displays a list of all users.
+     *
+     * @return ModelAndView for showing users
+     */
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/showSellers")
+    public ModelAndView showSellers() {
+        ModelAndView modelAndView = new ModelAndView("showUsers");
+        Iterable<User> users = userService.getUsers("ROLE_SELLER");
         modelAndView.addObject("users", users);
         return modelAndView;
     }
@@ -102,8 +112,8 @@ public class ProfileController {
      * @return ModelAndView for edit user form view
      */
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/editUserForm")
-    public ModelAndView showEditUser(@Param("userid") Integer userId) {
+    @GetMapping("/editUser")
+    public ModelAndView showEditUser(@Param("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("editUser");
         User user = userService.getUserById(userId);
         modelAndView.addObject("user", user);
@@ -129,14 +139,17 @@ public class ProfileController {
                                  @Param("file") MultipartFile file) {
 
         // Update user's name
+        System.out.println(user+ "::: found user");
+        System.out.println(userId+ "::: found userId");
+        user.setId(userId);
         user.setName(name);
-        userService.updateUserService(user, userId);
+        userService.updateUser(user);
 
         // Fetch products for the home page
         int page = 0;
         int size = 10;
         Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage = productService.getAllAvailableProduct(pageable);
+        Page<Product> productPage = productService.getAvailableProduct(pageable);
 
         model.addAttribute("productList", productPage.getContent());
         model.addAttribute("totalPages", productPage.getTotalPages());

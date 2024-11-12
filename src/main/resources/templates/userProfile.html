@@ -17,22 +17,22 @@
                              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                             <div class="col-12 mb-3">
 
-                                <img style="width: 140px ; border-radius: 10% ; margin-top: 2rem" th:src="@{'/images/user/' +  ${user.getId()}+ '.png'}"
-                                     th:alt="'images/' +${user.getId()} + '.png'"/>
+                                <img style="width: 140px ; border-radius: 10% ; margin-top: 2rem" th:src="@{'/images/user/' +  ${user?.getId()}+ '.png'}"
+                                     th:alt="'images/' +${user?.getId()} + '.png'"/>
 
                             </div>
 
                             <h5 th:text="${user.getName()}"></h5>
-                            <form style="flex: .5; " method="post" th:action="@{/user/editUserForm}">
-                                <input type="hidden" th:id="${'userId' + user.getId()}" th:name="userId" th:value="${user.getId()}">
-                                <button class="btn btn-primary" type="submit" name="action" value="editUserForm">
+                            <form style="flex: .5; " method="get" th:action="@{/user/editUser}">
+                                <input type="hidden" th:id="${'userId' + user?.getId()}" th:name="userId" th:value="${user?.getId()}">
+                                <button class="btn btn-primary" type="submit" name="action" value="editUser">
                                     <i th:type="submit" class="fa fa-edit" aria-hidden="true"> edit</i>
                                 </button>
                             </form>
                             <hr>
                             <form style="flex: .5" method="post" th:action="@{/user/boughtProduct}">
-                                <input type="hidden" th:id="${'userId' + user.getId()}" th:name="userId" th:value="${user.getId()}">
-                                <button class="btn btn-primary" type="submit" name="action" value="editUserForm">
+                                <input type="hidden" th:id="${'userId' + user?.getId()}" th:name="userId" th:value="${user?.getId()}">
+                                <button class="btn btn-primary" type="submit" name="action" value="editUser">
                                     <i th:type="submit" class="fa fa-product-hunt" aria-hidden="true"> Products</i>
                                 </button>
                             </form>

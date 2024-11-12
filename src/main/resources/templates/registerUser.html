@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user Register</title>
+    <title>User Register</title>
 </head>
 <body>
-<!--<div th:insert="navbar"></div>-->
 <section style="padding: 20px">
     <div class="body-container">
-
-        <div style="padding-top: 40px; ">
-            <form class="form_container" th:action="@{/registerUser}"  method="post" th:object="${user}">
-
+        <div style="padding-top: 40px;">
+            <form class="form_container" th:action="@{/registerUser}" method="post" th:object="${user}">
                 <div class="mb-3">
                     <label for="email" class="p-2 form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
-
-                    <p th:text="${error}"> </p>
-<!--                    <p th:each="error: ${#fields.errors('email')}" th:text="${error}"></p>-->
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <p th:text="${error}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="p-2 form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="p-2 form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" aria-describedby="emailHelp" >
-
+                    <input type="password" name="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="roleType" class="p-2 form-label">Register As</label>
+                    <select class="form-select" id="roleType" name="roleType">
+                        <option value="USER" selected>User</option>
+                        <option value="SELLER">Seller</option>
+                    </select>
                 </div>
                 <div class="p-2">
                     <button type="submit" class="p-2 btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
-
     </div>
 </section>
 </body>

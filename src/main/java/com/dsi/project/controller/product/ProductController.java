@@ -4,6 +4,9 @@ package com.dsi.project.controller.product;
 import java.time.LocalDateTime;
 import com.dsi.project.helper.FileUpload;
 import java.security.Principal;
+
+import com.dsi.project.model.User;
+import com.dsi.project.service.UserService;
 import org.springframework.ui.Model;
 import com.dsi.project.model.Seller;
 import com.dsi.project.model.Product;
@@ -28,14 +31,15 @@ public class ProductController {
     }
     final private ProductService productService;
 
-    final private SellerService sellerService;
+    final private UserService userService;
 
     final private FileUpload fileUpload;
 
-    public ProductController(ProductService productService, SellerService sellerService, FileUpload fileUpload) {
+    public ProductController(ProductService productService, UserService userService,FileUpload fileUpload) {
         this.productService = productService;
-        this.sellerService = sellerService;
+        this.userService = userService;
         this.fileUpload = fileUpload;
+
     }
     @ModelAttribute
     public void setProduct(Model model){}
@@ -51,17 +55,17 @@ public class ProductController {
 
     }
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
-    @PostMapping(value = "/seller/addproduct")
+    @PostMapping(value = "/user/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,
-                                   @Param("sellerEmail") String sellerEmail,
+                                   @Param("userEmail") String userEmail,
                                     Model model) {
 
         ModelAndView modelAndView = new ModelAndView();
         Principal principal = (Principal) model.getAttribute("principal");
         model.addAttribute("principal", principal);
-        Seller seller = sellerService.getSellerByEmail(sellerEmail);
-        product.setSeller(seller);
+        User user = userService.getUserByEmail(userEmail);
+        product.setUser(user);
         productService.saveProduct(product);
         try {
             boolean uploadResult = fileUpload.uploadFile(file,product.getId(),"product");

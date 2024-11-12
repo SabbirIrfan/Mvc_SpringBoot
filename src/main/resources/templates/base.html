@@ -24,14 +24,9 @@
                     <a class="nav-link" th:href="@{/home}">Home</a>
                 </li>
 
-                <!-- Register Seller (Visible to ADMIN or Anonymous) -->
-                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN') || isAnonymous()">
-                    <a class="nav-link" th:href="@{/serllerRegForm}">Register Seller</a>
-                </li>
-
                 <!-- Register User (Visible to ADMIN or Anonymous) -->
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN') || isAnonymous()">
-                    <a class="nav-link" href="/userRegForm">Register User</a>
+                    <a class="nav-link" href="/registerUser">Register User</a>
                 </li>
 
                 <!-- Add Product (Visible to ADMIN and SELLER) -->
@@ -41,7 +36,7 @@
 
                 <!-- Sellers (Visible to ADMIN) -->
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                    <a class="nav-link" href="/seller/showSellers">Sellers</a>
+                    <a class="nav-link" href="/user/showSellers">Sellers</a>
                 </li>
 
                 <!-- Users (Visible to ADMIN) -->
@@ -51,7 +46,7 @@
 
                 <!-- Profile Links -->
                 <li class="nav-item active">
-                    <a class="nav-link" name="email" th:value="${principal?.getName()}" href="/user/profile"
+                    <a class="nav-link" th:value="${principal?.getName()}" href="/user/profile"
                        sec:authorize="hasRole('ROLE_USER')">Profile</a>
                     <a class="nav-link" href="/seller/profile" sec:authorize="hasRole('ROLE_SELLER')">Profile</a>
                 </li>

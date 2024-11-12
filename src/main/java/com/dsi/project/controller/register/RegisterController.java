@@ -1,14 +1,15 @@
 package com.dsi.project.controller.register;
 
-import com.dsi.project.model.AllUser;
-import com.dsi.project.model.Seller;
-import com.dsi.project.model.User;
-import com.dsi.project.service.AllUserService;
-import com.dsi.project.service.ProductService;
-import com.dsi.project.service.SellerService;
-import com.dsi.project.service.UserService;
+import java.util.Set;
+import java.util.HashSet;
+
+import com.dsi.project.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,117 +19,90 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.security.Principal;
+import com.dsi.project.model.Role;
+import com.dsi.project.model.User;
+import com.dsi.project.service.UserService;
 
 @Controller
-
 public class RegisterController {
-    public SellerService sellerService;
 
-    public ProductService productService;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public UserService userService;
 
-    public AllUserService allUserService;
-
-
-    private String setPassword(AllUser allUser){
-        String password = allUser.getPassword();
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        password = bCryptPasswordEncoder.encode(password);
-
-        return password;
-
-    }
-    public RegisterController(SellerService sellerService, ProductService productService, UserService userService, AllUserService allUserService) {
-        this.sellerService = sellerService;
-        this.productService = productService;
+    public RegisterController(UserService userService) {
         this.userService = userService;
-        this.allUserService = allUserService;
+    }
+
+    private String setPassword(User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.encode(user.getPassword());
     }
 
     @ModelAttribute
-    public void getPrincipal(Principal principal, Model model){
-        System.out.println("REGISTER CONTROLLER");
+    public void getPrincipal(Principal principal, Model model) {
         model.addAttribute("principal", principal);
     }
-//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @PostMapping(value = "/registerSeller")
-    public String addSeller(@Valid @ModelAttribute  AllUser allUser, BindingResult result ,Model model) {
 
-        if(result.hasErrors()){ // this will not get  sql multiple key error
-            return "sellerForm";
-        }
-        if(!allUserService.isNewUserService(allUser.getEmail())){
-            result.addError(new FieldError("seller", "email", "this email already has an account!"));
-            model.addAttribute("error", "this email already has an account!");
-
-            return "sellerForm";
-
-        }
-        Seller seller = new Seller();
-
-        String password  = setPassword(allUser);
-        allUser.setPassword(password);
-
-        seller.setEmail(allUser.getEmail());
-        allUserService.saveUserService(allUser, true);
-        sellerService.saveSellerService(seller);
-
-        return "sellerForm";
-
-    }
-
-
-//    @PreAuthorize("hasAnyRole('SELLER','ADMIN')")
-    @GetMapping(value = "/registerSeller")
-    public ModelAndView sellerForm(Model model){
-        model.addAttribute("seller",new Seller());
-        return new ModelAndView("sellerForm");
-    }
-
-
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/registerUser")
-    public ModelAndView addUser(Model model){
-        Principal principal = (Principal) model.getAttribute("principal");
+    public ModelAndView registerUser(Model model) {
+        model.addAttribute("user", new User());
+        return new ModelAndView("registerUser");
+    }
 
-        model.addAttribute("user",new User());
+    @PostMapping("/registerUser")
+    public ModelAndView addUser(@Valid @ModelAttribute User user,
+                                @ModelAttribute("roleType") String roleType,
+                                BindingResult result) {
         ModelAndView modelAndView = new ModelAndView("registerUser");
 
-        return modelAndView;
-    }
-//    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/registerUser")
-    public ModelAndView addUser(@Valid @ModelAttribute AllUser allUser, BindingResult result) {
-        ModelAndView modelAndView = new ModelAndView("home");
 
-        String password  = setPassword(allUser);
-        allUser.setPassword(password);
+        logger.info("Registering user as " + roleType);
 
-        System.out.println(allUser);
-        User user = new User();
-        user.setEmail(allUser.getEmail());
-        allUser.setRole("ROLE_USER");
-
-        System.out.println("i am here at regi cont line 98");
-        try{
-            userService.saveUserService(user);
-            allUserService.saveUserService(allUser, false);
-        }catch (Exception sqlException){
-            System.out.println("i am here at regi cont line 103");
-            System.out.println(sqlException);
-            result.addError(new FieldError("user", "email", "this email already has an account!"));
+        if (result.hasErrors()) {
             modelAndView.setViewName("registerUser");
-            modelAndView.addObject("error", "this email already has an account!");
-
+            logger.warn("Found error while registering user");
             return modelAndView;
+        }
 
+        user.setPassword(setPassword(user));
+
+        // Fetch the role from the database instead of creating a new one
+        Set<Role> roles = new HashSet<>();
+        try {
+            Role role;
+            if ("SELLER".equalsIgnoreCase(roleType)) {
+                role = userService.getRoleByName("ROLE_SELLER");
+            } else {
+                role = userService.getRoleByName("ROLE_USER");
+            }
+
+            if (role == null) {
+                throw new Exception("Role not found");
+            }
+
+            roles.add(role);
+            user.setRoles(roles);
+
+            if (userService.isNewUser(user.getEmail())) {
+                userService.saveUser(user);
+                modelAndView.setViewName("registerUser");
+                modelAndView.addObject("isSuccess",true);
+            } else {
+                throw new Exception("User already exists");
+            }
+        } catch (Exception error) {
+            result.addError(new FieldError("user", "email", "This email already has an account!"));
+            modelAndView.setViewName("registerUser");
+            modelAndView.addObject("error", "This email already has an account!");
+
+            logger.warn("FOUND EXCEPTION WHILE SAVING USER WITH ERROR: " + error);
+            return modelAndView;
         }
 
         return modelAndView;
-
-
     }
+
+
 }

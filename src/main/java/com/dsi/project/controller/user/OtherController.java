@@ -4,7 +4,9 @@ import com.dsi.project.model.Product;
 import com.dsi.project.model.User;
 import com.dsi.project.service.ProductService;
 import com.dsi.project.service.UserService;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
@@ -43,24 +46,11 @@ public class OtherController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @PostMapping("/boughtProduct")
-    public ModelAndView boughtProduct(@Param("id") Integer userId) {
-        ModelAndView modelAndView = new ModelAndView("boughtProduct");
-        User user = userService.getUserById(userId);
-        List<Product> productList = productService.getProductByUser(user);
-        System.out.println(userId);
-        modelAndView.addObject("products", productList);
-        modelAndView.addObject("user", user);
-        return modelAndView;
-    }
-
-
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping(path = "/orderProduct")
     public ModelAndView orderProduct(@RequestParam("email") String email,
                                      @RequestParam("id") Integer productId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (userService.isNewUserService(email)) {
+        if (userService.isNewUser(email)) {
             modelAndView.addObject("emailError", "The email you entered is not registered. please register first!");
             modelAndView.setViewName("buyingForm.html");
             return modelAndView;
@@ -81,10 +71,32 @@ public class OtherController {
 
         }
         modelAndView.setViewName("home.html");
-        
+
+        return modelAndView;
+    }
 
 
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @GetMapping("/products")
+    public ModelAndView Product(@RequestParam(value = "page", defaultValue = "0") int page,
+                                @RequestParam(value = "size", defaultValue = "9") int size,
+                                @RequestParam("userId") Integer userId) {
+        ModelAndView modelAndView = new ModelAndView("products");
+        User user = userService.getUserById(userId);
+        Pageable pageable = PageRequest.of(page, size);
+        modelAndView.addObject("user", user);
+
+        Page<Product> productPage = productService.getProductsByUser(pageable, userId);
+
+        modelAndView.addObject("products", productPage.getContent());
+        modelAndView.addObject("totalPages", productPage.getTotalPages());
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("userId", userId);
+        modelAndView.setViewName("products");
         return modelAndView;
 
     }
+
+
 }

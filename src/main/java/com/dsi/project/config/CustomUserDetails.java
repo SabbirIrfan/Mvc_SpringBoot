@@ -1,40 +1,41 @@
 package com.dsi.project.config;
 
-import com.dsi.project.model.AllUser;
+import com.dsi.project.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
 
+    private User user;
 
-    private AllUser allUser;
-
-
-    public CustomUserDetails(AllUser user) {
-        this.allUser = user;
+    public CustomUserDetails(User user) {
+        this.user = user;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Convert Set<Role> to a collection of SimpleGrantedAuthority
+        Set<SimpleGrantedAuthority> authorities = user.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
 
-        SimpleGrantedAuthority simpleGrantedAuthorityUser = new SimpleGrantedAuthority(allUser.getRole());
-        System.out.println("I am here at getting authorities");
-        return List.of(simpleGrantedAuthorityUser);
+        System.out.println("Authorities: " + authorities);
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return allUser.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return allUser.getEmail();
+        return user.getEmail();
     }
 
     @Override

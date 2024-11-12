@@ -50,7 +50,11 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Seller getSellerByEmail(String email) {
-        return sellerRepository.findSellerByEmail(email).getFirst();
+        List<Seller> sellers = sellerRepository.findSellerByEmail(email);
+        if( !sellers.isEmpty()){
+            return sellers.getFirst();
+        }
+        return null;
     }
 
 //    @Override
