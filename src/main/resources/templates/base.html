@@ -31,7 +31,7 @@
 
                 <!-- Add Product (Visible to ADMIN and SELLER) -->
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">
-                    <a class="nav-link" href="/seller/productForm">Add Product</a>
+                    <a class="nav-link" href="/user/products">Add Product</a>
                 </li>
 
                 <!-- Sellers (Visible to ADMIN) -->
@@ -45,10 +45,8 @@
                 </li>
 
                 <!-- Profile Links -->
-                <li class="nav-item active">
-                    <a class="nav-link" th:value="${principal?.getName()}" href="/user/profile"
-                       sec:authorize="hasRole('ROLE_USER')">Profile</a>
-                    <a class="nav-link" href="/seller/profile" sec:authorize="hasRole('ROLE_SELLER')">Profile</a>
+                <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SELLER')">
+                    <a class="nav-link" th:value="${principal?.getName()}" href="/user/profile" >Profile</a>
                 </li>
 
                 <!-- Login (Visible if not logged in) -->

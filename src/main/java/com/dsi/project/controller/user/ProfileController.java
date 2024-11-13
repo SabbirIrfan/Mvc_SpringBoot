@@ -1,5 +1,7 @@
 package com.dsi.project.controller.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.dsi.project.helper.FileUpload;
 import com.dsi.project.model.User;
 import com.dsi.project.model.Product;
@@ -28,9 +30,11 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class ProfileController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
     private final FileUpload fileUpload;
     private final UserService userService;
     private final ProductService productService;
+
 
     /**
      * Constructor for ProfileController with required services.
@@ -91,16 +95,20 @@ public class ProfileController {
      * @param model The model to get attributes
      * @return ModelAndView for user profile view
      */
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'SELLER')")
     @GetMapping("/profile")
     public ModelAndView showUserProfile(Model model) {
         Principal principal = (Principal) model.getAttribute("principal");
         if (principal == null) {
+            logger.info("No principle?");
+            System.out.println("No principle? :");
             return new ModelAndView("redirect:/signin");
         }
 
         ModelAndView modelAndView = new ModelAndView("userProfile");
         User user = userService.getUserByEmail(principal.getName());
+        logger.info("Got user in user profile with roletype :" + user.getRoles());
+        System.out.println("Got user in user profile with roletype :" + user.getRoles());
         modelAndView.addObject("user", user);
         return modelAndView;
     }
@@ -111,7 +119,7 @@ public class ProfileController {
      * @param userId The ID of the user to be edited
      * @return ModelAndView for edit user form view
      */
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','SELLER')")
     @GetMapping("/editUser")
     public ModelAndView showEditUser(@Param("userId") Integer userId) {
         ModelAndView modelAndView = new ModelAndView("editUser");
@@ -130,7 +138,7 @@ public class ProfileController {
      * @param file   Multipart file for profile picture upload
      * @return ModelAndView for the home page after update
      */
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','SELLER')")
     @PostMapping("/editUser")
     public ModelAndView editUser(Model model,
                                  @ModelAttribute User user,
@@ -157,7 +165,7 @@ public class ProfileController {
 
         // Handle file upload (user profile picture)
         try {
-            fileUpload.uploadFile(file, userId, "user");
+            fileUpload.uploadFile(file, userId,"user");
         } catch (Exception e) {
             throw new RuntimeException("File upload failed: " + e.getMessage(), e);
         }

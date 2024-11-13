@@ -1,16 +1,11 @@
 package com.dsi.project.controller.product;
 
-
-import java.time.LocalDateTime;
 import com.dsi.project.helper.FileUpload;
 import java.security.Principal;
-
 import com.dsi.project.model.User;
 import com.dsi.project.service.UserService;
 import org.springframework.ui.Model;
-import com.dsi.project.model.Seller;
 import com.dsi.project.model.Product;
-import com.dsi.project.service.SellerService;
 import com.dsi.project.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +17,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
 public class ProductController {
-
 
     @ModelAttribute
     public void getPrincipal(Principal principal, Model model) {
@@ -44,16 +38,6 @@ public class ProductController {
     @ModelAttribute
     public void setProduct(Model model){}
 
-
-    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
-    @GetMapping(value = "/seller/productForm")
-    public ModelAndView productForm(Model model){
-        Principal principal = (Principal) model.getAttribute("principal");
-        model.addAttribute("principal", principal);
-        System.out.println("in sell product form");
-        return new ModelAndView("productForm");
-
-    }
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @PostMapping(value = "/user/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,

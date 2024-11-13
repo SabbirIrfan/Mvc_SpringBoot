@@ -58,7 +58,7 @@ public class FileUpload {
 
         }
         catch(Exception ex){
-            uploadFlag = false;
+//            TODO: logger
         }
 
         return  uploadFlag;
