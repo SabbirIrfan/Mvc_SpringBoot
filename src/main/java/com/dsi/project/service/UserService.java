@@ -99,19 +99,15 @@ public class UserService {
                 .anyMatch(role -> role.getName().equalsIgnoreCase(roleName));
     }
     public Page<Product> getProductsByUserRole(Pageable pageable, Integer userId) {
-        // Fetch the user by ID
         User user = userRepository.findById(userId).orElse(null);
 
         if (user == null) {
-            return Page.empty(pageable); // Return empty page if user is not found
+            return Page.empty(pageable);
         }
 
-        // Check if the user has the 'SELLER' role or 'BUYER' role
-        if (hasRole(user, "SELLER")) {
-            // Fetch products sold by the seller
+        if (hasRole(user, "ROLE_SELLER")) {
             return productService.getProductsBySeller(pageable, userId);
-        } else if (hasRole(user, "BUYER")) {
-            // Fetch products bought by the buyer
+        } else if (hasRole(user, "ROLE_USER")) {
             return productService.getProductsByBuyer(pageable, userId);
         }
 

@@ -39,15 +39,20 @@ public class ProductController {
     public void setProduct(Model model){}
 
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
+    @GetMapping(value = "/user/addproduct")
+    public ModelAndView addProduct(){
+        ModelAndView modelAndView = new ModelAndView("productForm");
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
     @PostMapping(value = "/user/addproduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,
-                                   @Param("userEmail") String userEmail,
-                                    Model model) {
+                                   @Param("userEmail") String userEmail) {
 
         ModelAndView modelAndView = new ModelAndView();
-        Principal principal = (Principal) model.getAttribute("principal");
-        model.addAttribute("principal", principal);
         User user = userService.getUserByEmail(userEmail);
         product.setSeller(user);
         productService.saveProduct(product);

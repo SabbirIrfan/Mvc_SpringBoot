@@ -37,7 +37,7 @@ public class AdminController {
         product.setStatus(status);
         productService.saveProduct(product);
 
-        return  "redirect:/seller/showSellers";
+        return  "redirect:/user/showSellers";
 
     }
 }
