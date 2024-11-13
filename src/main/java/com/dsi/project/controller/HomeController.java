@@ -1,5 +1,8 @@
 package com.dsi.project.controller;
 
+import com.dsi.project.model.User;
+import com.dsi.project.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import com.dsi.project.model.Product;
 import org.springframework.data.domain.Page;
@@ -21,13 +24,18 @@ public class HomeController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * Adds the Principal object to the model to be accessible across all views.
      */
     @ModelAttribute
-    public void addPrincipalToModel(Principal principal, Model model) {
+    public void addPrincipalToModel(HttpSession session, Principal principal, Model model) {
         if (principal != null) {
             model.addAttribute("principal", principal);
+            User user = userService.getUserByEmail(principal.getName());
+            session.setAttribute("userId", user.getId());
         }
     }
 

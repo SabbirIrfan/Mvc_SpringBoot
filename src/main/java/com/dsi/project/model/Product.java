@@ -21,8 +21,16 @@ public class Product {
     private byte status;
     private Integer quantity;
 
+
+
     @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    @JoinColumn(name = "seller_id")
+    private User seller;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
+
     public Product() {
         this.status = 0 ;
     }

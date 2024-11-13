@@ -49,7 +49,7 @@ public class ProductController {
         Principal principal = (Principal) model.getAttribute("principal");
         model.addAttribute("principal", principal);
         User user = userService.getUserByEmail(userEmail);
-        product.setUser(user);
+        product.setSeller(user);
         productService.saveProduct(product);
         try {
             boolean uploadResult = fileUpload.uploadFile(file,product.getId(),"product");

@@ -1,7 +1,5 @@
 package com.dsi.project.model;
 
-import java.util.Set;
-import java.util.List;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,35 +7,36 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
 public class User {
 
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Setter
-    @Getter
     @NotNull
     @NotBlank
     @Column(unique = true)
     @Email(message = "Invalid Email")
     private String email;
 
-    @Setter
-    @Getter
     private String name;
     private String password;
 
-    @Getter
-    @Setter
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Product> products;
+    // List of products where the user is the seller
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> productsSold;
 
-    @Getter
+    // List of products where the user is the buyer
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> productsBought;
+
+    // Roles associated with the user
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -53,7 +52,6 @@ public class User {
         this.email = email;
         this.name = name;
     }
-
 
     @Override
     public String toString() {

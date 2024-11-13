@@ -6,24 +6,27 @@ import com.dsi.project.model.User;
 import com.dsi.project.repository.ProductRepository;
 import com.dsi.project.repository.RoleRepository;
 import com.dsi.project.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
     private final ProductRepository productRepository;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, ProductRepository productRepository) {
+    private final ProductService productService;
+
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, ProductRepository productRepository, ProductService productService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     public User getUserByEmail(String email) {
@@ -31,8 +34,7 @@ public class UserService {
     }
 
     public User getUserById(int userId) {
-        Optional<User> user = userRepository.findById(userId);
-        return user.orElse(null);
+        return userRepository.findById(userId).orElse(null);
     }
 
     public Iterable<User> getAllUsers() {
@@ -52,13 +54,13 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        Optional<User> updatingUserOptional = userRepository.findById(user.getId());
-        if (updatingUserOptional.isPresent()) {
-            User updatedUser = updatingUserOptional.get();
-            updatedUser.setEmail(user.getEmail());
-            updatedUser.setName(user.getName());
-            updatedUser.setRoles(user.getRoles());
-            userRepository.save(updatedUser);
+        Optional<User> existingUserOpt = userRepository.findById(user.getId());
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+            existingUser.setEmail(user.getEmail());
+            existingUser.setName(user.getName());
+            existingUser.setRoles(user.getRoles());
+            userRepository.save(existingUser);
         }
     }
 
@@ -77,4 +79,43 @@ public class UserService {
         return roleRepository.findByName(roleName);
     }
 
+    /**
+     * Get products sold by a specific user.
+     */
+    public Page<Product> getProductsSoldByUser(Pageable pageable, Integer userId) {
+        return productRepository.findBySellerId(pageable, userId);
+    }
+
+    /**
+     * Get products bought by a specific user.
+     */
+    public Page<Product> getProductsBoughtByUser(Pageable pageable, Integer userId) {
+        return productRepository.findByBuyerId(pageable, userId);
+    }
+
+
+    public boolean hasRole(User user, String roleName) {
+        return user.getRoles().stream()
+                .anyMatch(role -> role.getName().equalsIgnoreCase(roleName));
+    }
+    public Page<Product> getProductsByUserRole(Pageable pageable, Integer userId) {
+        // Fetch the user by ID
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user == null) {
+            return Page.empty(pageable); // Return empty page if user is not found
+        }
+
+        // Check if the user has the 'SELLER' role or 'BUYER' role
+        if (hasRole(user, "SELLER")) {
+            // Fetch products sold by the seller
+            return productService.getProductsBySeller(pageable, userId);
+        } else if (hasRole(user, "BUYER")) {
+            // Fetch products bought by the buyer
+            return productService.getProductsByBuyer(pageable, userId);
+        }
+
+        // If the user does not have a valid role, return an empty page
+        return Page.empty(pageable);
+    }
 }

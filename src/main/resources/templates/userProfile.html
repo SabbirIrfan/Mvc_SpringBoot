@@ -30,9 +30,9 @@
                                 </button>
                             </form>
                             <hr>
-                            <form style="flex: .5" method="post" th:action="@{/user/products}">
+                            <form style="flex: .5" method="get" th:action="@{/user/products}">
                                 <input type="hidden" th:id="${'userId' + user?.getId()}" th:name="userId" th:value="${user?.getId()}">
-                                <button class="btn btn-primary" type="submit" name="action" value="editUser">
+                                <button class="btn btn-primary" type="submit" >
                                     <i th:type="submit" class="fa fa-product-hunt" aria-hidden="true"> Products</i>
                                 </button>
                             </form>

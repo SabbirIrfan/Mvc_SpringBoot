@@ -45,7 +45,7 @@
                 </li>
 
                 <!-- Profile Links -->
-                <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SELLER')">
+                <li class="nav-item active" th:if="${principal != null}">
                     <a class="nav-link" th:value="${principal?.getName()}" href="/user/profile" >Profile</a>
                 </li>
 
@@ -55,7 +55,7 @@
                 </li>
 
                 <!-- Logout (Visible to logged-in users) -->
-                <li class="nav-item active" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER','ROLE_USER')">
+                <li class="nav-item active" th:if="${principal != null}">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
