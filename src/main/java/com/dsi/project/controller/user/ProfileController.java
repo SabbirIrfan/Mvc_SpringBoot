@@ -102,7 +102,7 @@ public class ProfileController {
         if (principal == null) {
             logger.info("No principle?");
             System.out.println("No principle? :");
-            return new ModelAndView("redirect:/signin");
+            return new ModelAndView("redirect:/signing");
         }
 
         ModelAndView modelAndView = new ModelAndView("userProfile");

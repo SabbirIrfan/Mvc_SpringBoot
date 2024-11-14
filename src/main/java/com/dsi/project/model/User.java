@@ -28,15 +28,12 @@ public class User {
     private String name;
     private String password;
 
-    // List of products where the user is the seller
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> productsSold;
 
-    // List of products where the user is the buyer
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> productsBought;
 
-    // Roles associated with the user
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",

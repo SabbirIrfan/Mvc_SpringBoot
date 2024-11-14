@@ -31,7 +31,7 @@
 
                 <!-- Add Product (Visible to ADMIN and SELLER) -->
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_SELLER')">
-                    <a class="nav-link" href="/user/addproduct">Add Product</a>
+                    <a class="nav-link" href="/user/addProduct">Add Product</a>
                 </li>
 
                 <!-- Sellers (Visible to ADMIN) -->
@@ -51,7 +51,7 @@
 
                 <!-- Login (Visible if not logged in) -->
                 <li class="nav-item" th:if="${principal == null}">
-                    <a class="nav-link" href="/signin">Log In</a>
+                    <a class="nav-link" href="/signing">Log In</a>
                 </li>
 
                 <!-- Logout (Visible to logged-in users) -->

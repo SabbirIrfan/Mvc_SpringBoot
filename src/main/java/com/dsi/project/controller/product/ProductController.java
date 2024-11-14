@@ -20,42 +20,38 @@ public class ProductController {
 
     @ModelAttribute
     public void getPrincipal(Principal principal, Model model) {
-        System.out.println("hi from ProfileController");
         model.addAttribute("principal", principal);
     }
     final private ProductService productService;
-
     final private UserService userService;
-
     final private FileUpload fileUpload;
 
     public ProductController(ProductService productService, UserService userService,FileUpload fileUpload) {
+
         this.productService = productService;
         this.userService = userService;
         this.fileUpload = fileUpload;
-
     }
-    @ModelAttribute
-    public void setProduct(Model model){}
 
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
-    @GetMapping(value = "/user/addproduct")
+    @GetMapping(value = "/user/addProduct")
     public ModelAndView addProduct(){
-        ModelAndView modelAndView = new ModelAndView("productForm");
 
-        return modelAndView;
+        return new ModelAndView("productForm");
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','SELLER')")
-    @PostMapping(value = "/user/addproduct")
+    @PostMapping(value = "/user/addProduct")
     public ModelAndView addProduct(@ModelAttribute Product product,
                                    @Param("file") MultipartFile file,
                                    @Param("userEmail") String userEmail) {
 
         ModelAndView modelAndView = new ModelAndView();
+
         User user = userService.getUserByEmail(userEmail);
         product.setSeller(user);
         productService.saveProduct(product);
+
         try {
             boolean uploadResult = fileUpload.uploadFile(file,product.getId(),"product");
             System.err.println(uploadResult);
@@ -63,8 +59,8 @@ public class ProductController {
             throw new RuntimeException(e);
         }
         modelAndView.setViewName("productForm");
-        return modelAndView;
 
+        return modelAndView;
     }
 
     @PreAuthorize("hasRole('ADMIN')")

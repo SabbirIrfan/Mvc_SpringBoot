@@ -16,7 +16,6 @@ import java.security.Principal;
 @RequestMapping("/admin")
 public class AdminController {
 
-//    @Autowired
     public ProductService productService;
 
     public AdminController(ProductService productService) {

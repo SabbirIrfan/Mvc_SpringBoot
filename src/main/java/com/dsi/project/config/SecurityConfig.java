@@ -25,7 +25,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
     public UserDetailServiceImpl getUserDetailServiceImpl() {
         return new UserDetailServiceImpl();
@@ -55,19 +54,16 @@ public class SecurityConfig {
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->
                         httpSecurityFormLoginConfigurer
-                                .loginPage("/signin")
-                                .loginProcessingUrl("/dologin")
+                                .loginPage("/signing")
+                                .loginProcessingUrl("/doLogin")
                                 .successHandler(successHandler)
 
                         .permitAll()
                 ).logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/signin?logout")
+                        .logoutSuccessUrl("/signing?logout")
                         .invalidateHttpSession(true)
                 );
-
-
-
 
         return httpSecurity.build();
     }

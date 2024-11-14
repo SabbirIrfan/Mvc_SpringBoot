@@ -92,7 +92,7 @@ public class HomeController {
      * @param model     Model to add attributes to.
      * @return          ModelAndView for login page.
      */
-    @GetMapping("/signin")
+    @GetMapping("/signing")
     public ModelAndView customLogin(Model model) {
         return new ModelAndView("login");
     }

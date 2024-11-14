@@ -43,9 +43,7 @@ public class Product {
         this.generation = generation;
         this.quantity = quantity;
         this.status = 0;
-
     }
-
 
     @Override
     public String toString() {
@@ -58,5 +56,4 @@ public class Product {
                 ", generation='" + generation + '\'' +
                 ", "+'}';
     }
-
 }
