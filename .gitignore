@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+./src/main/resources/static/images/product
+./src/main/resources/static/images/seller
+./src/main/resources/static/images/user
