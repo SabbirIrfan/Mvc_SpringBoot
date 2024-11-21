@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label for="userEmail">User Email</label>
                 <input type="email" id="userEmail" name="email" th:value="${principal?.getName()}" class="form-control">
-                <p th:if="${emailError}" th:text="${emailError}" class="text-danger"></p>
+                <p th:if="${errors}" th:text="${errors}" class="text-danger"></p>
             </div>
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner  " style="text-align: center; width: 70vw; height: 60vh;">
@@ -71,7 +71,7 @@
             <div class="form-group">
                 <label for="productDetail">Product Detail</label>
                 <textarea id="productDetail" name="detail" placeholder="Write something about this product." required class="form-control"></textarea>
-                <input hidden="hidden" th:name="id" th:value="${product?.getId()}">
+                <input hidden="hidden" th:name="productId" th:value="${product?.getId()}">
             </div>
 
             <div class="text-center">

@@ -10,7 +10,7 @@
 <section>
     <div class="body-container">
         <div style="padding-top: 1vh;">
-            <form th:action="@{/user/addproduct}"  method="post" enctype="multipart/form-data">
+            <form th:action="@{/user/addProduct}"  method="post" enctype="multipart/form-data">
                 <div class="col-12 mb-2">
                     <label for="userEmail" class="form-label">Write your selling Registered Email</label>
                     <input type="text" class="form-control" id="userEmail" name="userEmail" th:value="${principal?.getName()}">
@@ -51,11 +51,11 @@
                     <label for="file">Image of the product:</label>
                     <input type="file" id="file" name="file">
                 </div>
-                <div class="col-12 mb-2">
-                    <label for="stock">Quantity</label>
-                    <input type="number" id="stock" name="Quantity" placeholder="Quantity">
+<!--                <div class="col-12 mb-2">-->
+<!--                    <label for="stock">Quantity</label>-->
+<!--                    <input type="number" id="stock" name="Quantity" placeholder="Quantity">-->
 
-                </div>
+<!--                </div>-->
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </div>

@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
+import static com.dsi.project.controller.user.OtherController.getModelAndView;
+
 @Controller
 public class HomeController {
 
@@ -106,21 +108,6 @@ public class HomeController {
      * @return          ModelAndView with products and pagination details.
      */
     private ModelAndView getPaginatedProducts(int page, int size, String query) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage;
-
-        if (query != null && !query.trim().isEmpty()) {
-            productPage = productService.getSearchedProduct(pageable, query);
-        } else {
-            productPage = productService.getAvailableProduct(pageable);
-        }
-
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("productList", productPage.getContent());
-        modelAndView.addObject("totalPages", productPage.getTotalPages());
-        modelAndView.addObject("currentPage", page);
-        modelAndView.addObject("query", query);
-
-        return modelAndView;
+        return getModelAndView(page, size, query, productService);
     }
 }

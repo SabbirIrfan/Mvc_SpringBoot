@@ -6,6 +6,7 @@ import com.dsi.project.model.User;
 import com.dsi.project.repository.ProductRepository;
 import com.dsi.project.repository.RoleRepository;
 import com.dsi.project.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -113,5 +114,28 @@ public class UserService {
 
         // If the user does not have a valid role, return an empty page
         return Page.empty(pageable);
+    }
+
+
+    @Transactional
+    public boolean orderProduct(String email, Integer productId) {
+        if (isNewUser(email)) {
+            return false;
+        }
+
+        User user = getUserByEmail(email);
+        Product boughtProduct = productService.getProductById(productId);
+
+        if (user == null) {
+            return false;
+        }
+
+        boughtProduct.setStatus((byte) 2);
+        boughtProduct.setBuyer(user);
+
+        user.getProductsBought().add(boughtProduct);
+        productService.saveProduct(boughtProduct);
+
+        return true;
     }
 }
